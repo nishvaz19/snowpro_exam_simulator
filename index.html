@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>SnowPro Certification Exam Simulator</title>
+
+<title>SnowPro Advanced Exam Simulator</title>
 
 <style>
+
 body{
-font-family: Arial;
-background:#f4f6f9;
+font-family:Arial;
+background:#f3f6fb;
 padding:20px;
 }
 
 .container{
-max-width:900px;
+max-width:950px;
 margin:auto;
 background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+padding:30px;
+border-radius:8px;
+box-shadow:0 0 12px rgba(0,0,0,0.1);
 }
 
 h1{
@@ -25,8 +28,7 @@ text-align:center;
 
 #timer{
 font-size:20px;
-font-weight:bold;
-color:#e74c3c;
+color:red;
 text-align:right;
 }
 
@@ -35,43 +37,43 @@ font-size:20px;
 margin-top:20px;
 }
 
-.options{
-margin-top:10px;
+.option{
+margin:8px 0;
 }
 
 button{
-margin-top:15px;
+margin-top:10px;
 padding:10px 15px;
 border:none;
-background:#1f77ff;
+background:#1976d2;
 color:white;
 border-radius:6px;
 cursor:pointer;
 }
 
 button:hover{
-background:#0f55d9;
+background:#0d47a1;
 }
 
 .hint{
 display:none;
-background:#eef6ff;
+background:#eef3ff;
 padding:10px;
 margin-top:10px;
-border-left:4px solid #1f77ff;
+border-left:4px solid #1976d2;
 }
 
-#result{
-font-size:22px;
-text-align:center;
+.flag{
+color:orange;
+font-weight:bold;
+}
+
+#dashboard{
 margin-top:20px;
+padding:20px;
+background:#f8f8f8;
 }
 
-.progress{
-margin-top:10px;
-font-size:14px;
-color:#555;
-}
 </style>
 
 </head>
@@ -80,17 +82,18 @@ color:#555;
 
 <div class="container">
 
-<h1>SnowPro Certification Exam Simulator</h1>
+<h1>SnowPro Certification Simulator</h1>
 
-<div id="timer">Time: 90:00</div>
+<div id="timer"></div>
 
-<div class="progress" id="progress"></div>
+<div id="progress"></div>
 
 <div class="question" id="question"></div>
 
-<div class="options" id="options"></div>
+<div id="options"></div>
 
-<button onclick="showHint()">Hint</button>
+<button onclick="toggleHint()">Hint</button>
+<button onclick="flagQuestion()">Flag</button>
 
 <div class="hint" id="hint"></div>
 
@@ -98,397 +101,310 @@ color:#555;
 
 <button onclick="prevQuestion()">Previous</button>
 <button onclick="nextQuestion()">Next</button>
-<button onclick="finishExam()">Finish Exam</button>
 
-<div id="result"></div>
+<button onclick="reviewExam()">Review</button>
+
+<button onclick="submitExam()">Submit Exam</button>
+
+<div id="dashboard"></div>
 
 </div>
 
 <script>
 
-let questionBank = [
+const QUESTION_COUNT = 100;
+const EXAM_TIME = 90*60;
+
+let questions = [];
+let examQuestions = [];
+
+let current=0;
+
+let answers = {};
+let flagged = [];
+
+function shuffle(array){
+return array.sort(()=>Math.random()-0.5)
+}
+
+/* ---------------------- QUESTION BANK ---------------------- */
+
+questions = [
 
 {
-question:"What is the Fail-safe retention period in Snowflake?",
-options:["1 day","7 days","30 days","90 days"],
-answer:1,
-hint:"Fail-safe is always fixed and cannot be changed."
-},
-
-{
-question:"What is Snowflake’s key architectural advantage?",
+q:"What is Snowflake’s architecture advantage?",
 options:[
-"Shared compute and storage",
+"Shared storage",
 "Separation of compute and storage",
-"Single node architecture",
-"Manual partitioning"
+"Single compute cluster",
+"Local database architecture"
 ],
-answer:1,
-hint:"Snowflake allows compute clusters to scale independently."
+a:1,
+hint:"Snowflake scales compute independently.",
+ex:"Snowflake separates compute from storage allowing independent scaling."
 },
 
 {
-question:"Which command loads data into Snowflake tables?",
+q:"Which command loads data into tables?",
 options:[
 "COPY INTO",
-"INSERT FILE",
-"LOAD TABLE",
-"IMPORT DATA"
+"LOAD DATA",
+"IMPORT",
+"PUT INTO"
 ],
-answer:0,
-hint:"This command loads files from stages."
+a:0,
+hint:"Main ingestion SQL command.",
+ex:"COPY INTO loads staged files into tables."
 },
 
 {
-question:"Which Snowflake feature tracks DML changes?",
+q:"What feature tracks DML changes?",
+options:[
+"Streams",
+"Stages",
+"Tasks",
+"Pipes"
+],
+a:0,
+hint:"Used for CDC pipelines.",
+ex:"Streams record inserts, updates, deletes."
+},
+
+{
+q:"Result cache lifetime?",
+options:[
+"12h",
+"24h",
+"48h",
+"7 days"
+],
+a:1,
+hint:"Default query cache retention.",
+ex:"Snowflake caches results for 24 hours."
+},
+
+{
+q:"Which command stages files from local machine?",
+options:[
+"PUT",
+"GET",
+"COPY",
+"UPLOAD"
+],
+a:0,
+hint:"SnowSQL command.",
+ex:"PUT uploads files to internal stages."
+},
+
+{
+q:"Which object automates pipelines?",
 options:[
 "Streams",
 "Tasks",
-"Pipes",
-"Stages"
+"Stages",
+"Pipes"
 ],
-answer:0,
-hint:"Used with CDC pipelines."
+a:1,
+hint:"Scheduler inside Snowflake.",
+ex:"Tasks automate SQL execution."
 },
 
 {
-question:"What type of warehouse handles concurrency spikes?",
+q:"Which datatype stores JSON?",
 options:[
-"Single Cluster",
-"Multi Cluster",
-"Elastic Warehouse",
-"Dynamic Warehouse"
-],
-answer:1,
-hint:"Automatically adds clusters when queries increase."
-},
-
-{
-question:"Result cache lifetime in Snowflake is:",
-options:[
-"1 hour",
-"12 hours",
-"24 hours",
-"48 hours"
-],
-answer:2,
-hint:"Cached results remain available for identical queries."
-},
-
-{
-question:"Which command shows all warehouses?",
-options:[
-"SHOW WAREHOUSES",
-"LIST WAREHOUSES",
-"DESCRIBE WAREHOUSES",
-"GET WAREHOUSES"
-],
-answer:0,
-hint:"Most Snowflake metadata commands start with SHOW."
-},
-
-{
-question:"What data type stores JSON in Snowflake?",
-options:[
+"JSON",
 "VARIANT",
 "OBJECT",
-"JSON",
 "ARRAY"
 ],
-answer:0,
-hint:"Snowflake's universal semi-structured type."
+a:1,
+hint:"Snowflake universal semi-structured type.",
+ex:"VARIANT supports JSON, Avro, XML."
 },
 
 {
-question:"Which feature provides historical data recovery?",
+q:"What feature enables continuous ingestion?",
 options:[
 "Streams",
-"Time Travel",
-"Clustering",
-"Query Cache"
+"Snowpipe",
+"Tasks",
+"Stages"
 ],
-answer:1,
-hint:"Allows querying past versions of tables."
+a:1,
+hint:"Event-driven loading.",
+ex:"Snowpipe automatically loads new files."
 },
 
 {
-question:"What does Snowpipe do?",
+q:"Fail-safe duration?",
 options:[
-"Batch processing",
-"Continuous ingestion",
-"Query acceleration",
-"Backup storage"
+"1 day",
+"7 days",
+"30 days",
+"90 days"
 ],
-answer:1,
-hint:"Used for near real-time loading from cloud storage."
+a:1,
+hint:"Fixed recovery period.",
+ex:"Fail-safe provides 7-day disaster recovery."
+},
+
+{
+q:"What command shows warehouses?",
+options:[
+"LIST WAREHOUSE",
+"SHOW WAREHOUSES",
+"DESCRIBE WH",
+"DISPLAY WAREHOUSE"
+],
+a:1,
+hint:"Standard Snowflake metadata command.",
+ex:"SHOW WAREHOUSES returns warehouse metadata."
 }
 
 ];
 
-// expand question bank automatically to simulate 150 questions
-while(questionBank.length < 150){
-let q = questionBank[questionBank.length % 10];
-questionBank.push(JSON.parse(JSON.stringify(q)));
+/* expand bank to 200 */
+
+while(questions.length < 200){
+questions.push({...questions[questions.length % 10]})
 }
 
-let currentQuestion = 0;
-let answers = new Array(questionBank.length).fill(null);
+/* randomize exam */
+
+examQuestions = shuffle(questions).slice(0,QUESTION_COUNT);
 
 function loadQuestion(){
 
-let q = questionBank[currentQuestion];
+let q = examQuestions[current];
 
 document.getElementById("question").innerHTML =
-(currentQuestion+1) + ". " + q.question;
+(current+1)+". "+q.q;
 
 document.getElementById("progress").innerHTML =
-"Question " + (currentQuestion+1) + " / " + questionBank.length;
+"Question "+(current+1)+" / "+QUESTION_COUNT;
 
-let optionsHTML = "";
+let html="";
 
-q.options.forEach((opt,i)=>{
+q.options.forEach((o,i)=>{
 
-optionsHTML += `
+html+=`
+<div class="option">
 <label>
-<input type="radio" name="option" value="${i}"
-${answers[currentQuestion]==i?"checked":""}>
-${opt}
-</label><br>
+<input type="radio" name="opt" value="${i}"
+${answers[current]==i?"checked":""}>
+${o}
+</label>
+</div>
 `;
 
 });
 
-document.getElementById("options").innerHTML = optionsHTML;
+document.getElementById("options").innerHTML=html;
 
-document.getElementById("hint").style.display="none";
 document.getElementById("hint").innerHTML=q.hint;
 
 }
 
 function saveAnswer(){
-let selected = document.querySelector('input[name="option"]:checked');
-if(selected){
-answers[currentQuestion] = parseInt(selected.value);
-}
+let sel=document.querySelector('input[name="opt"]:checked');
+if(sel) answers[current]=parseInt(sel.value)
 }
 
 function nextQuestion(){
 saveAnswer();
-if(currentQuestion < questionBank.length-1){
-currentQuestion++;
-loadQuestion();
+if(current<QUESTION_COUNT-1){
+current++
+loadQuestion()
 }
 }
 
 function prevQuestion(){
 saveAnswer();
-if(currentQuestion > 0){
-currentQuestion--;
-loadQuestion();
+if(current>0){
+current--
+loadQuestion()
 }
 }
 
-function showHint(){
-document.getElementById("hint").style.display="block";
+function toggleHint(){
+let h=document.getElementById("hint")
+h.style.display = h.style.display=="block"?"none":"block"
 }
 
-function finishExam(){
+function flagQuestion(){
 
-saveAnswer();
+if(!flagged.includes(current))
+flagged.push(current)
 
-let score = 0;
-
-questionBank.forEach((q,i)=>{
-if(answers[i] == q.answer) score++;
-});
-
-let percent = Math.round(score/questionBank.length*100);
-
-document.getElementById("result").innerHTML =
-"Score: " + score + " / " + questionBank.length +
-" ("+percent+"%)";
-
+alert("Question flagged for review")
 }
 
-loadQuestion();
+function reviewExam(){
 
-/* TIMER */
+let review="Flagged Questions:<br>"
 
-let totalSeconds = 90*60;
+flagged.forEach(q=>{
+review+="Question "+(q+1)+"<br>"
+})
 
-setInterval(function(){
+document.getElementById("dashboard").innerHTML=review
 
-let minutes = Math.floor(totalSeconds/60);
-let seconds = totalSeconds % 60;
-
-document.getElementById("timer").innerHTML =
-"Time: " +
-minutes + ":" + (seconds<10?"0"+seconds:seconds);
-
-totalSeconds--;
-
-if(totalSeconds<=0){
-finishExam();
 }
-
-},1000);
-
-</script>
-
-</body>
-</html>button{
-margin-top:20px;
-padding:10px 20px;
-background:#1f77b4;
-color:white;
-border:none;
-border-radius:5px;
-}
-
-.result{
-font-size:22px;
-margin-top:30px;
-font-weight:bold;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>SnowPro Core Exam Simulator</h1>
-
-<div class="timer">
-Time Remaining: <span id="time">120:00</span>
-</div>
-
-<div id="quiz"></div>
-
-<button onclick="submitExam()">Submit Exam</button>
-
-<div id="result" class="result"></div>
-
-</div>
-
-<script>
-
-let questions = [
-
-{
-q:"What is Snowflake Fail-safe retention period?",
-options:["1 day","3 days","7 days","30 days"],
-answer:2
-},
-
-{
-q:"Which Snowflake architecture principle allows independent scaling?",
-options:[
-"Shared-nothing architecture",
-"Separation of compute and storage",
-"Elastic partitioning",
-"Distributed caching"
-],
-answer:1
-},
-
-{
-q:"Which layer manages metadata?",
-options:[
-"Storage layer",
-"Cloud Services layer",
-"Compute layer",
-"Network layer"
-],
-answer:1
-},
-
-{
-q:"Which object enables continuous ingestion?",
-options:["Stream","Task","Snowpipe","Stage"],
-answer:2
-},
-
-{
-q:"Which command loads files into Snowflake tables?",
-options:[
-"LOAD DATA",
-"INSERT FILE",
-"COPY INTO",
-"IMPORT"
-],
-answer:2
-}
-
-];
-
-// Duplicate sample questions to reach 100
-while(questions.length < 100){
-questions.push(...questions.slice(0,5));
-}
-
-questions = questions.slice(0,100);
-
-let quiz = document.getElementById("quiz");
-
-questions.forEach((q,i)=>{
-
-let div = document.createElement("div");
-div.className="question";
-
-let html = `<p><b>Q${i+1}. ${q.q}</b></p>`;
-
-q.options.forEach((opt,j)=>{
-html+=`
-<label>
-<input type="radio" name="q${i}" value="${j}">
-${opt}
-</label><br>`;
-});
-
-div.innerHTML = html;
-quiz.appendChild(div);
-
-});
 
 function submitExam(){
 
-let score=0;
+saveAnswer()
 
-questions.forEach((q,i)=>{
-let ans=document.querySelector(`input[name=q${i}]:checked`);
+let correct=0
 
-if(ans && parseInt(ans.value)===q.answer){
-score++;
-}
-});
+examQuestions.forEach((q,i)=>{
+if(answers[i]==q.a) correct++
+})
 
-document.getElementById("result").innerHTML =
-"Your Score: "+score+"/100";
+let percent=Math.round(correct/QUESTION_COUNT*100)
 
-}
+let dashboard = `
+<h2>Exam Results</h2>
+Score: ${correct} / ${QUESTION_COUNT} (${percent}%)
 
-let time=120*60;
+<h3>Explanation Review</h3>
+`
 
-function countdown(){
+examQuestions.forEach((q,i)=>{
 
-let minutes=Math.floor(time/60);
-let seconds=time%60;
+dashboard+=`
+<p>
+<b>Q${i+1}</b> ${q.q}<br>
+Correct: ${q.options[q.a]}<br>
+Explanation: ${q.ex}
+</p>
+`
+})
 
-document.getElementById("time").innerText=
-minutes+":"+(seconds<10?"0":"")+seconds;
-
-time--;
-
-if(time<0){
-submitExam();
-clearInterval(timer);
-}
+document.getElementById("dashboard").innerHTML = dashboard
 
 }
 
-let timer=setInterval(countdown,1000);
+/* TIMER */
+
+let time=EXAM_TIME
+
+setInterval(()=>{
+
+let m=Math.floor(time/60)
+let s=time%60
+
+document.getElementById("timer").innerHTML=
+"Time: "+m+":"+(s<10?"0"+s:s)
+
+time--
+
+if(time<=0)
+submitExam()
+
+},1000)
+
+loadQuestion()
 
 </script>
 
