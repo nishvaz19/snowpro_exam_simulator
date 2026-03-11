@@ -1546,6 +1546,456 @@ options:[
 answer:0,
 explanation:"ACCESS_HISTORY tracks object usage."
 },  
+{
+id:101,
+difficulty:"medium",
+category:"architecture",
+question:"Which Snowflake layer manages authentication and access control?",
+options:[
+"Cloud Services Layer",
+"Compute Layer",
+"Storage Layer",
+"Warehouse Layer"
+],
+answer:0,
+explanation:"Authentication, metadata, and security are handled by the Cloud Services layer."
+},
+
+{
+id:102,
+difficulty:"medium",
+category:"architecture",
+question:"Snowflake separates storage and compute primarily to:",
+options:[
+"Improve query syntax",
+"Allow independent scaling",
+"Reduce SQL complexity",
+"Increase network speed"
+],
+answer:1,
+explanation:"Snowflake's architecture allows compute and storage to scale independently."
+},
+
+{
+id:103,
+difficulty:"hard",
+category:"architecture",
+question:"What component maintains Snowflake metadata including schemas and roles?",
+options:[
+"Cloud Services",
+"Warehouse Cache",
+"Micro-partition catalog",
+"External metadata service"
+],
+answer:0,
+explanation:"Metadata is stored and managed in the Cloud Services layer."
+},
+
+{
+id:104,
+difficulty:"medium",
+category:"query_optimization",
+question:"Which Snowflake feature automatically organizes table data for pruning?",
+options:[
+"Automatic clustering",
+"Materialized views",
+"Stages",
+"Streams"
+],
+answer:0,
+explanation:"Automatic clustering reorganizes micro-partitions to improve pruning."
+},
+
+{
+id:105,
+difficulty:"medium",
+category:"query_optimization",
+question:"Which command shows query performance metrics?",
+options:[
+"QUERY_PROFILE",
+"QUERY_HISTORY",
+"SHOW PROFILE",
+"EXPLAIN QUERY"
+],
+answer:0,
+explanation:"QUERY_PROFILE provides detailed query execution metrics."
+},
+
+{
+id:106,
+difficulty:"hard",
+category:"query_optimization",
+question:"Which factor most affects micro-partition pruning effectiveness?",
+options:[
+"Warehouse size",
+"Clustering keys",
+"SQL formatting",
+"User roles"
+],
+answer:1,
+explanation:"Clustering keys improve pruning by organizing micro-partition metadata."
+},
+
+{
+id:107,
+difficulty:"medium",
+category:"streams",
+question:"A stream on a table tracks changes since:",
+options:[
+"Table creation",
+"Last query",
+"Last stream consumption",
+"Last warehouse restart"
+],
+answer:2,
+explanation:"Streams track changes since the last offset consumed."
+},
+
+{
+id:108,
+difficulty:"medium",
+category:"streams",
+question:"Which stream type tracks changes on views?",
+options:[
+"Standard streams",
+"Append-only streams",
+"View streams",
+"Dynamic streams"
+],
+answer:2,
+explanation:"View streams capture changes from underlying tables."
+},
+
+{
+id:109,
+difficulty:"hard",
+category:"streams",
+question:"Which stream type only tracks inserts?",
+options:[
+"Append-only stream",
+"View stream",
+"Standard stream",
+"Delta stream"
+],
+answer:0,
+explanation:"Append-only streams track insert operations only."
+},
+
+{
+id:110,
+difficulty:"medium",
+category:"tasks",
+question:"Tasks in Snowflake execute:",
+options:[
+"SQL statements",
+"Python scripts",
+"Java code",
+"Shell scripts"
+],
+answer:0,
+explanation:"Tasks run SQL statements or stored procedures."
+},
+
+{
+id:111,
+difficulty:"medium",
+category:"tasks",
+question:"Which parameter controls task scheduling frequency?",
+options:[
+"SCHEDULE",
+"CRON",
+"INTERVAL",
+"TASK_RATE"
+],
+answer:0,
+explanation:"The SCHEDULE parameter defines execution timing."
+},
+
+{
+id:112,
+difficulty:"hard",
+category:"tasks",
+question:"What enables task dependency chains?",
+options:[
+"TASK GRAPH",
+"PIPELINE MODE",
+"TASK TREE",
+"TASK LINK"
+],
+answer:0,
+explanation:"Task graphs allow dependencies between tasks."
+},
+
+{
+id:113,
+difficulty:"medium",
+category:"dynamic_tables",
+question:"Dynamic tables update based on:",
+options:[
+"Refresh schedules",
+"Target lag freshness",
+"Warehouse uptime",
+"Manual triggers"
+],
+answer:1,
+explanation:"Dynamic tables maintain freshness via target lag."
+},
+
+{
+id:114,
+difficulty:"hard",
+category:"dynamic_tables",
+question:"Dynamic tables are internally implemented using:",
+options:[
+"Streams and tasks",
+"Materialized views",
+"External tables",
+"Query caches"
+],
+answer:0,
+explanation:"Dynamic tables leverage streams and tasks under the hood."
+},
+
+{
+id:115,
+difficulty:"medium",
+category:"snowpark",
+question:"Snowpark enables developers to:",
+options:[
+"Run Python inside Snowflake",
+"Replace warehouses",
+"Store files",
+"Manage roles"
+],
+answer:0,
+explanation:"Snowpark runs developer code inside Snowflake compute."
+},
+
+{
+id:116,
+difficulty:"hard",
+category:"snowpark",
+question:"Snowpark stored procedures are executed where?",
+options:[
+"Client environment",
+"Warehouse compute layer",
+"Cloud services layer",
+"External container"
+],
+answer:1,
+explanation:"Snowpark procedures run in warehouse compute."
+},
+
+{
+id:117,
+difficulty:"medium",
+category:"iceberg",
+question:"Iceberg tables support which type of storage?",
+options:[
+"External object storage",
+"Local disk",
+"Warehouse storage",
+"Temporary cache"
+],
+answer:0,
+explanation:"Iceberg tables store data in external object storage."
+},
+
+{
+id:118,
+difficulty:"hard",
+category:"iceberg",
+question:"Which Iceberg feature enables snapshot-based data versioning?",
+options:[
+"Partition logs",
+"Metadata manifests",
+"Schema registry",
+"External catalog"
+],
+answer:1,
+explanation:"Iceberg metadata manifests track snapshots."
+},
+
+{
+id:119,
+difficulty:"medium",
+category:"security",
+question:"Which Snowflake feature masks column values dynamically?",
+options:[
+"Masking policies",
+"Streams",
+"Views",
+"Tasks"
+],
+answer:0,
+explanation:"Masking policies dynamically hide sensitive values."
+},
+
+{
+id:120,
+difficulty:"hard",
+category:"security",
+question:"Which feature allows conditional data masking?",
+options:[
+"Role-aware masking policies",
+"Network policies",
+"Secure views",
+"Row access policies"
+],
+answer:0,
+explanation:"Masking policies can apply conditions based on roles."
+},
+
+{
+id:121,
+difficulty:"medium",
+category:"rbac",
+question:"Which object grants privileges to users indirectly?",
+options:[
+"Roles",
+"Warehouses",
+"Tables",
+"Schemas"
+],
+answer:0,
+explanation:"Roles grant privileges which are assigned to users."
+},
+
+{
+id:122,
+difficulty:"hard",
+category:"rbac",
+question:"Which Snowflake feature prevents privilege escalation?",
+options:[
+"Least privilege RBAC",
+"Network policies",
+"Task chaining",
+"Stages"
+],
+answer:0,
+explanation:"RBAC with least privilege prevents privilege escalation."
+},
+
+{
+id:123,
+difficulty:"medium",
+category:"cost",
+question:"Which feature automatically suspends idle warehouses?",
+options:[
+"AUTO_SUSPEND",
+"WAREHOUSE_PAUSE",
+"COST_OPTIMIZER",
+"QUERY_LIMIT"
+],
+answer:0,
+explanation:"AUTO_SUSPEND stops idle warehouses to reduce costs."
+},
+
+{
+id:124,
+difficulty:"medium",
+category:"cost",
+question:"Which warehouse feature allows concurrency scaling?",
+options:[
+"Multi-cluster warehouses",
+"Elastic compute",
+"Query acceleration",
+"Warehouse cache"
+],
+answer:0,
+explanation:"Multi-cluster warehouses scale compute clusters."
+},
+
+{
+id:125,
+difficulty:"hard",
+category:"cost",
+question:"Which view helps identify warehouse credit consumption?",
+options:[
+"WAREHOUSE_METERING_HISTORY",
+"QUERY_HISTORY",
+"TABLE_STORAGE_METRICS",
+"COST_USAGE"
+],
+answer:0,
+explanation:"WAREHOUSE_METERING_HISTORY shows credit usage."
+},
+
+{
+id:126,
+difficulty:"medium",
+category:"query_optimization",
+question:"Which query pattern can reduce scan size?",
+options:[
+"SELECT *",
+"Column pruning",
+"Nested queries",
+"Cross joins"
+],
+answer:1,
+explanation:"Selecting only required columns reduces scanned data."
+},
+
+{
+id:127,
+difficulty:"hard",
+category:"query_optimization",
+question:"Which feature accelerates queries by caching intermediate results?",
+options:[
+"Result cache",
+"Warehouse cache",
+"Local disk cache",
+"Micro cache"
+],
+answer:1,
+explanation:"Warehouse cache stores frequently accessed data."
+},
+
+{
+id:128,
+difficulty:"medium",
+category:"governance",
+question:"Which Snowflake feature tracks object-level access?",
+options:[
+"ACCESS_HISTORY",
+"QUERY_HISTORY",
+"LOGIN_HISTORY",
+"SESSION_HISTORY"
+],
+answer:0,
+explanation:"ACCESS_HISTORY records object-level access."
+},
+
+{
+id:129,
+difficulty:"hard",
+category:"governance",
+question:"Which feature supports cross-account data governance?",
+options:[
+"Secure data sharing",
+"External stages",
+"Streams",
+"Tasks"
+],
+answer:0,
+explanation:"Secure data sharing allows governed cross-account data access."
+},
+
+{
+id:130,
+difficulty:"medium",
+category:"architecture",
+question:"Which component handles SQL compilation?",
+options:[
+"Cloud services layer",
+"Compute layer",
+"Warehouse layer",
+"Storage layer"
+],
+answer:0,
+explanation:"SQL compilation happens in the cloud services layer."
+},
+  
 
 ];
 
