@@ -3193,7 +3193,456 @@ options:[
 ],
 answer:0,
 explanation:"SELECT * scans unnecessary columns."
-},  
+},
+{
+id:211,
+difficulty:"medium",
+category:"architecture",
+question:"Which Snowflake layer is responsible for query parsing and optimization?",
+options:[
+"Cloud Services layer",
+"Compute layer",
+"Storage layer",
+"Virtual warehouse layer"
+],
+answer:0,
+explanation:"The Cloud Services layer handles query parsing, optimization, and metadata."
+},
+
+{
+id:212,
+difficulty:"hard",
+category:"architecture",
+question:"Which Snowflake component stores table metadata and statistics used for pruning?",
+options:[
+"Cloud Services layer",
+"Virtual warehouse",
+"External stage",
+"Search optimization service"
+],
+answer:0,
+explanation:"Metadata and statistics are maintained within the Cloud Services layer."
+},
+
+{
+id:213,
+difficulty:"medium",
+category:"performance",
+question:"What Snowflake feature automatically reorganizes table micro-partitions to improve query performance?",
+options:[
+"Auto Clustering",
+"Search Optimization",
+"Materialized Views",
+"Query Acceleration Service"
+],
+answer:0,
+explanation:"Auto Clustering reorganizes micro-partitions to maintain clustering keys."
+},
+
+{
+id:214,
+difficulty:"hard",
+category:"performance",
+question:"Which Snowflake feature automatically accelerates large scan queries using additional compute resources?",
+options:[
+"Query Acceleration Service",
+"Auto clustering",
+"Materialized views",
+"Search optimization"
+],
+answer:0,
+explanation:"Query Acceleration Service allocates additional compute resources for large scan queries."
+},
+
+{
+id:215,
+difficulty:"medium",
+category:"governance",
+question:"Which Snowflake feature helps enforce dynamic row-level security?",
+options:[
+"Row access policies",
+"Masking policies",
+"Secure views",
+"Network policies"
+],
+answer:0,
+explanation:"Row access policies enforce row-level filtering based on roles."
+},
+
+{
+id:216,
+difficulty:"hard",
+category:"governance",
+question:"Which policy dynamically masks sensitive column data based on user role?",
+options:[
+"Masking policy",
+"Row access policy",
+"Network policy",
+"Task policy"
+],
+answer:0,
+explanation:"Masking policies dynamically mask column values depending on user roles."
+},
+
+{
+id:217,
+difficulty:"medium",
+category:"security",
+question:"Which Snowflake feature restricts allowed client IP addresses?",
+options:[
+"Network policies",
+"Masking policies",
+"Row access policies",
+"Secure views"
+],
+answer:0,
+explanation:"Network policies restrict login access by IP range."
+},
+
+{
+id:218,
+difficulty:"hard",
+category:"security",
+question:"Which Snowflake capability allows secure sharing of live data without copying it?",
+options:[
+"Secure Data Sharing",
+"Replication",
+"Streams",
+"External tables"
+],
+answer:0,
+explanation:"Secure Data Sharing allows live data access without replication."
+},
+
+{
+id:219,
+difficulty:"medium",
+category:"data_sharing",
+question:"Which Snowflake object is used to share datasets across accounts?",
+options:[
+"Share",
+"Stage",
+"Pipe",
+"Task"
+],
+answer:0,
+explanation:"Shares are used to share data across Snowflake accounts."
+},
+
+{
+id:220,
+difficulty:"hard",
+category:"data_sharing",
+question:"Which Snowflake marketplace allows providers to publish datasets for consumers?",
+options:[
+"Snowflake Marketplace",
+"Data Exchange",
+"External Stage",
+"Snowpark Hub"
+],
+answer:0,
+explanation:"Snowflake Marketplace enables dataset publishing and consumption."
+},
+
+{
+id:221,
+difficulty:"medium",
+category:"performance",
+question:"Which Snowflake mechanism avoids scanning unnecessary columns during queries?",
+options:[
+"Column pruning",
+"Auto clustering",
+"Search optimization",
+"Warehouse scaling"
+],
+answer:0,
+explanation:"Column pruning reduces the number of columns scanned."
+},
+
+{
+id:222,
+difficulty:"hard",
+category:"performance",
+question:"Which mechanism avoids scanning unnecessary micro-partitions during queries?",
+options:[
+"Micro-partition pruning",
+"Materialized views",
+"Search optimization",
+"Query acceleration"
+],
+answer:0,
+explanation:"Micro-partition pruning eliminates unnecessary data scans."
+},
+
+{
+id:223,
+difficulty:"medium",
+category:"storage",
+question:"Which Snowflake feature allows querying semi-structured JSON data directly?",
+options:[
+"VARIANT data type",
+"Structured columns",
+"External tables",
+"Search optimization"
+],
+answer:0,
+explanation:"VARIANT supports semi-structured formats like JSON and Avro."
+},
+
+{
+id:224,
+difficulty:"hard",
+category:"storage",
+question:"Which Snowflake feature stores metadata for semi-structured fields to improve performance?",
+options:[
+"Automatic schema extraction",
+"Materialized views",
+"Clustering keys",
+"Task graphs"
+],
+answer:0,
+explanation:"Snowflake extracts metadata from semi-structured data automatically."
+},
+
+{
+id:225,
+difficulty:"medium",
+category:"cost",
+question:"Which warehouse setting suspends compute after inactivity?",
+options:[
+"AUTO_SUSPEND",
+"AUTO_SCALE",
+"QUERY_ACCELERATION",
+"COST_MONITOR"
+],
+answer:0,
+explanation:"AUTO_SUSPEND stops warehouses after idle time."
+},
+
+{
+id:226,
+difficulty:"hard",
+category:"cost",
+question:"Which view shows Snowflake warehouse credit usage over time?",
+options:[
+"WAREHOUSE_METERING_HISTORY",
+"QUERY_HISTORY",
+"LOGIN_HISTORY",
+"ACCESS_HISTORY"
+],
+answer:0,
+explanation:"This view tracks warehouse credit consumption."
+},
+
+{
+id:227,
+difficulty:"medium",
+category:"replication",
+question:"Which Snowflake feature enables database replication across regions?",
+options:[
+"Database replication",
+"Secure data sharing",
+"Streams",
+"Tasks"
+],
+answer:0,
+explanation:"Database replication copies databases to other regions."
+},
+
+{
+id:228,
+difficulty:"hard",
+category:"replication",
+question:"Which Snowflake object groups databases for replication management?",
+options:[
+"Replication groups",
+"Warehouse groups",
+"Failover clusters",
+"Share groups"
+],
+answer:0,
+explanation:"Replication groups manage database replication."
+},
+
+{
+id:229,
+difficulty:"medium",
+category:"failover",
+question:"Which Snowflake feature enables automatic disaster recovery across regions?",
+options:[
+"Failover groups",
+"Replication groups",
+"Search optimization",
+"Dynamic tables"
+],
+answer:0,
+explanation:"Failover groups enable cross-region DR."
+},
+
+{
+id:230,
+difficulty:"hard",
+category:"failover",
+question:"Which objects can be replicated within a failover group?",
+options:[
+"Databases, roles, and users",
+"Tables only",
+"Warehouses only",
+"External stages"
+],
+answer:0,
+explanation:"Failover groups replicate databases, users, and roles."
+},
+
+{
+id:231,
+difficulty:"medium",
+category:"snowpark",
+question:"Snowpark allows developers to write data pipelines using which abstraction?",
+options:[
+"DataFrames",
+"Tasks",
+"Streams",
+"Stages"
+],
+answer:0,
+explanation:"Snowpark uses DataFrames for distributed data processing."
+},
+
+{
+id:232,
+difficulty:"hard",
+category:"snowpark",
+question:"Which programming language is NOT currently supported by Snowpark?",
+options:[
+"Go",
+"Python",
+"Scala",
+"Java"
+],
+answer:0,
+explanation:"Snowpark currently supports Python, Scala, and Java."
+},
+
+{
+id:233,
+difficulty:"medium",
+category:"dynamic_tables",
+question:"Dynamic tables automatically refresh based on which parameter?",
+options:[
+"TARGET_LAG",
+"REFRESH_RATE",
+"PIPE_INTERVAL",
+"STREAM_OFFSET"
+],
+answer:0,
+explanation:"TARGET_LAG defines how fresh the data should be."
+},
+
+{
+id:234,
+difficulty:"hard",
+category:"dynamic_tables",
+question:"Dynamic tables primarily replace which traditional pipeline approach?",
+options:[
+"Streams + Tasks",
+"External tables",
+"Materialized views",
+"Secure views"
+],
+answer:0,
+explanation:"Dynamic tables simplify stream/task pipelines."
+},
+
+{
+id:235,
+difficulty:"medium",
+category:"monitoring",
+question:"Which view provides detailed SQL execution history?",
+options:[
+"QUERY_HISTORY",
+"LOGIN_HISTORY",
+"ACCESS_HISTORY",
+"SESSION_HISTORY"
+],
+answer:0,
+explanation:"QUERY_HISTORY tracks executed SQL statements."
+},
+
+{
+id:236,
+difficulty:"hard",
+category:"monitoring",
+question:"Which Snowflake table function returns query execution plans?",
+options:[
+"SYSTEM$EXPLAIN_PLAN_JSON",
+"QUERY_HISTORY",
+"SHOW PLAN",
+"PLAN_HISTORY"
+],
+answer:0,
+explanation:"SYSTEM$EXPLAIN_PLAN_JSON returns detailed query plans."
+},
+
+{
+id:237,
+difficulty:"medium",
+category:"architecture",
+question:"Which Snowflake component performs query execution?",
+options:[
+"Virtual warehouse",
+"Cloud services",
+"Metadata service",
+"Storage layer"
+],
+answer:0,
+explanation:"Virtual warehouses execute SQL queries."
+},
+
+{
+id:238,
+difficulty:"hard",
+category:"architecture",
+question:"Which Snowflake architecture principle allows independent scaling of compute and storage?",
+options:[
+"Multi-cluster shared data architecture",
+"Distributed OLTP engine",
+"Columnar indexing",
+"Partitioned warehouse clusters"
+],
+answer:0,
+explanation:"Snowflake uses multi-cluster shared data architecture."
+},
+
+{
+id:239,
+difficulty:"medium",
+category:"storage",
+question:"What is the approximate compressed size of a Snowflake micro-partition?",
+options:[
+"16MB",
+"1MB",
+"100MB",
+"256MB"
+],
+answer:0,
+explanation:"Snowflake micro-partitions are roughly 16MB compressed."
+},
+
+{
+id:240,
+difficulty:"hard",
+category:"storage",
+question:"How does Snowflake achieve high compression efficiency?",
+options:[
+"Columnar storage with automatic encoding",
+"Row-based storage",
+"Manual compression tuning",
+"Partitioned indexing"
+],
+answer:0,
+explanation:"Snowflake uses columnar storage with automatic encoding."
+},
 
 ];
 
