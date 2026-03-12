@@ -1,36 +1,4 @@
-/* Note: This template follows the logic requested. 
-   1-20: Databricks Lakehouse Architecture & Delta Lake
-   To reach 280, the pattern continues across:
-   21-60: Delta Lake deep dive (Z-Order, Liquid Clustering, CDF)
-   61-120: PySpark DataFrames & Spark SQL (Window functions, joins, broadcast)
-   121-180: Structured Streaming & Auto Loader (Watermarking, Trigger.Once)
-   181-220: Unity Catalog (Permissions, Lineage, External Locations)
-   221-250: DLT (SCD Type 1 & 2, Quality Expectations)
-   251-280: Databricks SQL & Security (Dashboards, Alerts, Service Principals)
-   281-305: Custom scenarios 
-*/
-
-
-/* ======================================================
-UTILITIES
-====================================================== */
-
-function getRandomQuestions(count){
-return questionBank
-.sort(()=>0.5-Math.random())
-.slice(0,count)
-}
-
-function getQuestionsByDifficulty(level){
-return questionBank.filter(q=>q.difficulty===level)
-}
-
-function getQuestionsByCategory(category){
-return questionBank.filter(q=>q.category===category)
-}
-
 const questionBank = [
-
 /* ======================================================
 DATABRICKS LAKEHOUSE ARCHITECTURE & DELTA LAKE
 ====================================================== */
@@ -4926,4 +4894,35 @@ answer:1,
 explanation:"If the data is small, adding workers increases the time spent moving data across the network versus just processing it locally."
 } 
 ];  
+
+/* Note: This template follows the logic requested. 
+   1-20: Databricks Lakehouse Architecture & Delta Lake
+   To reach 280, the pattern continues across:
+   21-60: Delta Lake deep dive (Z-Order, Liquid Clustering, CDF)
+   61-120: PySpark DataFrames & Spark SQL (Window functions, joins, broadcast)
+   121-180: Structured Streaming & Auto Loader (Watermarking, Trigger.Once)
+   181-220: Unity Catalog (Permissions, Lineage, External Locations)
+   221-250: DLT (SCD Type 1 & 2, Quality Expectations)
+   251-280: Databricks SQL & Security (Dashboards, Alerts, Service Principals)
+   281-305: Custom scenarios 
+*/
+
+
+/* ======================================================
+UTILITIES
+====================================================== */
+
+function getRandomQuestions(count){
+return questionBank
+.sort(()=>0.5-Math.random())
+.slice(0,count)
+}
+
+function getQuestionsByDifficulty(level){
+return questionBank.filter(q=>q.difficulty===level)
+}
+
+function getQuestionsByCategory(category){
+return questionBank.filter(q=>q.category===category)
+}
 
