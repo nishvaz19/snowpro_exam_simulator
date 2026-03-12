@@ -1,3 +1,14 @@
+/* Note: This template follows the logic requested. 
+   1-20: Databricks Lakehouse Architecture & Delta Lake
+   To reach 280, the pattern continues across:
+   21-60: Delta Lake deep dive (Z-Order, Liquid Clustering, CDF)
+   61-120: PySpark DataFrames & Spark SQL (Window functions, joins, broadcast)
+   121-180: Structured Streaming & Auto Loader (Watermarking, Trigger.Once)
+   181-220: Unity Catalog (Permissions, Lineage, External Locations)
+   221-250: DLT (SCD Type 1 & 2, Quality Expectations)
+   251-280: Databricks SQL & Security (Dashboards, Alerts, Service Principals)
+   281-321: Custom scenarios 
+*/
 const questionBank = [
 /* ======================================================
 DATABRICKS LAKEHOUSE ARCHITECTURE & DELTA LAKE
@@ -4762,7 +4773,7 @@ explanation:"The RUN command executes shell commands during the build process to
 },
 
 /* ======================================================
-REAL-TIME RIDE ANALYTICS SYSTEM DESIGN (311 - 325)
+REAL-TIME RIDE ANALYTICS SYSTEM DESIGN
 ===================================================== */
 
 {
@@ -4796,7 +4807,7 @@ explanation:"A Sliding Window allows for overlapping intervals (10m duration, 1m
 },
 
 /* ======================================================
-SPARK UI MASTER CLASS (326 - 350)
+SPARK UI MASTER CLASS
 ===================================================== */
 
 {
@@ -4845,7 +4856,7 @@ explanation:"Disk spill occurs when a partition is too large to fit in the execu
 },
 
 /* ======================================================
-COST & RECOVERY SCENARIOS (351 - 380)
+COST & RECOVERY SCENARIOS
 ===================================================== */
 
 {
@@ -4891,20 +4902,254 @@ options:[
 ],
 answer:1,
 explanation:"If the data is small, adding workers increases the time spent moving data across the network versus just processing it locally."
-} 
+},
+/* ======================================================
+   ADVANCED PERFORMANCE & SCENARIOS
+   ====================================================== */
+
+  {
+    id: 306,
+    difficulty: "hard",
+    category: "performance",
+    question: "If you have 200 GB of raw data, what is the recommended number of shuffle partitions to aim for in Databricks/Spark?",
+    options: [
+      "200 partitions (Default)",
+      "1,000 partitions (Based on 128MB - 200MB per partition rule)",
+      "10,000 partitions to maximize parallelism",
+      "Exactly one partition per CPU core"
+    ],
+    answer: 1,
+    explanation: "The rule of thumb for optimal performance is to aim for partition sizes between 128MB and 200MB. 200GB (approx 200,000MB) / 200MB = 1000 partitions.",
+    hint: "Rule of thumb: 128MB to 200MB per partition."
+  },
+  {
+    id: 307,
+    difficulty: "medium",
+    category: "performance",
+    question: "What is a primary consequence of 'Under-partitioning' (partitions too large)?",
+    options: [
+      "The Driver node will run out of memory",
+      "Disk Spill and high Garbage Collection (GC) overhead on executors",
+      "Too many small files in S3",
+      "The Spark UI will show too many active tasks"
+    ],
+    answer: 1,
+    explanation: "Under-partitioning results in partitions that are too large to fit in the executor's RAM, forcing Spark to 'spill' data to disk, which is significantly slower.",
+    hint: "Think about 'Disk Spill' and RAM pressure."
+  },
+  {
+    id: 308,
+    difficulty: "hard",
+    category: "delta_lake",
+    question: "Which Delta table property determines how far back you can go for Time Travel before VACUUM deletes the data?",
+    options: [
+      "delta.logRetentionDuration",
+      "delta.deletedFileRetentionDuration",
+      "delta.timeTravelLimit",
+      "spark.databricks.delta.retention"
+    ],
+    answer: 1,
+    explanation: "delta.deletedFileRetentionDuration (default 7 days) controls how long deleted data files are kept. Time Travel cannot go back further than this once VACUUM is run.",
+    hint: "It's a table property specifically for 'deleted files'."
+  },
+  {
+    id: 309,
+    difficulty: "hard",
+    category: "delta_lake",
+    question: "Would you apply Z-ORDER to a Delta table that experiences heavy, frequent inserts every minute?",
+    options: [
+      "Yes, it ensures every insert is fast",
+      "No, Z-ORDER is an expensive write-time operation; frequent Z-ordering will cause massive write overhead",
+      "Yes, because Z-ORDER replaces the need for partitioning",
+      "Only if the table is smaller than 1GB"
+    ],
+    answer: 1,
+    explanation: "Z-ORDER is a 'write-heavy' optimization. For high-frequency inserts, you should use Auto-Compaction/Optimized Writes and only run Z-ORDER during low-traffic maintenance windows.",
+    hint: "Z-ORDER is great for READS but expensive for WRITES."
+  },
+  {
+    id: 310,
+    difficulty: "medium",
+    category: "performance",
+    question: "When would you prefer Liquid Clustering over Z-ORDER in Databricks?",
+    options: [
+      "When you have a very small table",
+      "When query patterns are unpredictable or change frequently, and you want to avoid fixed partition hierarchies",
+      "When you are using Spark 2.4",
+      "When you want to encrypt the data"
+    ],
+    answer: 1,
+    explanation: "Liquid Clustering is flexible and adapts to shifting query patterns, unlike Z-ORDER which requires you to know your filter columns upfront.",
+    hint: "Use it if you don't know your query patterns yet."
+  },
+  {
+    id: 311,
+    difficulty: "medium",
+    category: "streaming",
+    question: "Which window function type allows for overlapping intervals (e.g., every 5 minutes, but looking at the last 10 minutes of data)?",
+    options: [
+      "Tumbling Window",
+      "Sliding Window",
+      "Session Window",
+      "Ranking Window"
+    ],
+    answer: 1,
+    explanation: "Sliding windows allow for overlaps, making them ideal for 'moving averages' or 'rolling counts'.",
+    hint: "Think 'Overlapping'."
+  },
+  {
+    id: 312,
+    difficulty: "hard",
+    category: "orchestration",
+    question: "If a Databricks Job has both a 'Job-level' parameter and a 'Task-level' parameter with the same name, which one takes precedence?",
+    options: [
+      "The Job-level parameter",
+      "The Task-level parameter",
+      "Neither; it throws an error",
+      "The one that was created first"
+    ],
+    answer: 1,
+    explanation: "Task-level parameters are more specific and override Job-level parameters in Databricks Workflows.",
+    hint: "Specific overrides General."
+  },
+  {
+    id: 313,
+    difficulty: "hard",
+    category: "infrastructure",
+    question: "What is the key purpose of a 'docker-compose.yml' file in a Data Engineering environment?",
+    options: [
+      "To compile Python into a JAR file",
+      "To define and run multi-container applications (e.g., a Spark Driver, Worker, and Metastore) as a single service",
+      "To replace the Databricks UI",
+      "To store AWS S3 credentials"
+    ],
+    answer: 1,
+    explanation: "Docker Compose allows you to orchestrate multiple related containers to work together using a single YAML configuration.",
+    hint: "Orchestrating 'Multi-container' apps."
+  },
+  {
+    id: 314,
+    difficulty: "hard",
+    category: "spark_internals",
+    question: "Which phase of the Catalyst Optimizer is responsible for applying 'Predicate Pushdown'?",
+    options: [
+      "Analysis",
+      "Logical Optimization",
+      "Physical Planning",
+      "Code Generation"
+    ],
+    answer: 1,
+    explanation: "The Logical Optimization phase applies rules like Predicate Pushdown to ensure filters are applied as close to the data source as possible.",
+    hint: "Filtering 'at the source' happens during Logical Optimization."
+  },
+  {
+    id: 315,
+    difficulty: "hard",
+    category: "spark_ui",
+    question: "In the Spark UI Task table, you see that the 'Max' duration is 100x larger than the 'Median' duration. What does this specifically indicate?",
+    options: [
+      "Network failure",
+      "Data Skew (one task is processing much more data than the others)",
+      "The Driver node is too small",
+      "S3 is throttling the request"
+    ],
+    answer: 1,
+    explanation: "A massive gap between Median and Max task duration is a classic signature of Data Skew.",
+    hint: "Look at the 'Duration' and 'Shuffle Read' columns."
+  },
+  {
+    id: 316,
+    difficulty: "medium",
+    category: "spark_performance",
+    question: "Why is partitioning a table by a high-cardinality column like 'Transaction_ID' considered bad design?",
+    options: [
+      "It makes the data too secure",
+      "It creates the 'Small File Problem' (thousands of tiny directories/files), overwhelming the file system metadata",
+      "It speeds up the writes too much",
+      "It prevents Time Travel"
+    ],
+    answer: 1,
+    explanation: "High-cardinality partitioning creates too many sub-directories and tiny files, which slows down file listing and metadata operations significantly.",
+    hint: "Too many folders, too many small files."
+  },
+  {
+    id: 317,
+    difficulty: "hard",
+    category: "python",
+    question: "What is a real-world use case for using a Python Decorator in a data pipeline?",
+    options: [
+      "To convert a CSV to Parquet",
+      "Retrying a connection to a flaky external API or logging the execution time of a specific function",
+      "To rename a column in a Spark DataFrame",
+      "To increase the cluster size"
+    ],
+    answer: 1,
+    explanation: "Decorators are perfect for cross-cutting concerns like @retry, @log_execution_time, or @validate_schema.",
+    hint: "Using @retry or @log_time."
+  },
+  {
+    id: 318,
+    difficulty: "hard",
+    category: "governance",
+    question: "What is the recommended tool to validate data quality and schema drift during a large-scale migration to Unity Catalog?",
+    options: [
+      "Excel",
+      "Great Expectations or DLT Expectations (constraints)",
+      "Spark UI",
+      "VACUUM"
+    ],
+    answer: 1,
+    explanation: "Automated validation frameworks ensure that row counts, null percentages, and schemas match post-migration.",
+    hint: "Use 'Expectations' to check data quality."
+  },
+  {
+    id: 319,
+    difficulty: "medium",
+    category: "infrastructure",
+    question: "How do you implement 'Key Rotation' for Databricks Secrets stored in Azure Key Vault or AWS KMS?",
+    options: [
+      "By manually typing the new key into the notebook",
+      "By updating the secret in the cloud provider's vault; Databricks will fetch the latest version automatically if configured via a Secret Scope",
+      "You cannot rotate keys in Databricks",
+      "By deleting the cluster every day"
+    ],
+    answer: 1,
+    explanation: "Managed Secret Scopes point to the cloud provider's vault, ensuring that when the key is rotated there, Databricks remains updated.",
+    hint: "The cloud vault handles the rotation; Databricks just 'points' to it."
+  },
+  {
+    id: 320,
+    difficulty: "hard",
+    category: "spark_performance",
+    question: "When is coalesce(n) significantly faster than repartition(n)?",
+    options: [
+      "When increasing the number of partitions",
+      "When decreasing the number of partitions, because it avoids a full data shuffle across the network",
+      "When performing a cross-join",
+      "When the data is highly skewed"
+    ],
+    answer: 1,
+    explanation: "Coalesce is a narrow transformation that moves data within existing nodes, whereas repartition is a wide transformation that triggers a full shuffle.",
+    hint: "Avoid the 'Shuffle' when decreasing partitions."
+  },
+  {
+    id: 321,
+    difficulty: "hard",
+    category: "scenarios",
+    question: "You are designing a ride analytics system for 1 million events/sec. Which Databricks component is best for the 'Bronze' ingestion layer?",
+    options: [
+      "Direct Spark.read.json",
+      "Structured Streaming with Auto Loader (CloudFiles) and Checkpointing",
+      "Manual batch jobs every 5 minutes",
+      "Exporting to CSV and then uploading"
+    ],
+    answer: 1,
+    explanation: "Auto Loader is optimized for high-scale incremental ingestion with schema evolution and fault tolerance (checkpointing).",
+    hint: "Think 'Real-time' and 'Incremental'."
+  } 
 ];  
 
-/* Note: This template follows the logic requested. 
-   1-20: Databricks Lakehouse Architecture & Delta Lake
-   To reach 280, the pattern continues across:
-   21-60: Delta Lake deep dive (Z-Order, Liquid Clustering, CDF)
-   61-120: PySpark DataFrames & Spark SQL (Window functions, joins, broadcast)
-   121-180: Structured Streaming & Auto Loader (Watermarking, Trigger.Once)
-   181-220: Unity Catalog (Permissions, Lineage, External Locations)
-   221-250: DLT (SCD Type 1 & 2, Quality Expectations)
-   251-280: Databricks SQL & Security (Dashboards, Alerts, Service Principals)
-   281-305: Custom scenarios 
-*/
+
 
 
 /* ======================================================
