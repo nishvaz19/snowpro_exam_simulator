@@ -2,7 +2,7 @@ let examQuestions = [];
 let answers = {};
 let flagged = [];
 let current = 0;
-let EXAM_SIZE = 500; // Use 'let' so it can be updated by the actual bank size
+let EXAM_SIZE = 0; // Use 'let' so it can be updated by the actual bank size
 
 let examTimer;
 let timeRemaining = 60 * 120 // 120 minutes
@@ -30,7 +30,7 @@ function startExam() {
     //examQuestions = shuffle(questionBank).slice(0,EXAM_SIZE)
     //examQuestions = questionBank.slice(0, questionBank.length);
     examQuestions = questionBank;
-    window.EXAM_SIZE = examQuestions.length; 
+    EXAM_SIZE = examQuestions.length; 
 
     // Reset counters
     current = 0;
