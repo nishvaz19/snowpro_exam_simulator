@@ -3,7 +3,7 @@
    Topics: IAM, Global Infrastructure, S3, & VPC
    ====================================================== */
 
-const awsBatch1 = [
+const questionBank = [
   {
     id: 1,
     difficulty: "easy",
@@ -753,17 +753,12 @@ const awsBatch1 = [
     answer: 1,
     explanation: "Flow logs are used for security auditing, troubleshooting, and network monitoring.",
     hint: "Network traffic logs."
-  }
-];
+  },
 
-// Append to main database
-questionBank.push(...awsBatch1);
 /* ======================================================
    AWS MASTER QUESTION BANK (Batch 2/7)
    Topics: Databases, Serverless, & App Integration
    ====================================================== */
-
-const awsBatch2 = [
   {
     id: 51,
     difficulty: "easy",
@@ -1483,18 +1478,15 @@ const awsBatch2 = [
     answer: 1,
     explanation: "DLQs help troubleshoot application logic by isolating 'poison' messages that cause processing errors.",
     hint: "Queue for failed messages."
-  }
-];
+  },
 
 // Note: One ID was skipped in the count (98, 99) but this batch contains 50 distinct items.
 // Finalizing the batch to ensure consistency.
-questionBank.push(...awsBatch2);
+
 /* ======================================================
    AWS MASTER QUESTION BANK (Batch 3/7)
    Topics: IaC, Monitoring, Security, & High Availability
    ====================================================== */
-
-const awsBatch3 = [
   {
     id: 101,
     difficulty: "medium",
@@ -2244,17 +2236,13 @@ const awsBatch3 = [
     answer: 1,
     explanation: "Transit Gateway is designed to simplify complex networking by acting as a central hub for all connections.",
     hint: "Network Hub."
-  }
-];
+  },
 
-// Append to main database
-questionBank.push(...awsBatch3);
 /* ======================================================
    AWS MASTER QUESTION BANK (Batch 4/7)
    Topics: CI/CD, Containers, Analytics, & AI/ML
    ====================================================== */
 
-const awsBatch4 = [
   {
     id: 151,
     difficulty: "easy",
@@ -3004,17 +2992,12 @@ const awsBatch4 = [
     answer: 1,
     explanation: "MSK manages the Apache Kafka control plane and infrastructure on your behalf.",
     hint: "Managed Kafka."
-  }
-];
+  },
 
-// Append to main database
-questionBank.push(...awsBatch4);
 /* ======================================================
    AWS MASTER QUESTION BANK (Batch 5/7)
    Topics: Hybrid Cloud, Migration, Storage & App Integration
    ====================================================== */
-
-const awsBatch5 = [
   {
     id: 201,
     difficulty: "medium",
@@ -3764,17 +3747,12 @@ const awsBatch5 = [
     answer: 1,
     explanation: "An SCP in AWS Organizations can override local IAM permissions, including those of an Administrator.",
     hint: "Organization-wide restriction."
-  }
-];
-
-// Append to main database
-questionBank.push(...awsBatch5);
+  },
 /* ======================================================
    AWS MASTER QUESTION BANK (Batch 6/7)
    Topics: Advanced Security, DevOps, & Network Patterns
    ====================================================== */
 
-const awsBatch6 = [
   {
     id: 251,
     difficulty: "easy",
@@ -4524,17 +4502,12 @@ const awsBatch6 = [
     answer: 1,
     explanation: "DataZone is a data management service that makes it easy for data producers to share and consumers to find data.",
     hint: "Data governance and sharing."
-  }
-];
+  },
 
-// Append to main database
-questionBank.push(...awsBatch6);
 /* ======================================================
    AWS MASTER QUESTION BANK (Batch 7/7)
    Topics: Well-Architected, Migration, & Final Scenarios
    ====================================================== */
-
-const awsBatch7 = [
   {
     id: 301,
     difficulty: "medium",
@@ -5284,17 +5257,13 @@ const awsBatch7 = [
     answer: 1,
     explanation: "Elastic Beanstalk is the classic PaaS offering for deploying and scaling web apps.",
     hint: "Managed Web App platform."
-  }
-];
+  },
 
-// Append final batch to database
-questionBank.push(...awsBatch7);
 /* ======================================================
-   AWS MASTER QUESTION BANK (Batch 8/?)
+   AWS MASTER QUESTION BANK (Batch 8)
    Topics: Advanced Well-Architected Scenarios & Best Practices
    ====================================================== */
 
-const awsBatch8 = [
   {
     id: 351,
     difficulty: "hard",
@@ -6045,17 +6014,13 @@ const awsBatch8 = [
     answer: 2,
     explanation: "Step Functions is a serverless orchestrator that makes it easy to sequence AWS Lambda functions and multiple AWS services.",
     hint: "Visual workflows."
-  }
-];
+  },
 
-// Append to main database
-questionBank.push(...awsBatch8);
 /* ======================================================
-   AWS MASTER QUESTION BANK (Batch 9/?)
+   AWS MASTER QUESTION BANK (Batch 9)
    Topics: Security & Compliance, AI/ML, Analytics, & EUC
    ====================================================== */
 
-const awsBatch9 = [
   {
     id: 401,
     difficulty: "medium",
@@ -6808,5 +6773,3 @@ const awsBatch9 = [
   }
 ];
 
-// Append to main database
-questionBank.push(...awsBatch9);
