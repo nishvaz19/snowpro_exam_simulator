@@ -4695,16 +4695,4 @@ PYTHON & GENERAL DE SCENARIOS (IDs 366 - 403)
 
 ];
 
-/* ======================================================
-UTILITIES
-====================================================== */
 
-function getRandomQuestions(count) {
-  return questionBank
-    .sort(() => 0.5 - Math.random())
-    .slice(0, count);
-}
-
-function getQuestionsByDifficulty(level) {
-  return questionBank.filter(q => q.difficulty === level);
-}
