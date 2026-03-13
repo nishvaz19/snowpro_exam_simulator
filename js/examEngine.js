@@ -169,74 +169,87 @@ window.scrollTo(0,0)
 
 }
 
-function submitExam(){
+function submitExam() {
+    clearInterval(examTimer);
 
-clearInterval(examTimer)
+    let score = 0;
+    let levelBreakdown = {}; 
+    let detailedReviewHTML = ""; // Temporary string to hold question reviews
 
-let score = 0
+    // Use actual length in case EXAM_SIZE was modified
+    const totalQuestions = examQuestions.length;
 
-examQuestions.forEach((q,i)=>{
+    // SINGLE LOOP: Calculate score, breakdown, and build review HTML
+    examQuestions.forEach((q, i) => {
+        const difficulty = q.difficulty || "unclassified";
+        
+        // Initialize difficulty tracking
+        if (!levelBreakdown[difficulty]) {
+            levelBreakdown[difficulty] = { correct: 0, total: 0 };
+        }
+        levelBreakdown[difficulty].total++;
 
-if(answers[i] === q.answer)
-score++
+        // Check Answer
+        const isCorrect = answers[i] === q.answer;
+        if (isCorrect) {
+            score++;
+            levelBreakdown[difficulty].correct++;
+        }
 
-})
+        // Build individual question review
+        detailedReviewHTML += `
+            <div class="review-item" style="margin-bottom:20px; padding:10px; border-bottom:1px solid #eee;">
+                <b>Q${i + 1}:</b> ${q.question}<br>
+                <span style="color: ${answers[i] === undefined ? 'gray' : 'black'}">
+                    Your answer: ${q.options[answers[i]] || "<i>Not answered</i>"}
+                </span><br>
+                <span style="color: green">Correct answer: ${q.options[q.answer]}</span><br>
+                <b>${isCorrect ? "✅ Correct" : "❌ Incorrect"}</b>
+                <br><i style="font-size:0.9em; color:#555;">${q.explanation || ""}</i>
+            </div>
+        `;
+    });
 
-let percent = Math.round(score/EXAM_SIZE*100)
+    // FINAL CALCULATIONS
+    const percent = Math.round((score / totalQuestions) * 100);
+    const passed = percent >= 70;
 
-let resultHTML = `
-<h2>Exam Results</h2>
+    // --- SAVE TO ANALYTICS (Call this ONCE) ---
+    saveExamResults(window.currentExamType || "General", score, totalQuestions, levelBreakdown);
 
-<h3>${score} / ${EXAM_SIZE}</h3>
+    // --- RENDER RESULTS UI ---
+    const summaryHTML = `
+        <div class="results-summary" style="text-align:center; padding:20px; background:#f8fafc; border-radius:10px;">
+            <h2>Exam Results Submitted!</h2>
+            <p>Data saved to your <a href="analytics.html">Study Analytics</a>.</p>
+            <h1 style="font-size: 3.5rem; margin:10px 0; color: ${passed ? '#10b981' : '#ef4444'}">${percent}%</h1>
+            <h3>Final Score: ${score} / ${totalQuestions}</h3>
+            <span class="badge" style="background:${passed ? '#dcfce7' : '#fee2e2'}; color:${passed ? '#166534' : '#991b1b'}; padding:5px 15px; border-radius:20px; font-weight:bold;">
+                ${passed ? "PASSED" : "RETAKE REQUIRED"}
+            </span>
+        </div>
+        <hr style="margin:30px 0;">
+        <h3>Detailed Review</h3>
+    `;
 
-<h3>${percent}%</h3>
+    // Combine summary with the detailed review we built in the loop
+    document.getElementById("results").innerHTML = summaryHTML + detailedReviewHTML;
 
-<hr>
-
-<h3>Review Answers</h3>
-`
-
-examQuestions.forEach((q,i)=>{
-
-let correct = answers[i]===q.answer
-
-resultHTML += `
-<div style="margin-bottom:20px">
-
-<b>Q${i+1}:</b> ${q.question}<br>
-
-Your answer: ${q.options[answers[i]] || "Not answered"}<br>
-
-Correct answer: ${q.options[q.answer]}<br>
-
-${correct ? "✅ Correct" : "❌ Incorrect"}
-
-<br><i>${q.explanation}</i>
-
-</div>
-`
-
-})
-
-document.getElementById("results").innerHTML = resultHTML
-
-window.scrollTo(0,document.body.scrollHeight)
-
+    // Scroll to results
+    window.scrollTo({ top: document.getElementById("results").offsetTop, behavior: 'smooth' });
 }
-// examEngine.js should call this upon submission for analytics 
+
+// Add this helper function at the top for analytics 
 function saveExamResults(examType, score, total, levelBreakdown) {
     let history = JSON.parse(localStorage.getItem("exam_history") || "[]");
-    
     const session = {
         date: new Date().toLocaleString(),
         exam: examType,
         score: score,
         total: total,
         percentage: Math.round((score / total) * 100),
-        levels: levelBreakdown // e.g., { Associate: {correct: 5, total: 8}, Professional: {correct: 2, total: 5} }
+        levels: levelBreakdown 
     };
-
     history.push(session);
     localStorage.setItem("exam_history", JSON.stringify(history));
 }
-  
