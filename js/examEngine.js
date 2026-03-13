@@ -1,10 +1,10 @@
-let examQuestions = []
-let answers = {}
-let flagged = []
-let current = 0
-const EXAM_SIZE = 500 // 305 // 280
+let examQuestions = [];
+let answers = {};
+let flagged = [];
+let current = 0;
+let EXAM_SIZE = 500; // Use 'let' so it can be updated by the actual bank size
 
-let examTimer
+let examTimer;
 let timeRemaining = 60 * 120 // 120 minutes
 
 function shuffle(array){
