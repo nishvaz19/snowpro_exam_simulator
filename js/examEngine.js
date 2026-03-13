@@ -11,10 +11,6 @@ function shuffle(array){
 return [...array].sort(()=>Math.random()-0.5)
 }
 
-let examQuestions = [];
-let current = 0;
-const EXAM_SIZE = 50; // Start with 50 to ensure it works
-
 // 1. ADD THIS: Wait for the page and all scripts to load
 window.onload = function() {
     console.log("Checking for questionBank...");
@@ -33,7 +29,8 @@ function startExam() {
     // Use slice or shuffle
     //examQuestions = shuffle(questionBank).slice(0,EXAM_SIZE)
     examQuestions = questionBank.slice(0, questionBank.length);
-    
+    window.EXAM_SIZE = examQuestions.length; 
+
     // Reset counters
     current = 0;
     answers = {};
