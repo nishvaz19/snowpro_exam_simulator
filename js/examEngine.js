@@ -11,15 +11,41 @@ function shuffle(array){
 return [...array].sort(()=>Math.random()-0.5)
 }
 
-function startExam(){
+let examQuestions = [];
+let current = 0;
+const EXAM_SIZE = 50; // Start with 50 to ensure it works
 
-//examQuestions = shuffle(questionBank).slice(0,EXAM_SIZE)
-examQuestions = questionBank.slice(0,EXAM_SIZE)
+// 1. ADD THIS: Wait for the page and all scripts to load
+window.onload = function() {
+    console.log("Checking for questionBank...");
+    if (typeof questionBank !== 'undefined') {
+        console.log("Bank loaded with " + questionBank.length + " questions.");
+        startExam(); 
+    } else {
+        alert("Error: questionBank not found. Ensure the JS file is linked correctly.");
+    }
+};
 
-startTimer()
+function startExam() {
+    // 2. Double check questionBank exists here
+    if (!window.questionBank) return;
 
-loadQuestion()
+    // Use slice or shuffle
+    //examQuestions = shuffle(questionBank).slice(0,EXAM_SIZE)
+    examQuestions = questionBank.slice(0, questionBank.length);
+    
+    // Reset counters
+    current = 0;
+    answers = {};
+    
+    startTimer();
+    loadQuestion();
+}
 
+// 3. THE UTILITY FUNCTION
+function getRandomQuestions(count){
+    // Changed 'bank' to 'questionBank'
+    return [...questionBank].sort(()=>0.5-Math.random()).slice(0,count);
 }
 
 function startTimer(){
@@ -268,11 +294,7 @@ const ExamEngine = {
 };
 
 
-function getRandomQuestions(count){
-return  [...bank]
-.sort(()=>0.5-Math.random())
-.slice(0,count);
-}
+
 
 function getQuestionsByDifficulty(level){
 return questionBank.filter(q=>q.difficulty===level);
