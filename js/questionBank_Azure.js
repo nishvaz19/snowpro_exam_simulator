@@ -3,7 +3,7 @@
    Topics: Governance, Entra ID (Identity), Core Compute, Networking
    ====================================================== */
 
-var batch1 = [
+const questionBank = [
   {
     id: 1,
     difficulty: "easy",
@@ -751,14 +751,13 @@ var batch1 = [
     answer: 1,
     explanation: "Entra ID Connect (formerly Azure AD Connect) provides the bridge between on-premise AD and Entra ID.",
     hint: "Hybrid identity bridge."
-  }
-];
+  },
+
 /* ======================================================
    AZURE MASTER QUESTION BANK (Batch 2/7)
    Topics: Databases, Advanced Security, Hybrid, Automation
    ====================================================== */
 
-const batch2 = [
   {
     id: 51,
     difficulty: "medium",
@@ -1506,17 +1505,12 @@ const batch2 = [
     answer: 1,
     explanation: "You can have multiple node pools (e.g., one with GPUs, one with high memory) within a single AKS cluster.",
     hint: "Group of worker VMs."
-  }
-];
+  },
 
-// Append to main database
-//questionBank.push(...batch2);
 /* ======================================================
    AZURE MASTER QUESTION BANK (Batch 3/7)
    Topics: Containers, Big Data, Messaging, & Advanced Storage
    ====================================================== */
-
-const batch3 = [
   {
     id: 101,
     difficulty: "medium",
@@ -2266,17 +2260,12 @@ const batch3 = [
     answer: 1,
     explanation: "By default, apps are unloaded if idle. Always On keeps them ready for instant response.",
     hint: "Prevent cold starts."
-  }
-];
+  },
 
-// Append to main database
-//questionBank.push(...batch3);
 /* ======================================================
    AZURE MASTER QUESTION BANK (Batch 4/7)
    Topics: DR, Advanced Networking, Hybrid Identity, Security
    ====================================================== */
-
-const batch4 = [
   {
     id: 151,
     difficulty: "medium",
@@ -2795,7 +2784,7 @@ const batch4 = [
       "Time to Live (TTL)",
       "Expiration Date",
       "Soft Delete"
-n    ],
+    ],
     answer: 1,
     explanation: "TTL allows Cosmos DB to automatically delete items from a container after a specified number of seconds since they were last modified.",
     hint: "Self-destructing data."
@@ -3024,17 +3013,12 @@ n    ],
     answer: 1,
     explanation: "Snapshots are point-in-time copies of your disks, useful for backups or making clones.",
     hint: "Point-in-time disk copy."
-  }
-];
+  },
 
-// Append to main database
-//questionBank.push(...batch4);
 /* ======================================================
    AZURE MASTER QUESTION BANK (Batch 5/7)
    Topics: Migration, IoT, AI, Serverless, & Governance
    ====================================================== */
-
-const batch5 = [
   {
     id: 201,
     difficulty: "medium",
@@ -3784,17 +3768,12 @@ n    ],
     answer: 1,
     explanation: "HA is achieved through redundancy (Zones, Sets, etc.) so that if one part fails, the system keeps running.",
     hint: "Minimize downtime."
-  }
-];
+  },
 
-// Append to main database
-//questionBank.push(...batch5);
 /* ======================================================
    AZURE MASTER QUESTION BANK (Batch 6/7)
    Topics: Hybrid Cloud, Advanced Serverless, Firewall, & Clustering
    ====================================================== */
-
-const batch6 = [
   {
     id: 251,
     difficulty: "hard",
@@ -4544,17 +4523,12 @@ const batch6 = [
     answer: 1,
     explanation: "Blueprints group ARM templates, RBAC, and Policies into a single package for environment deployment.",
     hint: "Package of governance tools."
-  }
-];
+  },
 
-// Append to main database
-//questionBank.push(...batch6);
 /* ======================================================
    AZURE MASTER QUESTION BANK (Batch 7/7)
    Topics: Cost-Optimization, AI, Quantum, & Advanced Security
    ====================================================== */
-
-const batch7 = [
   {
     id: 301,
     difficulty: "hard",
@@ -5304,17 +5278,13 @@ const batch7 = [
     answer: 1,
     explanation: "Management Groups allow for centralized governance and policy enforcement across multiple subscriptions.",
     hint: "Hierarchical governance."
-  }
-];
+  },
 
-//  update to main database
-//questionBank.push(...batch7);
 /* ======================================================
    AZURE MASTER QUESTION BANK (Batch 8/8)
    Topics: SRE, Enterprise Integration, & Global Networking
    ====================================================== */
 
-const batch8 = [
   {
     id: 351,
     difficulty: "hard",
@@ -6064,18 +6034,13 @@ const batch8 = [
     answer: 0,
     explanation: "Azure Policy can enforce specific settings and block the creation of resources that don't comply.",
     hint: "Enforce security settings."
-  }
-];
+  },
 
-// Final database update
-//questionBank.push(...batch8);
 
 /* ======================================================
    AZURE MASTER QUESTION BANK (Batch 1 - Renumbered)
    Topics: Architecture, Security, AI/ML, Analytics, & EUC
    ====================================================== */
-
-const azureBatch9 = [
   {
     id: 401,
     difficulty: "easy",
@@ -6575,8 +6540,7 @@ const azureBatch9 = [
     answer: 1,
     explanation: "Logic Apps is excellent for workflows that involve human interaction and external connectors like Office 365 email.",
     hint: "Workflow with connectors."
-  }
-];
+  },
 
 // Append to master database
 //questionBank.push(...azureBatch9);
@@ -6585,7 +6549,6 @@ const azureBatch9 = [
    Topics: Governance, DevOps, Advanced Security, & Well-Architected
    ====================================================== */
 
-const azureBatch10 = [
   {
     id: 451,
     difficulty: "medium",
@@ -7157,7 +7120,3 @@ const azureBatch10 = [
     hint: "Network topology connection."
   }
 ];
-
-// Combine into main db
-//questionBank.push(...azureBatch10);
-const questionBank = [...batch1, ...batch2,...batch3, ...batch4,...batch5, ...batch6,...batch7, ...batch8, ...azureBatch9, ...azureBatch10];
