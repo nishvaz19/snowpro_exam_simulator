@@ -7501,5 +7501,648 @@ const questionBank = [
     answer: 1,
     explanation: "If the test requests succeed, the breaker 'Closes' (normal). If they fail, it goes back to 'Open' (blocked).",
     hint: "Testing for recovery."
+  },
+  /* ======================================================
+   ARCHITECT MASTER BANK - UNIQUE SUPPLEMENT (RETAIL/MLM)
+   ====================================================== */
+  {
+    id: 501,
+    difficulty: "hard",
+    category: "microservices",
+    question: "In a retail MLM system, a user's purchase must trigger a commission update across a 10-level hierarchy. Which Saga pattern is best suited to handle this high-latency, multi-step transaction across distributed services?",
+    options: ["Synchronous REST Orchestration", "Choreography-based Saga using an Event Bus", "Orchestration-based Saga with a centralized State Machine", "Two-Phase Commit (2PC) over XA transactions"],
+    answer: 2,
+    explanation: "Orchestration is preferred for complex logic like 10-level MLM commissions because it avoids 'cyclic dependencies' found in choreography and provides a centralized point for troubleshooting state.",
+    hint: "Think centralized control for complex logic."
+  },
+  {
+    id: 502,
+    difficulty: "hard",
+    category: "resilience",
+    question: "You implement a Circuit Breaker using 'Resilience4js'. During a 'Half-Open' state, how should the system behave?",
+    options: ["Reject all traffic to allow the downstream service to cool down", "Allow a limited number of trial calls to pass through to test service health", "Redirect all traffic to the Blue environment", "Ignore timeouts and force execution"],
+    answer: 1,
+    explanation: "In the Half-Open state, the breaker allows a 'probing' set of requests. If they succeed, the breaker closes; if they fail, it returns to Open.",
+    hint: "The 'probing' phase."
+  },
+  {
+    id: 503,
+    difficulty: "medium",
+    category: "deployment",
+    question: "When performing a Blue/Green deployment for a retail API, you notice the Green version has a breaking schema change. How do you ensure backward compatibility for mobile app users who haven't updated?",
+    options: ["Force a global app update", "Implement an API Gateway layer that transforms the Green response to the old schema for v1 headers", "Run Blue and Green on the same database with no changes", "Switch everyone to Green and provide an error message"],
+    answer: 1,
+    explanation: "Versioned interfaces at the Gateway level allow new logic to run while serving old contracts via transformations.",
+    hint: "Use the Gateway as a transformer."
+  },
+  {
+    id: 504,
+    difficulty: "hard",
+    category: "cdn",
+    question: "A sudden flash sale causes a 100x traffic spike. How do you optimize CDN behavior for 'Just-In-Time' load handling?",
+    options: ["Disable the CDN to prevent stale cache", "Implement 'Stale-While-Revalidate' and 'Origin Shielding' to collapse requests", "Hardcode the promotion into the JScript bundle", "Increase the Origin server CPU manually"],
+    answer: 1,
+    explanation: "Origin Shielding protects the backend by aggregating global CDN requests into a single request per regional POP during spikes.",
+    hint: "Shield the origin from the 'Thundering Herd'."
+  },
+  {
+    id: 505,
+    difficulty: "hard",
+    category: "scalability",
+    question: "Which pattern ensures that a retail 'Dynamic Promotion' service remains responsive when the database is under high write-load?",
+    options: ["Read-Through Caching", "CQRS (Command Query Responsibility Segregation)", "Horizontal Pod Autoscaling (HPA) based solely on CPU", "Serverless functions with cold starts"],
+    answer: 1,
+    explanation: "CQRS separates high-volume 'Read' traffic (promotions) from 'Write' traffic (orders), allowing independent scaling.",
+    hint: "Separate Read and Write paths."
+  },
+  {
+    id: 506,
+    difficulty: "medium",
+    category: "architecture",
+    question: "In a microservices architecture, how do you handle 'Zombie' transactions where an order is placed but the commission service fails to respond?",
+    options: ["Ignore the failure", "Implement a 'Compensating Transaction' in the Saga Orchestrator", "Restart the entire cluster", "Manually delete the order"],
+    answer: 1,
+    explanation: "A compensating transaction undoes the steps already taken (e.g., refunding the order) if a subsequent step fails.",
+    hint: "The 'Undo' button of distributed systems."
+  },
+  {
+    id: 507,
+    difficulty: "hard",
+    category: "security",
+    question: "To ensure auditing compliance for MLM financial payouts, where should the 'Source of Truth' for transaction logs reside?",
+    options: ["The application memory", "An Immutable Ledger database or WORM storage", "The CDN edge logs", "Local browser storage"],
+    answer: 1,
+    explanation: "WORM (Write Once Read Many) storage ensures that audit trails cannot be altered after creation.",
+    hint: "Non-erasable records."
+  },
+  {
+    id: 508,
+    difficulty: "hard",
+    category: "optimization",
+    question: "Which technique reduces the 'First Input Delay' (FID) for a JavaScript-heavy MLM dashboard?",
+    options: ["Increasing the bundle size", "Using 'Web Workers' to offload heavy commission calculations from the main thread", "Forcing synchronous XHR calls", "Minifying CSS only"],
+    answer: 1,
+    explanation: "Web Workers allow background threads to process logic without blocking the UI thread.",
+    hint: "Multi-threading for JScript."
+  },
+  {
+    id: 509,
+    difficulty: "medium",
+    category: "resilience",
+    question: "What is the primary benefit of the 'Bulkhead' pattern in a retail application?",
+    options: ["Encrypting data at rest", "Isolating resources to prevent a failure in one service from cascading to others", "Reducing the cost of cloud storage", "Speeding up image loads"],
+    answer: 1,
+    explanation: "Like a ship, bulkheads divide the system into pools so a failure in one (e.g., search) doesn't sink another (e.g., checkout).",
+    hint: "Isolation and containment."
+  },
+  {
+    id: 510,
+    difficulty: "hard",
+    category: "deployment",
+    question: "During a Blue/Green upgrade, how should session-affinity (Sticky Sessions) be managed?",
+    options: ["Cleared immediately", "Drained using a shared session store like Redis to ensure users don't drop their carts", "Handled by the client's RAM", "Sticky sessions are not used in modern cloud"],
+    answer: 1,
+    explanation: "Externalizing sessions to Redis allows users to transition between Blue and Green without losing data.",
+    hint: "Stateless applications with stateful stores."
+  },
+  {
+    id: 511,
+    difficulty: "medium",
+    category: "cdn",
+    question: "What is 'Edge Side Includes' (ESI) used for in a retail app?",
+    options: ["Compiling JavaScript", "Assembling dynamic parts of a page at the CDN edge", "Routing database traffic", "Compressing images"],
+    answer: 1,
+    explanation: "ESI allows a cached page to have small dynamic 'holes' (like a cart count) filled at the edge.",
+    hint: "Dynamic caching."
+  },
+  {
+    id: 512,
+    difficulty: "hard",
+    category: "microservices",
+    question: "Which protocol is most efficient for inter-service communication in a high-frequency MLM commission engine?",
+    options: ["JSON over HTTP/1.1", "gRPC over HTTP/2", "XML over SOAP", "FTP"],
+    answer: 1,
+    explanation: "gRPC uses Protocol Buffers and binary serialization for significantly lower latency than REST/JSON.",
+    hint: "Binary over text."
+  },
+  {
+    id: 513,
+    difficulty: "medium",
+    category: "strategy",
+    question: "When scaling down after a dynamic promotion, why is 'Connection Draining' critical?",
+    options: ["To save energy", "To allow active requests to finish before an instance is terminated", "To clear the cache", "To update the DNS"],
+    answer: 1,
+    explanation: "Draining ensures no user sees a '502 Bad Gateway' during a scale-in event.",
+    hint: "Graceful exit."
+  },
+  {
+    id: 514,
+    difficulty: "hard",
+    category: "governance",
+    question: "How is 'Version Transparency' achieved in a microservices environment?",
+    options: ["Using a Service Registry and API Gateway to route traffic to specific version tags", "Naming all services 'service_v1'", "Updating the code on Friday night", "Using the same URL for all versions"],
+    answer: 0,
+    explanation: "The Gateway hides version complexity from the client while routing based on headers/metadata.",
+    hint: "Hiding complexity behind a proxy."
+  },
+  {
+    id: 515,
+    difficulty: "hard",
+    category: "scalability",
+    question: "In a 'Just-In-Time' load increase scenario, what is 'Throttling' used for?",
+    options: ["Increasing speed", "Protecting downstream services by limiting the rate of incoming requests", "Clearing database logs", "Reducing memory usage"],
+    answer: 1,
+    explanation: "Throttling prevents a spike from overwhelming the database (load shedding).",
+    hint: "Rate limiting."
+  },
+  {
+    id: 516,
+    difficulty: "medium",
+    category: "optimization",
+    question: "What is 'Brotli' in the context of JScript delivery?",
+    options: ["A framework", "A compression algorithm superior to Gzip", "A database engine", "A security protocol"],
+    answer: 1,
+    explanation: "Brotli provides smaller file sizes for text-based assets like JS and CSS.",
+    hint: "Modern compression."
+  },
+  {
+    id: 517,
+    difficulty: "hard",
+    category: "auditing",
+    question: "How do you implement 'Distributed Tracing' for an MLM order across 5 services?",
+    options: ["Passing a 'Correlation ID' in the headers of every request", "Checking each server's local clock", "Using a single global log file", "Calling the user to ask what happened"],
+    answer: 0,
+    explanation: "Correlation IDs allow tools like Jaeger or Zipkin to reconstruct a request's path.",
+    hint: "Tracking a needle in a haystack."
+  },
+  {
+    id: 518,
+    difficulty: "hard",
+    category: "scalability",
+    question: "Which load balancing algorithm is best for long-lived WebSocket connections in a retail chat app?",
+    options: ["Round Robin", "Least Connections", "IP Hash", "Random"],
+    answer: 1,
+    explanation: "Least Connections ensures new users are sent to the server with the lowest current load.",
+    hint: "Balancing the current count."
+  },
+  {
+    id: 519,
+    difficulty: "hard",
+    category: "microservices",
+    question: "How do you handle 'Data Consistency' in an MLM system where the Order DB and Commission DB are separate?",
+    options: ["Two-phase commit", "Eventual Consistency using an Outbox Pattern", "Synchronous DB links", "Periodic manual checks"],
+    answer: 1,
+    explanation: "The Outbox pattern ensures an event is published only if the DB transaction succeeds.",
+    hint: "Reliable eventing."
+  },
+  {
+    id: 520,
+    difficulty: "medium",
+    category: "cdn",
+    question: "What is 'Purging' in a CDN context?",
+    options: ["Deleting code", "Forcefully removing a cached item before its TTL expires", "Adding new files", "Reducing cost"],
+    answer: 1,
+    explanation: "Purging is necessary when a promotion ends early and the price needs to update globally.",
+    hint: "Invalidate the old."
+  },
+  {
+    id: 521,
+    difficulty: "hard",
+    category: "performance",
+    question: "What is 'Resource Hinting' (preload/preconnect)?",
+    options: ["Telling the browser which assets will be needed soon to start fetching early", "Comments in the code", "A CSS trick", "A database index"],
+    answer: 0,
+    explanation: "Hints allow the browser to warm up connections or fetch critical JS while parsing HTML.",
+    hint: "Thinking ahead."
+  },
+  {
+    id: 522,
+    difficulty: "medium",
+    category: "resilience",
+    question: "What is 'Idempotency' in a retail API?",
+    options: ["The ability to handle multiple identical requests without changing the result beyond the first call", "High speed", "Low memory", "Encryption"],
+    answer: 0,
+    explanation: "Ensures that clicking 'Pay' twice doesn't charge the customer twice.",
+    hint: "Safety in repetition."
+  },
+  {
+    id: 523,
+    difficulty: "hard",
+    category: "strategy",
+    question: "When using 'In-Place Upgrades' with JScript, how do you handle cached bundles on the client?",
+    options: ["Rename the files", "Use content-based hashing (Cache-Busting) in the filename", "Tell users to clear cache", "Disable cache entirely"],
+    answer: 1,
+    explanation: "Hashing ensures that when code changes, the browser sees a new filename and fetches it.",
+    hint: "Unique names for unique code."
+  },
+  {
+    id: 524,
+    difficulty: "hard",
+    category: "auditing",
+    question: "For click-stream integration, what is the 'Shadow DOM' risk?",
+    options: ["Styling issues", "Events not bubbling through the shadow boundary unless 'composed' is true", "Memory leaks", "Security holes"],
+    answer: 1,
+    explanation: "Architects must ensure analytics listeners can reach inside web components.",
+    hint: "Escaping the shadow."
+  },
+  {
+    id: 525,
+    difficulty: "hard",
+    category: "performance",
+    question: "How does 'Code Splitting' improve a retail app?",
+    options: ["It breaks the code", "It reduces the initial bundle size by loading only the code needed for the current route", "It makes code harder to read", "It is for security"],
+    answer: 1,
+    explanation: "Users don't need the 'Admin' code to 'Buy' a product.",
+    hint: "Lazy loading JS."
+  },
+  {
+    id: 526,
+    difficulty: "medium",
+    category: "deployment",
+    question: "What is 'Rolling Update'?",
+    options: ["Updating all at once", "Updating instances one by one or in small batches to maintain availability", "Updating the database only", "Deleting the old version"],
+    answer: 1,
+    explanation: "Ensures at least some capacity is always available during a deployment.",
+    hint: "The wheel keeps turning."
+  },
+  {
+    id: 527,
+    difficulty: "hard",
+    category: "resilience",
+    question: "What is 'Chaos Engineering'?",
+    options: ["Bad coding", "Intentionally injecting failures to test system resilience", "Deleting logs", "Working without a plan"],
+    answer: 1,
+    explanation: "Tools like Chaos Monkey help find weaknesses before they happen in production.",
+    hint: "Breaking things on purpose."
+  },
+  {
+    id: 528,
+    difficulty: "hard",
+    category: "architecture",
+    question: "Which is a 'Circuit Breaker' library for Node.js?",
+    options: ["Express", "Opossum", "React", "Lodash"],
+    answer: 1,
+    explanation: "Opossum is a popular Node.js circuit breaker implementation.",
+    hint: "Named after a resilient animal."
+  },
+  {
+    id: 529,
+    difficulty: "medium",
+    category: "cdn",
+    question: "What is 'Cache-Control: max-age=0, must-revalidate'?",
+    options: ["Cache forever", "Store the cache but verify with the server before every use", "No cache allowed", "Cache for 1 year"],
+    answer: 1,
+    explanation: "Ensures the user gets the latest price even if the file is 'cached'.",
+    hint: "Trust but verify."
+  },
+  {
+    id: 530,
+    difficulty: "hard",
+    category: "strategy",
+    question: "In a 'Blue/Green' database migration, what is 'Dual-Write'?",
+    options: ["Writing to two files", "Application logic that writes to both the old and new database schemas during a transition", "Using two hands to code", "Redundant backups"],
+    answer: 1,
+    explanation: "Synchronizes data while code is in transition.",
+    hint: "Keeping both in sync."
+  },
+  {
+    id: 531,
+    difficulty: "medium",
+    category: "scalability",
+    question: "What is a 'Hot Shard'?",
+    options: ["A fast database", "A partition receiving significantly more traffic than others, causing a bottleneck", "A secure drive", "A type of server"],
+    answer: 1,
+    explanation: "Common in MLM when one 'Top Leader' generates millions of clicks on one ID.",
+    hint: "Uneven distribution."
+  },
+  {
+    id: 532,
+    difficulty: "hard",
+    category: "optimization",
+    question: "What is 'JIT' in the V8 engine?",
+    options: ["Just-In-Time compilation of JS into machine code", "A CSS framework", "A deployment strategy", "A testing tool"],
+    answer: 0,
+    explanation: "V8 compiles JS to optimized machine code at runtime.",
+    hint: "Compilation at speed."
+  },
+  {
+    id: 533,
+    difficulty: "medium",
+    category: "auditing",
+    question: "What is the primary goal of 'GDPR' compliance in retail analytics?",
+    options: ["Selling data", "Protecting user privacy and giving them control over their data", "Increasing clicks", "Lowering tax"],
+    answer: 1,
+    explanation: "Architects must ensure 'Right to Erasure' for user click data.",
+    hint: "Privacy first."
+  },
+  {
+    id: 534,
+    difficulty: "medium",
+    category: "resilience",
+    question: "What is 'Failover'?",
+    options: ["A failure", "Automatically switching to a redundant standby system upon failure", "Restarting", "Deleting data"],
+    answer: 1,
+    explanation: "Ensures continuity during hardware or regional failures.",
+    hint: "Plan B."
+  },
+  {
+    id: 535,
+    difficulty: "medium",
+    category: "performance",
+    question: "What is 'Lighthouse'?",
+    options: ["A security tool", "An open-source tool for auditing web page quality (performance, SEO, accessibility)", "A server", "A JS library"],
+    answer: 1,
+    explanation: "Standard tool for measuring core web vitals.",
+    hint: "Guidance for quality."
+  },
+  {
+    id: 536,
+    difficulty: "medium",
+    category: "cdn",
+    question: "What is 'TTL'?",
+    options: ["Total Time Limit", "Time To Live - how long an item stays in cache", "Transfer Time", "Table To List"],
+    answer: 1,
+    explanation: "Determines how long the edge server keeps a file.",
+    hint: "Cache expiration."
+  },
+  {
+    id: 537,
+    difficulty: "hard",
+    category: "scalability",
+    question: "What is 'Auto-scaling'?",
+    options: ["Manual scaling", "Dynamically adjusting resources based on current demand", "Bigger CPUs", "More RAM"],
+    answer: 1,
+    explanation: "The core of cloud cost-efficiency and performance.",
+    hint: "Dynamic growth."
+  },
+  {
+    id: 538,
+    difficulty: "medium",
+    category: "optimization",
+    question: "What is 'Tree Shaking'?",
+    options: ["Deleting files", "Removing unused code from the final bundle during build time", "Pruning trees", "Security audit"],
+    answer: 1,
+    explanation: "Reduces JS size by excluding unreferenced functions.",
+    hint: "Dead code elimination."
+  },
+  {
+    id: 539,
+    difficulty: "medium",
+    category: "deployment",
+    question: "What is 'Infrastructure as Code' (IaC)?",
+    options: ["Typing on a server", "Managing infrastructure through configuration files instead of manual steps", "A new language", "Buying servers"],
+    answer: 1,
+    explanation: "Terraform/CloudFormation ensures environments are reproducible.",
+    hint: "Scripts for servers."
+  },
+  {
+    id: 540,
+    difficulty: "hard",
+    category: "strategy",
+    question: "What is a 'BFF' in architecture?",
+    options: ["Best Friend Forever", "Backend For Frontend - a layer tailored to a specific UI (Mobile vs Web)", "A database", "A framework"],
+    answer: 1,
+    explanation: "Allows mobile apps to get a different data shape than desktop apps from the same backend.",
+    hint: "UI-specific backend."
+  },
+  {
+    id: 541,
+    difficulty: "medium",
+    category: "performance",
+    question: "What is 'Server-Side Rendering' (SSR)?",
+    options: ["Coding on a server", "Generating HTML on the server to improve initial load and SEO", "React on the client", "Database rendering"],
+    answer: 1,
+    explanation: "Crucial for e-commerce SEO (product pages).",
+    hint: "Pre-rendered HTML."
+  },
+  {
+    id: 542,
+    difficulty: "hard",
+    category: "auditing",
+    question: "What is 'Log Aggregation'?",
+    options: ["Deleting logs", "Collecting logs from all services into a central searchable store (ELK stack)", "Math on logs", "Local storage"],
+    answer: 1,
+    explanation: "Essential for debugging a distributed MLM transaction.",
+    hint: "Centralized logs."
+  },
+  {
+    id: 543,
+    difficulty: "medium",
+    category: "auditing",
+    question: "What is the most performant way to audit every click-stream event in a JScript-heavy retail app without blocking the main UI thread?",
+    options: ["Send a synchronous XHR on every click", "Use 'navigator.sendBeacon()' to asynchronously transmit data", "Store clicks in localDB", "Use a Web Worker"],
+    answer: 1,
+    explanation: "sendBeacon is designed for analytics; it ensures data is sent without delaying page transitions.",
+    hint: "Analytics-specific browser API."
+  },
+  {
+    id: 544,
+    difficulty: "hard",
+    category: "multi-region",
+    question: "In a Multi-Region Active-Active deployment, how do you handle 'Global ID' generation for MLM orders to prevent collisions without a central bottleneck?",
+    options: ["Use a single Global MySQL Auto-increment", "UUID v4 or Snowflake ID generation algorithms", "A central Redis counter", "Manual entry"],
+    answer: 1,
+    explanation: "Snowflake IDs allow distributed systems to generate unique, time-ordered IDs locally.",
+    hint: "Distributed unique ID generation."
+  },
+  {
+    id: 545,
+    difficulty: "hard",
+    category: "performance",
+    question: "An E-commerce site uses high-resolution images. What is the best 'Just-In-Time' optimization for mobile users in low-bandwidth regions?",
+    options: ["Pre-download all images", "Use Image Optimization services with 'Accept' headers and Client Hints", "Convert all to GIFs", "Text descriptions only"],
+    answer: 1,
+    explanation: "Modern CDNs dynamically transform images based on supported formats (WebP/AVIF) and network speed.",
+    hint: "Dynamic format negotiation."
+  },
+  {
+    id: 546,
+    difficulty: "medium",
+    category: "localization",
+    question: "How should an Architect manage dynamic MLM promotions that change prices based on localized currency and tax laws?",
+    options: ["Hardcode exchange rates", "Use a Localization Sidecar/Service that injects context via API Gateway Geo-IP", "Calculate on client using 'Intl'", "Force USD"],
+    answer: 1,
+    explanation: "Using the Gateway to identify Geo-IP and routing to a localized Pricing service ensures compliance.",
+    hint: "Geo-IP routing at the edge."
+  },
+  {
+    id: 547,
+    difficulty: "hard",
+    category: "resilience",
+    question: "A 'Red/Blue' upgrade is in progress. The database migration fails halfway. What is the most resilient 'Backward Compatibility' strategy?",
+    options: ["Restore from backup", "Use 'Expand and Contract' (Parallel Changes) supporting old and new code", "Force traffic to Blue", "Manual SQL edits"],
+    answer: 1,
+    explanation: "Expand and Contract involves adding nullable columns and writing to both, allowing code to fail safely.",
+    hint: "Three-phase schema migration."
+  },
+  {
+    id: 548,
+    difficulty: "medium",
+    category: "multi-region",
+    question: "What is 'Latency-Based Routing'?",
+    options: ["Routing traffic based on cost", "Routing users to the AWS/Azure region with the lowest network latency", "Random routing", "Slow routing"],
+    answer: 1,
+    explanation: "Ensures the best performance for global users in a retail environment.",
+    hint: "Shortest path."
+  },
+  {
+    id: 549,
+    difficulty: "hard",
+    category: "performance",
+    question: "What is 'Critical CSS'?",
+    options: ["CSS for errors", "Inlining only the CSS needed for above-the-fold content to speed up First Contentful Paint", "Removing CSS", "Large CSS files"],
+    answer: 1,
+    explanation: "Reduces render-blocking requests for faster page display.",
+    hint: "Render fast."
+  },
+  {
+    id: 550,
+    difficulty: "medium",
+    category: "localization",
+    question: "How do you handle 'RTL' (Right-to-Left) languages in a JScript Architect's UI?",
+    options: ["Mirroring images manually", "Using CSS Logical Properties (margin-inline-start) instead of physical ones (margin-left)", "Creating a new app", "Ignoring it"],
+    answer: 1,
+    explanation: "Logical properties adapt automatically to the direction of the text.",
+    hint: "Logical, not physical."
+  },
+  {
+    id: 551,
+    difficulty: "hard",
+    category: "multi-region",
+    question: "What is a 'Split Brain' in a multi-region database?",
+    options: ["A fast DB", "A scenario where two regions both think they are the 'Primary' after a network partition", "A security feature", "A backup"],
+    answer: 1,
+    explanation: "Can lead to data corruption; solved by using consensus algorithms like Paxos or Raft.",
+    hint: "Conflict of authority."
+  },
+  {
+    id: 552,
+    difficulty: "medium",
+    category: "strategy",
+    question: "What is a 'Dynamic Promotion'?",
+    options: ["Static discounts", "Promotions that change based on user behavior, stock levels, or time-limited flash sales", "Advertisements", "A new feature"],
+    answer: 1,
+    explanation: "Requires real-time calculation at the Edge or API level.",
+    hint: "Real-time shifts."
+  },
+  {
+    id: 553,
+    difficulty: "medium",
+    category: "performance",
+    question: "What is 'HTTP/3' (QUIC) benefit for retail?",
+    options: ["Better compression", "Faster connection establishment and better handling of packet loss on mobile networks", "More colors", "Lower cost"],
+    answer: 1,
+    explanation: "Reduces head-of-line blocking and speeds up global shopping on mobile data.",
+    hint: "Faster mobile web."
+  },
+  {
+    id: 554,
+    difficulty: "hard",
+    category: "localization",
+    question: "How do you manage 'Pluralization' in multi-language JScript apps?",
+    options: ["If/Else statements", "Using ICU MessageFormat standards (e.g., i18next or FormatJS)", "Hardcoding 's'", "One translation for all"],
+    answer: 1,
+    explanation: "Different languages have complex plural rules beyond just 'singular' and 'plural'.",
+    hint: "Standardizing messages."
+  },
+  {
+    id: 555,
+    difficulty: "medium",
+    category: "strategy",
+    question: "What is 'Load Shedding'?",
+    options: ["Reducing electricity", "Dropping low-priority requests to keep core functionality (like Checkout) alive during a spike", "Adding more RAM", "Deleting logs"],
+    answer: 1,
+    explanation: "Prioritizes revenue-generating traffic during extreme load.",
+    hint: "Prioritized failure."
+  },
+  {
+    id: 556,
+    difficulty: "hard",
+    category: "multi-region",
+    question: "What is 'Global Accelerator' (Anycast IP)?",
+    options: ["A fast CPU", "A service that routes traffic through the cloud provider's private network to reduce hops", "A CDN", "A database"],
+    answer: 1,
+    explanation: "Uses a single global IP to route users to the nearest healthy endpoint.",
+    hint: "Private global highway."
+  },
+  {
+    id: 557,
+    difficulty: "medium",
+    category: "performance",
+    question: "What is 'Prefetching'?",
+    options: ["Deleting data", "Fetching data in the background that the user is likely to visit next", "Cache clearing", "A security check"],
+    answer: 1,
+    explanation: "Makes navigation feel instantaneous.",
+    hint: "One step ahead."
+  },
+  {
+    id: 558,
+    difficulty: "hard",
+    category: "architecture",
+    question: "What is 'CQRS' synchronization?",
+    options: ["Updating two tables", "The process (often async) of updating the Read Model after a Command Model change", "Manual sync", "Database backup"],
+    answer: 1,
+    explanation: "Ensures the 'Promotions View' eventually matches the 'Promotions Data'.",
+    hint: "Syncing the view."
+  },
+  {
+    id: 559,
+    difficulty: "medium",
+    category: "localization",
+    question: "What is 'UTF-8'?",
+    options: ["A language", "The standard character encoding for multi-language support on the web", "A file format", "A compression tool"],
+    answer: 1,
+    explanation: "Allows the display of symbols from nearly all languages.",
+    hint: "The global character set."
+  },
+  {
+    id: 560,
+    difficulty: "medium",
+    category: "performance",
+    question: "What is 'V8 Turbofan'?",
+    options: ["A physical fan", "The optimizing compiler in the V8 engine", "A deployment tool", "A framework"],
+    answer: 1,
+    explanation: "Generates highly optimized machine code for hot JS functions.",
+    hint: "The optimization engine."
+  },
+  {
+    id: 561,
+    difficulty: "hard",
+    category: "strategy",
+    question: "In MLM, how do you prevent 'Double Payout' if a node fails during commission processing?",
+    options: ["Manual auditing", "Distributed locking (e.g., Redlock) and idempotency keys", "Restarting the server", "Using one DB only"],
+    answer: 1,
+    explanation: "Ensures only one process can calculate a specific transaction's payout at a time.",
+    hint: "One key, one lock."
+  },
+  {
+    id: 562,
+    difficulty: "medium",
+    category: "performance",
+    question: "What is 'Content-Security-Policy' (CSP)?",
+    options: ["A CSS file", "A security layer that helps detect and mitigate certain types of attacks, like XSS", "A log format", "A translation tool"],
+    answer: 1,
+    explanation: "Essential for preventing malicious scripts in a retail environment.",
+    hint: "Security headers."
+  },
+  {
+    id: 563,
+    difficulty: "hard",
+    category: "multi-region",
+    question: "What is 'Data Sovereignty'?",
+    options: ["Fast data", "The requirement that data is subject to the laws of the country where it is located", "Encryption", "Backups"],
+    answer: 1,
+    explanation: "Architects must ensure EU user data stays in EU regions (GDPR).",
+    hint: "Legal borders for data."
+  },
+  {
+    id: 564,
+    difficulty: "medium",
+    category: "performance",
+    question: "What is 'Hydration' in JScript frameworks?",
+    options: ["Drinking water", "Attaching event listeners to server-rendered HTML to make it interactive", "Adding memory", "A database tool"],
+    answer: 1,
+    explanation: "The process of 'bringing to life' the static HTML sent by the server.",
+    hint: "Static to Dynamic."
   }
 ];
