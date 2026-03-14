@@ -283,3 +283,17 @@ function saveExamResults(examType, score, total, levelBreakdown) {
     });
     localStorage.setItem("exam_history", JSON.stringify(history));
 }
+
+function reviewExam() {
+    if (flagged.length === 0) {
+        alert("No questions have been flagged for review.");
+        return;
+    }
+    
+    // Jump to the first flagged question
+    current = flagged[0];
+    loadQuestion();
+    
+    // Optional: UI feedback
+    alert("Jumping to your first flagged question. Use 'Next' and 'Previous' to navigate others.");
+}
