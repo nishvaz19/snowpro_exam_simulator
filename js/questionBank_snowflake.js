@@ -4242,5 +4242,83 @@ options:[
 answer:0,
 explanation:"USERADMIN manages users and roles."
 },
+ {
+    id: 281,
+    question: "Which Snowflake feature allows you to create a snapshot of a table, schema, or database without duplicating the underlying data files?",
+    options: [
+        "Data Replication",
+        "Zero-copy Cloning",
+        "Time Travel",
+        "Materialized Views"
+    ],
+    answer: "Zero-copy Cloning",
+    explanation: "Zero-copy Cloning uses metadata to point to existing micro-partitions. New storage is only consumed when data is modified in the clone (Copy-on-Write).",
+    domain: "sn-core"
+},
+{
+    id: 282,
+    question: "Which Snowflake feature allows you to create a snapshot of a table, schema, or database without duplicating the underlying data files?",
+    options: [
+        "Data Replication",
+        "Zero-copy Cloning",
+        "Time Travel",
+        "Materialized Views"
+    ],
+    answer: "Zero-copy Cloning",
+    explanation: "Zero-copy Cloning uses metadata to point to existing micro-partitions. New storage is only consumed when data is modified in the clone.",
+    domain: "sn-core"
+},
+{
+    id: 283,
+    question: "What is the primary mechanism Snowflake uses to enable continuous, serverless ingestion from cloud storage (like S3 or Azure Blob)?",
+    options: [
+        "COPY INTO Command",
+        "Snowpipe",
+        "The PUT command",
+        "External Tables"
+    ],
+    answer: "Snowpipe",
+    explanation: "Snowpipe uses a serverless compute model to automatically load data as soon as files are written to a stage and a notification is received.",
+    domain: "sn-services"
+},
+{
+    id: 284,
+    question: "In the Snowflake architecture, where is the 'Metadata' for micro-partitions (such as min/max values used for pruning) stored?",
+    options: [
+        "In the Storage Layer",
+        "Inside the Virtual Warehouse",
+        "In the Cloud Services Layer",
+        "On the Local Disk of the Compute Node"
+    ],
+    answer: "In the Cloud Services Layer",
+    explanation: "The Cloud Services layer manages metadata, security, and query optimization, allowing for efficient 'data skipping' without turning on a warehouse.",
+    domain: "sn-services"
+},
+{
+    id: 285,
+    question: "Which feature allows a 'Provider' to share a database with a 'Consumer' without the data actually being moved or copied?",
+    options: [
+        "Data Mirroring",
+        "Secure Data Sharing",
+        "Cross-Region Replication",
+        "FTP Export"
+    ],
+    answer: "Secure Data Sharing",
+    explanation: "Secure Data Sharing uses Snowflake's unique multi-cluster shared data architecture to give consumers access to the provider's metadata/storage directly.",
+    domain: "sn-services"
+},
+{
+    id: 286,
+    question: "If a table is dropped accidentally, which feature allows you to restore it immediately without a backup?",
+    options: [
+        "Fail-safe",
+        "Zero-copy Cloning",
+        "Time Travel",
+        "UNDROP command"
+    ],
+    answer: "UNDROP command",
+    explanation: "The UNDROP command relies on Time Travel to restore dropped objects (tables, schemas, or databases) as long as they are within the retention period.",
+    domain: "sn-core"
+}, 
 ];
 
