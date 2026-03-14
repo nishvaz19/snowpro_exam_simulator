@@ -437,6 +437,31 @@ const rKeywords = [
   {word:"SSR", freq:3, domain:"r-core", desc:"Server-Side Rendering (Next.js)"},
   {word:"Custom Hooks", freq:4, domain:"r-hooks", desc:"Reusable logic functions"}
 ];
+    const snKeywords = [
+  {word:"Micro-partitions", freq:5, domain:"sn-storage", desc:"Immutable storage units in Snowflake"},
+  {word:"Zero-copy Cloning", freq:5, domain:"sn-core", desc:"Snapshot data without doubling storage costs"},
+  {word:"Virtual Warehouse", freq:5, domain:"sn-compute", desc:"Independent compute resources (MPP clusters)"},
+  {word:"Time Travel", freq:4, domain:"sn-core", desc:"Query data up to 90 days in the past"},
+  {word:"Fail-safe", freq:3, domain:"sn-storage", desc:"7-day disaster recovery period"},
+  {word:"Snowpipe", freq:5, domain:"sn-services", desc:"Continuous serverless data ingestion"},
+  {word:"External Tables", freq:3, domain:"sn-storage", desc:"Querying data stored in S3/Azure Blob/GCS"},
+  {word:"Secure Data Sharing", freq:4, domain:"sn-services", desc:"Sharing data without moving or copying it"},
+  {word:"Resource Monitors", freq:3, domain:"sn-compute", desc:"Controlling credit consumption"},
+  {word:"Search Optimization", freq:4, domain:"sn-services", desc:"Speeds up point lookup queries"}
+];
+
+const kfKeywords = [
+  {word:"Topics", freq:5, domain:"kf-core", desc:"Named feeds to which records are published"},
+  {word:"Partitions", freq:5, domain:"kf-core", desc:"Scalability unit for topics"},
+  {word:"Consumer Groups", freq:5, domain:"kf-core", desc:"Groups of consumers sharing a topic load"},
+  {word:"Zookeeper", freq:3, domain:"kf-ops", desc:"Legacy coordination service (being replaced by KRaft)"},
+  {word:"KRaft", freq:4, domain:"kf-ops", desc:"New consensus protocol for metadata management"},
+  {word:"Kafka Connect", freq:5, domain:"kf-connect", desc:"Framework for connecting Kafka with external systems"},
+  {word:"KSQLDB", freq:4, domain:"kf-stream", desc:"Streaming SQL engine for Kafka"},
+  {word:"Kafka Streams", freq:4, domain:"kf-stream", desc:"Client library for building stream processing apps"},
+  {word:"Schema Registry", freq:5, domain:"kf-connect", desc:"Centralized management of Avro/JSON schemas"},
+  {word:"Replication Factor", freq:3, domain:"kf-ops", desc:"Number of copies of data for fault tolerance"}
+];
 
     // --- LOGIC ---
     function renderCloud(containerId, list, type) {
@@ -463,13 +488,15 @@ const rKeywords = [
 
     // Initialize all
     document.addEventListener('DOMContentLoaded', () => {
+        // Render
         renderCloud("dbCloud", dbKeywords, "databricks");
         renderCloud("aiCloud", aiKeywords, "ai");
         renderCloud("azCloud", azKeywords, "azure");
         renderCloud("awsCloud", awsKeywords, "aws");
         renderCloud("mgCloud", mgKeywords, "mongodb");
         renderCloud("rCloud", rKeywords, "react");
-
+        renderCloud("snCloud", snKeywords, "snowflake");
+        renderCloud("kfCloud", kfKeywords, "kafka");
 
         // Search listeners
         const bindSearch = (id, cloudId, data, type) => {
@@ -478,13 +505,15 @@ const rKeywords = [
                 renderCloud(cloudId, data.filter(k => k.word.toLowerCase().includes(q)), type);
             });
         };
-
+        // Search Binding
         bindSearch("dbSearch", "dbCloud", dbKeywords, "databricks");
         bindSearch("aiSearch", "aiCloud", aiKeywords, "ai");
         bindSearch("azSearch", "azCloud", azKeywords, "azure");
         bindSearch("awsSearch", "awsCloud", awsKeywords, "aws");
         bindSearch("mgSearch", "mgCloud", mgKeywords, "mongodb");
         bindSearch("rSearch", "rCloud", rKeywords, "react");
+        bindSearch("snSearch", "snCloud", snKeywords, "snowflake");
+        bindSearch("kfSearch", "kfCloud", kfKeywords, "kafka");
     });
 </script>
 </body>
