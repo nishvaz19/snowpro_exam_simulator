@@ -6770,6 +6770,156 @@ const questionBank = [
     answer: 1,
     explanation: "Security Hub provides a centralized view to manage security findings from various AWS services.",
     hint: "Security posture dashboard."
-  }
+  },
+  {
+    id: 451,
+    difficulty: "hard",
+    category: "data_engineering",
+    question: "In the Medallion Architecture, what is the primary purpose of the 'Silver' layer?",
+    options: [
+      "To store raw, immutable data exactly as it arrived from the source",
+      "To provide cleaned, validated, and joined data where business logic is applied",
+      "To host final aggregated datasets ready for consumption by BI dashboards",
+      "To store archived data that is no longer needed for daily operations"
+    ],
+    answer: 1,
+    explanation: "The Silver layer represents the 'Cleansed/Enriched' stage where data is filtered, cleaned, and augmented with business rules before final aggregation.",
+    hint: "The middle ground of data quality."
+  },
+  {
+    id: 452,
+    difficulty: "hard",
+    category: "spark",
+    question: "How does 'Adaptive Query Execution' (AQE) improve Spark performance at runtime?",
+    options: [
+      "By pre-loading all data into memory before the job starts",
+      "By adjusting join strategies and partition sizes based on actual data statistics collected during execution",
+      "By converting all PySpark code into C++ automatically",
+      "By disabling the Catalyst optimizer"
+    ],
+    answer: 1,
+    explanation: "AQE allows Spark to re-optimize query plans mid-execution, such as converting a SortMergeJoin to a BroadcastHashJoin if one side is small enough.",
+    hint: "Dynamic runtime optimization."
+  },
+  {
+    id: 453,
+    difficulty: "medium",
+    category: "lakehouse",
+    question: "Which feature of Delta Lake allows you to query a table as it existed at a specific point in time or version?",
+    options: [
+      "Z-Ordering",
+      "Schema Enforcement",
+      "Time Travel",
+      "Vacuum"
+    ],
+    answer: 2,
+    explanation: "Time Travel (Data Versioning) allows users to access previous versions of a Delta table for auditing or rollbacks using the 'VERSION AS OF' syntax.",
+    hint: "Back to the future."
+  },
+  {
+    id: 454,
+    difficulty: "hard",
+    category: "gen_ai",
+    question: "What is the primary role of a 'Vector Database' in a Retrieval-Augmented Generation (RAG) pipeline?",
+    options: [
+      "To store the weights of a Large Language Model (LLM)",
+      "To store and perform similarity searches on text embeddings to provide relevant context to an LLM",
+      "To translate natural language into SQL queries",
+      "To host the frontend application for the AI chatbot"
+    ],
+    answer: 1,
+    explanation: "Vector databases store document chunks converted into numerical embeddings, allowing the system to retrieve the most semantically relevant information to answer a user query.",
+    hint: "Semantic search for LLMs."
+  },
+  {
+    id: 455,
+    difficulty: "medium",
+    category: "spark",
+    question: "When dealing with 'Data Skew' in a Spark join, which technique involves adding a random prefix to keys to distribute data more evenly across partitions?",
+    options: [
+      "Broadcasting",
+      "Salting",
+      "Z-Ordering",
+      "Caching"
+    ],
+    answer: 1,
+    explanation: "Salting adds a random element to the join key, breaking up large partitions that would otherwise cause a 'straggler' task to slow down the entire job.",
+    hint: "Adding flavor to balance the load."
+  },
+  {
+    id: 456,
+    difficulty: "hard",
+    category: "governance",
+    question: "Which concept describes the ability to track the movement, transformations, and origin of data from source to destination?",
+    options: [
+      "Data Partitioning",
+      "Data Lineage",
+      "Data Redundancy",
+      "Schema Evolution"
+    ],
+    answer: 1,
+    explanation: "Data Lineage provides visibility into the data's lifecycle, which is critical for compliance, auditing, and troubleshooting in complex pipelines.",
+    hint: "The data's family tree."
+  },
+  {
+    id: 457,
+    difficulty: "medium",
+    category: "lakehouse",
+    question: "What is the function of the 'VACUUM' command in a Delta Lake environment?",
+    options: [
+      "To compress small files into larger ones",
+      "To permanently remove data files that are no longer in the latest state of the transaction log and are older than a retention threshold",
+      "To update the table schema to match new data",
+      "To encrypt data at rest"
+    ],
+    answer: 1,
+    explanation: "VACUUM cleans up stale data files, saving storage costs and maintaining performance, though it removes the ability to 'Time Travel' beyond the deleted versions.",
+    hint: "Garbage collection for Delta."
+  },
+  {
+    id: 458,
+    difficulty: "hard",
+    category: "gen_ai",
+    question: "In GenAI workflows, what is 'Hallucination'?",
+    options: [
+      "When a model runs out of GPU memory",
+      "When an LLM generates factually incorrect or nonsensical information with high confidence",
+      "When a vector database fails to return any results",
+      "When a prompt is too long for the context window"
+    ],
+    answer: 1,
+    explanation: "Hallucination occurs when an LLM 'fills in the gaps' with plausible-sounding but false information. RAG is used to mitigate this by grounding the model in real data.",
+    hint: "Confident misinformation."
+  },
+  {
+    id: 459,
+    difficulty: "medium",
+    category: "data_engineering",
+    question: "What is the difference between 'Lazy Evaluation' and 'Eager Evaluation' in Spark?",
+    options: [
+      "Lazy evaluation processes data immediately; Eager waits for an action",
+      "Lazy evaluation records transformations but delays execution until an 'Action' (like count or collect) is called",
+      "Eager evaluation is only used for Python code",
+      "There is no difference in Spark"
+    ],
+    answer: 1,
+    explanation: "Spark builds a DAG (Directed Acyclic Graph) of transformations. It only executes the plan once an action is triggered, allowing for global query optimization.",
+    hint: "Wait for the 'Action'."
+  },
+  {
+    id: 460,
+    difficulty: "hard",
+    category: "governance",
+    question: "Which tool or service is designed to provide a unified governance layer across data, AI models, and lineage in a Databricks environment?",
+    options: [
+      "Azure Data Factory",
+      "Unity Catalog",
+      "AWS Lake Formation",
+      "Delta Live Tables"
+    ],
+    answer: 1,
+    explanation: "Unity Catalog is a fine-grained governance solution that manages permissions and auditing across all workspaces for data and AI assets.",
+    hint: "The central hub for governance."
+  } 
 ];
 
