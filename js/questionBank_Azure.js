@@ -7118,5 +7118,185 @@ const questionBank = [
     answer: 0,
     explanation: "VNet Peering is the standard way to connect spoke VNets to a central hub VNet for shared service access.",
     hint: "Network topology connection."
-  }
+  },
+  {
+    id: 501,
+    difficulty: "hard",
+    category: "spark",
+    question: "During Spark job execution, what is the correct hierarchy of execution from the top level down?",
+    options: [
+      "Task -> Stage -> Job",
+      "Job -> Stage -> Task",
+      "Stage -> Job -> Task",
+      "Job -> Task -> Stage"
+    ],
+    answer: 1,
+    explanation: "Spark builds a DAG and splits a Job into multiple Stages (based on shuffle boundaries), which are further divided into individual Tasks executed in parallel on executors.",
+    hint: "Highest to lowest granularity."
+  },
+  {
+    id: 502,
+    difficulty: "medium",
+    category: "data_engineering",
+    question: "In the Medallion Architecture, what is the primary purpose of the 'Silver' layer?",
+    options: [
+      "To store raw, immutable data exactly as it arrived from the source",
+      "To provide cleaned, validated, and joined data where business logic is applied",
+      "To host final aggregated datasets ready for business intelligence consumption",
+      "To serve as a temporary landing zone for streaming data"
+    ],
+    answer: 1,
+    explanation: "The Silver layer represents the 'Cleansed/Enriched' stage where data is filtered, cleaned, and augmented with business rules before final aggregation.",
+    hint: "The middle ground of data quality."
+  },
+  {
+    id: 503,
+    difficulty: "hard",
+    category: "spark",
+    question: "How does 'Adaptive Query Execution' (AQE) improve performance during Spark runtime?",
+    options: [
+      "By pre-loading all data into memory before the job starts",
+      "By adjusting join strategies and partition sizes based on actual data statistics collected during execution",
+      "By converting PySpark code into Scala code automatically",
+      "By disabling the Catalyst optimizer for faster startup"
+    ],
+    answer: 1,
+    explanation: "AQE allows Spark to re-optimize query plans mid-execution, such as converting a SortMergeJoin to a BroadcastHashJoin if one side is small enough.",
+    hint: "Dynamic runtime optimization."
+  },
+  {
+    id: 504,
+    difficulty: "medium",
+    category: "lakehouse",
+    question: "Which Delta Lake feature allows you to query a table as it existed at a specific point in time or version?",
+    options: [
+      "Z-Ordering",
+      "Schema Enforcement",
+      "Time Travel",
+      "Optimize"
+    ],
+    answer: 2,
+    explanation: "Time Travel (Data Versioning) allows users to access previous versions of a Delta table for auditing, debugging, or rollbacks using the 'VERSION AS OF' syntax.",
+    hint: "Back to the future."
+  },
+  {
+    id: 505,
+    difficulty: "hard",
+    category: "lakehouse",
+    question: "Which technique reorders data files to colocate frequently queried columns, significantly improving query performance for filtered predicates?",
+    options: [
+      "Partitioning",
+      "Z-Ordering",
+      "Vacuum",
+      "Caching"
+    ],
+    answer: 1,
+    explanation: "Z-Ordering is a technique to co-locate related information in the same set of files, which helps Spark's data skipping algorithm skip irrelevant files.",
+    hint: "Colocating related data."
+  },
+  {
+    id: 506,
+    difficulty: "medium",
+    category: "data_engineering",
+    question: "What is the key difference between 'ETL' and 'ELT' in modern cloud-based Lakehouse architectures?",
+    options: [
+      "ETL is faster; ELT is slower",
+      "In ELT, raw data is loaded first and transformed using scalable compute engines like Spark after ingestion",
+      "ETL is only for streaming data; ELT is only for batch",
+      "ELT requires a relational database as the target"
+    ],
+    answer: 1,
+    explanation: "Lakehouse platforms favor ELT because distributed compute (like Spark) can efficiently process large datasets after they are landed in the lake.",
+    hint: "Transform after load."
+  },
+  {
+    id: 507,
+    difficulty: "hard",
+    category: "governance",
+    question: "In Azure Databricks, which tool provides centralized governance, fine-grained access control, and lineage tracking across multiple workspaces?",
+    options: [
+      "Azure Data Factory",
+      "Unity Catalog",
+      "Azure Synapse",
+      "Resource Groups"
+    ],
+    answer: 1,
+    explanation: "Unity Catalog is a unified governance solution for all data and AI assets in the Databricks Lakehouse, including tables, models, and lineage.",
+    hint: "Central governance layer."
+  },
+  {
+    id: 508,
+    difficulty: "medium",
+    category: "cost",
+    question: "Why are Databricks 'Job Clusters' generally more cost-effective than 'All-Purpose Clusters' for production workloads?",
+    options: [
+      "Job clusters have faster CPUs",
+      "Job clusters are ephemeral (created per run) and have a lower DBU cost per hour",
+      "All-purpose clusters cannot auto-scale",
+      "Job clusters do not require Azure storage"
+    ],
+    answer: 1,
+    explanation: "Job clusters auto-terminate after execution and are billed at a significantly lower rate compared to interactive/all-purpose clusters.",
+    hint: "Ephemeral and cheaper DBU."
+  },
+  {
+    id: 509,
+    difficulty: "hard",
+    category: "gen_ai",
+    question: "What is the primary role of 'Retrieval-Augmented Generation' (RAG) in an AI application?",
+    options: [
+      "To train a new Large Language Model from scratch",
+      "To ground LLM responses in enterprise-specific data to reduce hallucinations and improve accuracy",
+      "To translate natural language into Python code",
+      "To speed up the inference time of the model"
+    ],
+    answer: 1,
+    explanation: "RAG retrieves relevant context from a company's own documents and passes it to the LLM to ensure the answer is grounded in factual, private data.",
+    hint: "Grounding with enterprise data."
+  },
+  {
+    id: 510,
+    difficulty: "medium",
+    category: "spark",
+    question: "Which technique is commonly used in Spark to handle 'Data Skew' by adding a random prefix to join keys?",
+    options: [
+      "Broadcasting",
+      "Salting",
+      "Partitioning",
+      "Caching"
+    ],
+    answer: 1,
+    explanation: "Salting breaks up large partitions by adding a random element to the key, ensuring data is distributed more evenly across executors during a join.",
+    hint: "Add flavor to balance the load."
+  },
+  {
+    id: 511,
+    difficulty: "hard",
+    category: "lakehouse",
+    question: "What occurs when the 'VACUUM' command is run on a Delta table?",
+    options: [
+      "The table schema is updated to match the latest files",
+      "Data files that are no longer in the latest state and older than the retention period are permanently deleted",
+      "Small files are compacted into larger files",
+      "The data is encrypted at rest"
+    ],
+    answer: 1,
+    explanation: "VACUUM removes stale data files no longer needed for the current state of the table, though it prevents 'Time Travel' back to those deleted versions.",
+    hint: "Garbage collection for storage."
+  },
+  {
+    id: 512,
+    difficulty: "medium",
+    category: "ai_ml",
+    question: "In MLflow, what is the difference between 'Experiment Tracking' and 'Model Registry'?",
+    options: [
+      "Tracking is for code; Registry is for data",
+      "Tracking captures metrics and parameters of runs; Registry manages the lifecycle (versioning, staging, production) of models",
+      "There is no difference",
+      "Tracking is only for Databricks; Registry is for local runs"
+    ],
+    answer: 1,
+    explanation: "Tracking is used during the development phase to log parameters and results, while the Registry is used for governance and deployment of finalized models.",
+    hint: "Metrics vs lifecycle management."
+  } 
 ];
