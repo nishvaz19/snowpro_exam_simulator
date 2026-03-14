@@ -54,6 +54,8 @@
             <option value="azure">Azure Certification</option>
             <option value="aws">AWS Certification</option>
             <option value="ai_arch">AI Architect</option> 
+            <option value="JavaScript">JavaScript</option> 
+            <option value="kafka">Kafka</option> 
             <option value="ai">AI & LLM Engineering</option> 
         </select>
         <button class="btn-primary" onclick="launchExam()">Start Examination</button>
@@ -349,9 +351,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("awsSearch").addEventListener("keyup",e=>renderAWS(awsKeywords.filter(k=>k.word.toLowerCase().includes(e.target.value.toLowerCase()))));
     </script>
 </div>
-<div id="mongo-cloud" style="font-family: Arial; background: #e3f2fd; padding: 30px; border-radius: 8px; margin-bottom: 40px;">
+<div id="mongodb-cloud" style="font-family: Arial; background: #e3f2fd; padding: 30px; border-radius: 8px; margin-bottom: 40px;">
     <style>
-        #mongo-cloud .tag { display: inline-block; margin: 8px; padding: 10px 16px; border-radius: 25px; cursor: pointer; transition: 0.2s; color: white; }
+        #mongodb-cloud .tag { display: inline-block; margin: 8px; padding: 10px 16px; border-radius: 25px; cursor: pointer; transition: 0.2s; color: white; }
         .mg-crud { background: #13aa52; }
         .mg-arch { background: #001e2b; }
         .mg-perf { background: #494949; }
