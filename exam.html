@@ -92,8 +92,9 @@
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     window.currentExamType = urlParams.get('type'); 
-   
+    const urlParams = new URLSearchParams(window.location.search);
     const examType = urlParams.get('type');
+    const focusKeyword = urlParams.get('focus'); // Get the buzzword from URL
 
     const examMap = {
         'snowflake': { title: 'Snowflake Certification', file: 'js/questionBank_snowflake.js' },
@@ -112,14 +113,23 @@
 
     const config = examMap[examType];
     if (config) {
-      document.getElementById('examTitle').innerText = config.title;
-      const script = document.createElement('script');
-      script.src = config.file + '?v=' + new Date().getTime(); 
-      script.onload = () => { startExam(); };
-      document.head.appendChild(script);
+        document.getElementById('examTitle').innerText = config.title;
+        
+        // Auto-fill the search bar if a buzzword was clicked
+        if (focusKeyword) {
+            document.getElementById('keywordSearch').value = focusKeyword;
+        }
+
+        const script = document.createElement('script');
+        script.src = config.file + '?v=' + new Date().getTime(); 
+        script.onload = () => { 
+            // The examEngine.js startExam() should check the keywordSearch input value
+            startExam(); 
+        };
+        document.head.appendChild(script);
     } else {
-      document.getElementById('examTitle').innerText = "Exam Not Found";
-    }
+        document.getElementById('examTitle').innerText = "Exam Not Found";
+    }    
 </script>
 
 </body>
