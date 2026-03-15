@@ -3590,5 +3590,217 @@ const questionBank = [
     answer: 1,
     explanation: "It is the basis for modularity in Java, allowing libraries to provide plugins or drivers (like JDBC drivers) without hardcoding."
   },
-
+/* ====================================================== 
+     Topics: JDBC, Bean Lifecycle, Indexing, Async Microservices
+     ====================================================== */
+  {
+    id: 301,
+    difficulty: "medium",
+    category: "JDBC",
+    question: "Why is 'PreparedStatement' preferred over a standard 'Statement' in JDBC?",
+    options: [
+      "It is easier to write manually",
+      "It prevents SQL Injection by pre-compiling the query and using placeholders (?)",
+      "It only works with SELECT statements and is therefore safer",
+      "It doesn't require an active database connection"
+    ],
+    answer: 1,
+    explanation: "PreparedStatement pre-compiles the SQL query on the database side, which improves performance for repeated execution and ensures that user input is treated as data rather than executable code."
+  },
+  {
+    id: 302,
+    difficulty: "medium",
+    category: "JDBC",
+    question: "What is the difference between executeQuery(), executeUpdate(), and execute() in JDBC?",
+    options: [
+      "They are identical and can be used interchangeably",
+      "executeQuery returns a ResultSet; executeUpdate returns an int (rows affected); execute returns a boolean indicating the result type",
+      "execute is for stored procedures only; the others are for standard SQL",
+      "executeUpdate is used to upgrade the JDBC driver version"
+    ],
+    answer: 1,
+    explanation: "executeQuery is for SELECT statements. executeUpdate is for DML (INSERT/UPDATE/DELETE). execute is a general-purpose method that can handle both, returning true if the first result is a ResultSet."
+  },
+  {
+    id: 303,
+    difficulty: "hard",
+    category: "Spring Core",
+    question: "What happens by default when a 'Prototype' scoped bean is injected into a 'Singleton' scoped bean?",
+    options: [
+      "A new instance of the Prototype bean is created every time it is used",
+      "The Prototype bean behaves like a Singleton because it is only injected once during the Singleton's initialization",
+      "Spring throws a BeanCreationException due to scope mismatch",
+      "The Singleton bean is automatically converted to Prototype scope"
+    ],
+    answer: 1,
+    explanation: "Because the Singleton bean is instantiated only once, the injection occurs only once. To get a fresh Prototype instance every time, you must use @Lookup or ObjectProvider."
+  },
+  {
+    id: 304,
+    difficulty: "medium",
+    category: "Spring Core",
+    question: "In the Spring Bean Lifecycle, which methods are called immediately before '@PostConstruct'?",
+    options: [
+      "The destroy() method",
+      "The Aware interfaces (e.g., BeanNameAware, BeanFactoryAware)",
+      "The custom init-method defined in XML",
+      "The Garbage Collector"
+    ],
+    answer: 1,
+    explanation: "Aware interfaces are used to 'inform' the bean about its environment and are executed after dependency injection but before any initialization methods like @PostConstruct."
+  },
+  {
+    id: 305,
+    difficulty: "hard",
+    category: "ORM/Hibernate",
+    question: "What is the primary difference between Hibernate's First Level Cache (L1) and Second Level Cache (L2)?",
+    options: [
+      "L1 is for primitive types; L2 is for Object types",
+      "L1 is session-scoped and mandatory; L2 is session-factory scoped and shared across sessions",
+      "L2 is faster because it is stored in the database",
+      "L1 is managed by the developer; L2 is managed by the OS"
+    ],
+    answer: 1,
+    explanation: "L1 cache is local to a specific Session. L2 cache is a global cache for the application (e.g., Ehcache/Redis) and reduces database hits for frequently read data across different sessions."
+  },
+  {
+    id: 306,
+    difficulty: "medium",
+    category: "Spring Boot",
+    question: "What is the requirement for the @Async annotation to work in a Spring Boot application?",
+    options: [
+      "You must add @EnableAsync to a configuration class",
+      "It works automatically with no configuration",
+      "It only works with private methods",
+      "The method must return a String"
+    ],
+    answer: 0,
+    explanation: "@EnableAsync is required to detect the @Async annotation and trigger the creation of a proxy to run the method in a separate thread."
+  },
+  {
+    id: 307,
+    difficulty: "hard",
+    category: "Microservices",
+    question: "When using '@Async' in Spring Boot, what is a common pitfall regarding 'Self-Invocation'?",
+    options: [
+      "It causes a stack overflow",
+      "Calling an @Async method from within the same class bypasses the proxy, meaning the method runs synchronously",
+      "It requires the method to be static",
+      "It only works with private methods"
+    ],
+    answer: 1,
+    explanation: "Spring uses AOP proxies for @Async. If you call the method from within the same class (this.method()), you bypass the proxy, and the task will not be executed in a separate thread."
+  },
+  {
+    id: 308,
+    difficulty: "medium",
+    category: "Spring Boot",
+    question: "What happens to the SecurityContext (authenticated user) when a method is called with @Async?",
+    options: [
+      "It is automatically copied to the new thread",
+      "It is lost because the new thread has its own context, unless specifically configured to propagate",
+      "The application crashes",
+      "The user is automatically logged out"
+    ],
+    answer: 1,
+    explanation: "Threads do not share ThreadLocal variables by default. To propagate security or tracing contexts, you must configure a specific TaskDecorator."
+  },
+  {
+    id: 309,
+    difficulty: "hard",
+    category: "Database",
+    question: "What is the 'Leftmost Prefix' rule for a composite index on (Column_A, Column_B, Column_C)?",
+    options: [
+      "The index can only be used if all three columns are in the WHERE clause",
+      "The index can optimize queries for (A), (A, B), or (A, B, C), but NOT for queries filtering only on (B) or (C)",
+      "The index only works if the columns are sorted alphabetically in the table",
+      "The index is used for the column with the longest name first"
+    ],
+    answer: 1,
+    explanation: "Composite indexes are ordered. A query must filter by the first column in the index for the database to use the index efficiently to find subsequent columns."
+  },
+  {
+    id: 310,
+    difficulty: "medium",
+    category: "Database",
+    question: "What is a 'Covering Index' and how does it improve performance?",
+    options: [
+      "It is an index that covers the primary key only",
+      "It is an index that contains all columns requested by a query, allowing the database to skip reading the actual table rows",
+      "It is an index that encrypts the data",
+      "It is an index that automatically updates all other indexes"
+    ],
+    answer: 1,
+    explanation: "If an index contains all fields needed for the SELECT and WHERE clauses, the database performs an 'Index-Only Scan,' which avoids expensive row fetches from the disk."
+  },
+  {
+    id: 311,
+    difficulty: "hard",
+    category: "Database",
+    question: "Why should you generally avoid creating an index on a column with 'Low Cardinality' (e.g., a boolean)?",
+    options: [
+      "It consumes too much RAM",
+      "The database engine often determines that a full table scan is more efficient than using a non-selective index",
+      "Low cardinality columns cannot be indexed in SQL",
+      "It causes the database to crash during high traffic"
+    ],
+    answer: 1,
+    explanation: "If a value appears in a large percentage of rows (like 50%), searching the index and then jumping to table pages is usually slower than just reading the whole table."
+  },
+  {
+    id: 312,
+    difficulty: "medium",
+    category: "JDBC",
+    question: "In JDBC, what is the purpose of 'Batch Processing'?",
+    options: [
+      "To run queries at a scheduled time at night",
+      "To group multiple SQL statements together and send them to the database in one network call",
+      "To backup the database automatically",
+      "To convert SQL queries into JSON"
+    ],
+    answer: 1,
+    explanation: "Batch processing (addBatch/executeBatch) allows sending multiple operations in one network round-trip, drastically increasing performance for bulk inserts/updates."
+  },
+  {
+    id: 313,
+    difficulty: "hard",
+    category: "ORM/Hibernate",
+    question: "Which Transaction Propagation type ensures a method always runs in a new transaction, suspending the existing one?",
+    options: [
+      "PROPAGATION_REQUIRED",
+      "PROPAGATION_REQUIRES_NEW",
+      "PROPAGATION_MANDATORY",
+      "PROPAGATION_NESTED"
+    ],
+    answer: 1,
+    explanation: "REQUIRES_NEW starts a new, independent transaction. If the inner transaction fails, it can be handled without necessarily rolling back the outer transaction."
+  },
+  {
+    id: 314,
+    difficulty: "medium",
+    category: "Microservices",
+    question: "What is 'Eventual Consistency' in the context of asynchronous microservices?",
+    options: [
+      "The system will never be consistent",
+      "Data across services will eventually become consistent after some time, rather than being updated instantly",
+      "All databases are updated at the exact same microsecond",
+      "It is a bug in the system"
+    ],
+    answer: 1,
+    explanation: "In distributed systems, we trade immediate consistency (ACID) for availability. Services sync up via events, leading to a small delay where data might be briefly inconsistent."
+  },
+  {
+    id: 315,
+    difficulty: "hard",
+    category: "Microservices",
+    question: "In asynchronous communication, how does the 'Transactional Outbox' pattern ensure reliability?",
+    options: [
+      "By sending the message to Kafka before saving to the database",
+      "By saving the event in a local database table as part of the same transaction as the business logic",
+      "By using only synchronous REST calls",
+      "By encrypting the message broker"
+    ],
+    answer: 1,
+    explanation: "It ensures atomicity: either both business data and the event are saved, or neither is. A separate relayer then publishes messages from the outbox table to the broker."
+  },
 ];
