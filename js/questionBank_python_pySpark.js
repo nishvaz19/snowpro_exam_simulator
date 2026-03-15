@@ -4691,8 +4691,236 @@ PYTHON & GENERAL DE SCENARIOS (IDs 366 - 403)
   ],
   answer: 1,
   explanation: "Cluster mode is preferred for production as it ensures the Driver has high availability and doesn't rely on your local machine's connectivity."
-} 
-
+},
+/* ======================================================
+     PYTHON CORE & ADVANCED IDIOMS (contd.)
+     Topics: Comprehensions, Walrus Operator, OOP, Scoping
+     ====================================================== */
+  {
+    id: 404,
+    difficulty: "medium",
+    category: "python_core",
+    question: "What is the primary difference between the 'is' operator and the '==' operator?",
+    options: [
+      "They are identical and can be used interchangeably",
+      "'is' checks for identity (same memory address), while '==' checks for equality (same value)",
+      "'==' checks for identity, while 'is' checks for value",
+      "'is' is used for strings and '==' is used for numbers"
+    ],
+    answer: 1,
+    explanation: "The 'is' operator checks if two variables point to the same object in memory (id()), whereas '==' checks if the values held by the variables are equal.",
+    hint: "Identity vs. Equality."
+  },
+  {
+    id: 405,
+    difficulty: "hard",
+    category: "comprehensions",
+    question: "Which of the following is the correct 'Pythonic' one-liner to flatten a nested list like [[1, 2], [3, 4]]?",
+    options: [
+      "[x for x in sublist for sublist in nested_list]",
+      "[x for sublist in nested_list for x in sublist]",
+      "nested_list.flatten()",
+      "[sublist[x] for x in nested_list]"
+    ],
+    answer: 1,
+    explanation: "In a nested list comprehension, the outer loop comes first. The syntax follows: [item for sublist in main_list for item in sublist].",
+    hint: "Outer loop first, then inner loop."
+  },
+  {
+    id: 406,
+    difficulty: "medium",
+    category: "python_core",
+    question: "What does the Walrus operator (:=) introduced in Python 3.8 allow you to do?",
+    options: [
+      "Assign a value to a variable as part of an expression",
+      "Perform floor division and assignment simultaneously",
+      "Create a new class instance in one line",
+      "Compare two values and return the larger one"
+    ],
+    answer: 0,
+    explanation: "The Walrus operator (Assignment Expression) allows you to assign a value to a variable within an expression, such as in a 'while' loop condition or a list comprehension.",
+    hint: "Assignment within an expression."
+  },
+  {
+    id: 407,
+    difficulty: "hard",
+    category: "oop",
+    question: "In Python OOP, what is the main difference between @classmethod and @staticmethod?",
+    options: [
+      "There is no functional difference",
+      "@classmethod takes 'cls' as the first argument to access class state; @staticmethod takes no implicit first argument",
+      "@staticmethod can modify class state, while @classmethod cannot",
+      "@classmethod is only for private methods"
+    ],
+    answer: 1,
+    explanation: "@classmethod is bound to the class and receives the class as an implicit first argument (cls), making it useful for factory methods. @staticmethod is not bound to the class or instance.",
+    hint: "Does it need 'cls' or not?"
+  },
+  {
+    id: 408,
+    difficulty: "medium",
+    category: "python_core",
+    question: "What is the 'LEGB' rule in Python?",
+    options: [
+      "A list manipulation technique",
+      "The order in which Python searches for variable names: Local, Enclosing, Global, Built-in",
+      "A rule for naming classes and functions",
+      "A library for data encryption"
+    ],
+    answer: 1,
+    explanation: "LEGB defines the scope resolution order. Python first looks locally, then in any enclosing functions, then in the global scope, and finally in built-ins.",
+    hint: "Scope resolution order."
+  },
+  {
+    id: 409,
+    difficulty: "easy",
+    category: "pythonic",
+    question: "What is the most 'Pythonic' way to swap the values of two variables 'a' and 'b'?",
+    options: [
+      "temp = a; a = b; b = temp",
+      "a, b = b, a",
+      "a = a + b; b = a - b; a = a - b",
+      "swap(a, b)"
+    ],
+    answer: 1,
+    explanation: "Python allows tuple unpacking, which makes variable swapping a clean one-liner without the need for a temporary variable.",
+    hint: "No temp variable needed."
+  },
+  {
+    id: 410,
+    difficulty: "medium",
+    category: "python_core",
+    question: "Which function would you use to find the key associated with the maximum value in a dictionary 'd'?",
+    options: [
+      "max(d)",
+      "max(d.values())",
+      "max(d, key=d.get)",
+      "d.max_key()"
+    ],
+    answer: 2,
+    explanation: "Using max(d) alone only compares the keys. Passing 'key=d.get' tells the max function to evaluate the dictionary keys based on their corresponding values.",
+    hint: "Use the 'key' argument."
+  },
+  {
+    id: 411,
+    difficulty: "hard",
+    category: "oop",
+    question: "What is the difference between __init__ and __new__ in a Python class?",
+    options: [
+      "__init__ creates the instance; __new__ initializes it",
+      "__new__ is the actual constructor that creates the instance; __init__ is the initializer that sets attributes",
+      "They are two names for the same function",
+      "__new__ is only used in Python 2"
+    ],
+    answer: 1,
+    explanation: "__new__ is a static method that creates a new instance of a class. __init__ is called after the instance is created to initialize its state.",
+    hint: "Creator vs. Initializer."
+  },
+  {
+    id: 412,
+    difficulty: "medium",
+    category: "pythonic",
+    question: "How can you reverse a string 's' using slicing?",
+    options: [
+      "s[0:-1]",
+      "s[::-1]",
+      "s.reverse()",
+      "s[-1:0]"
+    ],
+    answer: 1,
+    explanation: "The slice syntax [start:stop:step] with a step of -1 effectively reverses the sequence.",
+    hint: "Use the step parameter."
+  },
+  {
+    id: 413,
+    difficulty: "hard",
+    category: "python_core",
+    question: "How does Python's memory management primarily handle object deletion?",
+    options: [
+      "Manual deletion by the programmer",
+      "Reference counting and a cyclic garbage collector",
+      "It never deletes objects during execution",
+      "Using a 'First-In-First-Out' stack"
+    ],
+    answer: 1,
+    explanation: "Python primarily uses reference counting to track objects. When an object's reference count drops to zero, it is deallocated. It also uses a cyclic garbage collector to find groups of objects that reference each other but are unreachable.",
+    hint: "Counting references."
+  },
+  {
+    id: 414,
+    difficulty: "medium",
+    category: "python_core",
+    question: "What is the purpose of the 'with' statement when opening a file?",
+    options: [
+      "To improve the speed of reading the file",
+      "To automatically close the file even if an exception occurs",
+      "To encrypt the file content",
+      "To allow multiple threads to read the file"
+    ],
+    answer: 1,
+    explanation: "The 'with' statement utilizes context managers to ensure resources like file streams are properly closed after the block is executed, preventing memory leaks.",
+    hint: "Context management."
+  },
+  {
+    id: 415,
+    difficulty: "hard",
+    category: "oop",
+    question: "What is the main advantage of using a '@dataclass' (introduced in Python 3.7)?",
+    options: [
+      "It makes the class run faster",
+      "It automatically generates special methods like __init__, __repr__, and __eq__ based on type hints",
+      "It prevents the class from being inherited",
+      "It allows the class to be used as a function"
+    ],
+    answer: 1,
+    explanation: "Dataclasses reduce boilerplate code by automatically creating common methods that deal with object state and representation.",
+    hint: "Boilerplate reduction."
+  },
+  {
+    id: 416,
+    difficulty: "medium",
+    category: "pythonic",
+    question: "Which one-liner correctly merges two dictionaries 'd1' and 'd2' in Python 3.5+?",
+    options: [
+      "d3 = d1 + d2",
+      "d3 = {**d1, **d2}",
+      "d3 = d1.join(d2)",
+      "d3 = [d1, d2]"
+    ],
+    answer: 1,
+    explanation: "Using the double-asterisk 'unpacking' operator inside a dictionary literal is a common way to merge dictionaries, with d2's keys overwriting d1's in case of duplicates.",
+    hint: "Dictionary unpacking."
+  },
+  {
+    id: 417,
+    difficulty: "medium",
+    category: "python_core",
+    question: "When should you use 'isinstance(obj, ClassName)' instead of 'type(obj) == ClassName'?",
+    options: [
+      "Always, as they are identical",
+      "When you want to support inheritance (isinstance returns True for subclasses)",
+      "When performance is more important than accuracy",
+      "Only when working with built-in types"
+    ],
+    answer: 1,
+    explanation: "isinstance() accounts for inheritance, whereas checking the type directly only returns True if the object is exactly that class.",
+    hint: "Think about subclasses."
+  },
+  {
+    id: 418,
+    difficulty: "medium",
+    category: "python_core",
+    question: "What is the difference between __str__ and __repr__?",
+    options: [
+      "__str__ is for developers; __repr__ is for users",
+      "__str__ is intended for an informal, readable string for users; __repr__ is for a formal, unambiguous representation for debugging",
+      "__str__ is required; __repr__ is optional",
+      "There is no difference"
+    ],
+    answer: 1,
+    explanation: "__str__ is what the print() function uses, while __repr__ is what you see when you inspect the object in a console (aiming for string that could recreate the object).",
+    hint: "User-friendly vs. Developer-friendly."
+  },  
 ];
 
 
