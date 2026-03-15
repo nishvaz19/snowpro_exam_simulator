@@ -4016,5 +4016,5 @@ const questionBank = [
     ],
     answer: 1,
     explanation: "A HashMap provides O(1) lookup, and a Doubly Linked List allows O(1) removal and addition of elements to track the order of access."
-  } 
+  }, 
 ];
