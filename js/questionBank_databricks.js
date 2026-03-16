@@ -5563,6 +5563,145 @@ WORKFLOWS: CONFIG-DRIVEN BRANCHING & DYNAMIC JOBS (350 - 351)
   answer: 1,
   explanation: "The 'Run Job' task type allows you to trigger another existing job. You can parameterize that child job by passing values from the current run using dynamic value references (double curly braces).",
   hint: "Run Job task with dynamic references."
-},   
+},
+/* ======================================================
+ADVANCED DATA ARCHITECTURE & MODELLING
+====================================================== */
+
+{
+  id: 352,
+  difficulty: "hard",
+  category: "data_modelling",
+  question: "In a complex financial system, you encounter a 'Many-to-Many' relationship between Accounts and Customers that must be tracked historically. What is the most robust modelling technique to handle this in a Star Schema?",
+  options: [
+    "Add a multi-valued field in the Account dimension",
+    "Create a Factless Fact table (Bridge Table) with effective date ranges",
+    "Flatten the dimension and duplicate account rows for every customer",
+    "Force the relationship into a 1-to-Many by selecting the primary customer only"
+  ],
+  answer: 1,
+  explanation: "A Bridge table (Factless Fact) allows for many-to-many relationships while maintaining Star Schema integrity. Adding date ranges to the bridge table allows for 'point-in-time' snapshots of which customers owned which accounts.",
+  hint: "Think about the 'Kimball' approach to many-to-many relationships."
+},
+{
+  id: 353,
+  difficulty: "hard",
+  category: "architecture",
+  question: "You are designing an Enterprise Data Warehouse (EDW) that must integrate data from 10 different business units. To ensure cross-departmental reporting is accurate, which concept is most critical to implement?",
+  options: [
+    "Shared Staging Areas",
+    "Conformed Dimensions",
+    "Database Mirroring",
+    "Materialized Views"
+  ],
+  answer: 1,
+  explanation: "Conformed dimensions (like a standard 'Date' or 'Product' dimension used by all departments) are the 'bus' of the data warehouse. They allow for 'drilling across' facts from different business processes.",
+  hint: "It's the 'glue' that makes different Fact tables talk to each other."
+},
+
+/* ======================================================
+DATABASE PERFORMANCE & OPTIMIZATION (ORACLE/MSSQL)
+====================================================== */
+
+{
+  id: 354,
+  difficulty: "hard",
+  category: "database_performance",
+  question: "On a high-traffic SQL Server (MSSQL) instance, you notice 'PAGELATCH_EX' waits on the system's tempdb. As a Lead Engineer, which configuration change would you first investigate to resolve this bottleneck?",
+  options: [
+    "Adding more RAM to the server",
+    "Increasing the number of tempdb data files to match the logical core count (up to 8)",
+    "Changing all tables to HEAP tables",
+    "Disabling all non-clustered indexes"
+  ],
+  answer: 1,
+  explanation: "PAGELATCH_EX in tempdb is often caused by metadata contention. Creating multiple data files for tempdb reduces allocation contention by spreading the load across multiple GAM/PFS pages.",
+  hint: "It's a classic SQL Server scale-out configuration for internal system databases."
+},
+{
+  id: 355,
+  difficulty: "hard",
+  category: "database_performance",
+  question: "In an Oracle environment, a critical batch job has suddenly slowed down. You check the AWR (Automatic Workload Repository) report and see high 'db file sequential read' waits. What does this usually indicate?",
+  options: [
+    "Excessive Full Table Scans",
+    "Slow physical I/O for single-block reads (likely via an index)",
+    "Contention for the Library Cache",
+    "Network latency between the app and the database"
+  ],
+  answer: 1,
+  explanation: "A 'db file sequential read' wait indicates that the process is waiting for a single-block I/O, which is the signature of an index seek. High waits suggest either a fragmented index or the disk subsystem is struggling.",
+  hint: "Don't be fooled by 'sequential'; in Oracle, this means single-block/random I/O."
+},
+
+/* ======================================================
+ETL / ELT ENGINEERING (ADF, SSIS, LOGGING)
+===================================================== */
+
+{
+  id: 356,
+  difficulty: "medium",
+  category: "etl_engineering",
+  question: "When designing an ETL pipeline for a fact table, you encounter 'Late Arriving Dimensions' (the fact record arrives before the dimension member is created). What is the best architectural pattern to handle this?",
+  options: [
+    "Reject the fact record and log it as an error",
+    "Wait/Pause the pipeline until the dimension source is updated",
+    "Create a 'Placeholder/Inferred' member in the dimension table and update it later",
+    "Hardcode the dimension key to 0 (Unknown) and never update it"
+  ],
+  answer: 2,
+  explanation: "Inferred members allow the fact to be loaded immediately without losing data. When the actual dimension data arrives, the record is updated with the correct attributes, maintaining referential integrity.",
+  hint: "Kimball refers to this as 'Inferred Members'."
+},
+{
+  id: 357,
+  difficulty: "hard",
+  category: "etl_engineering",
+  question: "In Azure Data Factory (ADF), you need to ensure that a sensitive API Key used in a Web Activity is not visible in the execution logs or the ADF portal monitoring. Which setting must be enabled?",
+  options: [
+    "Secure Input and Secure Output",
+    "Managed Identity Authentication",
+    "Data Flow Staging",
+    "Encrypted Delivery"
+  ],
+  answer: 0,
+  explanation: "Checking 'Secure Input' and 'Secure Output' on an activity ensures that the values passed to and from the activity are masked with asterisks in all logs and monitoring views.",
+  hint: "It's a checkbox in the Activity's 'General' settings tab."
+},
+
+/* ======================================================
+LEADERSHIP & DATA GOVERNANCE
+====================================================== */
+
+{
+  id: 358,
+  difficulty: "hard",
+  category: "leadership",
+  question: "As a Lead Architect, you are tasked with reducing 'Technical Debt' in a legacy ETL system. Which strategy provides the highest long-term ROI for the engineering team?",
+  options: [
+    "Rewriting the entire system in a newer programming language",
+    "Implementing automated Data Quality tests and CI/CD pipelines",
+    "Hiring more junior developers to manually check data",
+    "Moving all logic into the visualization layer (Power BI/Tableau)"
+  ],
+  answer: 1,
+  explanation: "Automated testing and CI/CD reduce the cost of change and prevent regressions. This allows the team to refactor safely, which is the core of managing technical debt.",
+  hint: "Focus on 'Automation' and 'Safety'."
+},
+{
+  id: 359,
+  difficulty: "hard",
+  category: "governance",
+  question: "A global organization requires that users in the UK see only UK sales data, while users in the US see only US sales data, using a single dashboard. What is the most scalable way to implement this?",
+  options: [
+    "Create separate databases for each country",
+    "Implement Row-Level Security (RLS) using a mapping table and user sessions",
+    "Hardcode filters into the dashboard for each user",
+    "Export data to separate Excel files and email them"
+  ],
+  answer: 1,
+  explanation: "Row-Level Security (RLS) filters data at the database level based on the user's identity. This ensures security is maintained regardless of which tool is used to access the data.",
+  hint: "Filter the 'Rows', not the 'Tables'."
+},
 ];  
 
