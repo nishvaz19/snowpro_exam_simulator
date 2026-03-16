@@ -316,8 +316,9 @@ const dbKeywords = [
   {word:"Secret Scopes",freq:3,domain:"security",desc:"Secure containers for sensitive credentials like API keys or S3 tokens"},
   {word:"Databricks Lakehouse",freq:5,domain:"arch",desc:"Unified platform combining data lake and warehouse"},
   {word:"Serverless SQL",freq:4,domain:"arch",desc:"Instant, elastic compute for SQL workloads without cluster management"},
-  {word:"Row Level",freq:3,domain:"governance",desc:"Restricts rows based on user identity policies"},
-  {word:"Column Level",freq:3,domain:"governance",desc:"Controls access to sensitive data columns"},
+  {word:"feature",freq:4,domain:"arch",desc:"features"},
+  {word:"Row",freq:3,domain:"governance",desc:"Restricts rows based on user identity policies"},
+  {word:"Column",freq:3,domain:"governance",desc:"Controls access to sensitive data columns"},
   {word:"System Tables",freq:3,domain:"governance",desc:"Operational metadata for billing and audit usage"},
 
   // --- Streaming & Ingestion ---
@@ -326,12 +327,12 @@ const dbKeywords = [
   {word:"Auto Loader",freq:4,domain:"streaming",desc:"Efficiently processes new files in cloud storage with schema inference"},
   {word:"DLT",freq:5,domain:"streaming",desc:"Delta Live Tables - Declarative framework for building reliable data pipelines with quality constraints"},
   {word:"Checkpointing",freq:3,domain:"streaming",desc:"Saving state and offset to cloud storage for fault recovery"},
-  {word:"Idempotency",freq:3,domain:"streaming",desc:"Ensuring a retry of a process produces the same result without duplicates"},
+  //{word:"Idempotency",freq:3,domain:"streaming",desc:"Ensuring a retry of a process produces the same result without duplicates"},
   {word:"Processing",freq:2,domain:"streaming",desc:"Processing: Exactly once - Guarantees each record is processed exactly once"},
   
   // --- Machine Learning ---
   {word:"MLflow",freq:5,domain:"ml",desc:"Open-source platform for the ML lifecycle"},
-  {word:"Feature Store",freq:3,domain:"ml",desc:"Centralized repository for discoverable ML features"},
+  // {word:"Feature Store",freq:3,domain:"ml",desc:"Centralized repository for discoverable ML features"},
   {word:"Model Registry",freq:4,domain:"ml",desc:"Centralized model store with versioning and stage transitions"},
   {word:"Mosaic AI",freq:4,domain:"ml",desc:"Unified tools for building and deploying GenAI"},
   {word:"Vector Search",freq:3,domain:"ml",desc:"Integrated vector DB for RAG applications"},
@@ -354,6 +355,7 @@ const dbKeywords = [
   {word:"Executor",freq:3,domain:"spark",desc:"Worker processes executing individual tasks"},
   {word:"Lazy",freq:2,domain:"spark",desc:"Defers execution until an action is triggered"},
   {word:"Execution",freq:3,domain:"spark",desc:"execution stages"}, 
+  {word:"cost", freq:3, domain:"spark", desc:"cost optimization"},
    // {word:"Tungsten",freq:3,domain:"spark",desc:"Spark Execution engine: Memory management and code generation engine"},
 ];    
 
@@ -388,7 +390,8 @@ const aiKeywords = [
   {word:"Fine-Tuning", freq:4, domain:"optim", desc:"Specializing a model on a domain-specific dataset"},
   {word:"Speculative Decoding", freq:3, domain:"optim", desc:"Using a small model to draft tokens for a larger model to verify"},
   {word:"Chunking", freq:3, domain:"rag", desc:"How documents are split (Recursive, Semantic, Fixed) for RAG"},
-  {word:"Routing", freq:3, domain:"ops", desc:"Directing queries to cheaper or smarter models based on complexity"}
+  {word:"Routing", freq:3, domain:"ops", desc:"Directing queries to cheaper or smarter models based on complexity"},
+  {word:"cost", freq:3, domain:"cost", desc:"cost optimization"},  
 ];
 const awsKeywords = [
   {word:"Nitro", freq:5, domain:"aws-core", desc:"Underlying hardware acceleration for instances"},
@@ -425,7 +428,8 @@ const awsKeywords = [
   {word:"Lake Formation", freq:4, domain:"aws-data", desc:"Service to set up a secure data lake in days"},
   {word:"Secrets Manager", freq:4, domain:"aws-sec", desc:"Rotate, manage, and retrieve database credentials and API keys"},
   {word:"SageMaker", freq:4, domain:"aws-ml", desc:"Fully managed machine learning service"},
-  {word:"EKS", freq:5, domain:"aws-core", desc:"Elastic Kubernetes Service: Managed K8s on AWS"}
+  {word:"EKS", freq:5, domain:"aws-core", desc:"Elastic Kubernetes Service: Managed K8s on AWS"},
+  {word:"cost", freq:3, domain:"aws-cost", desc:"cost optimization"},
 ];
     
 const azKeywords = [
@@ -458,7 +462,8 @@ const azKeywords = [
   {word:"ADLS", freq:5, domain:"az-data", desc:"Azure Data Lake Storage Gen2: Hierarchical storage for analytics"},
   {word:"Sentinel", freq:4, domain:"az-security", desc:"Cloud-native SIEM and SOAR for intelligent security analytics"},
   {word:"Log Analytics", freq:5, domain:"az-gov", desc:"Tool to edit and run log queries for Azure Monitor data"},
-  {word:"Container Apps", freq:4, domain:"az-compute", desc:"Serverless containers for microservices and jobs"}
+  {word:"Container Apps", freq:4, domain:"az-compute", desc:"Serverless containers for microservices and jobs"},
+  {word:"cost", freq:3, domain:"az-cost", desc:"cost optimization"},
 ];
 
 const mgKeywords = [
@@ -473,7 +478,8 @@ const mgKeywords = [
   {word:"connect", freq:4, domain:"mg-crud", desc:"stats for mongo connection"},
   {word:"GridFS", freq:2, domain:"mg-arch", desc:"Storing large files > 16MB"},
   {word:"Compound Index", freq:3, domain:"mg-perf", desc:"Index on multiple fields"},
-  {word:"WiredTiger", freq:3, domain:"mg-arch", desc:"Default storage engine"}
+  {word:"WiredTiger", freq:3, domain:"mg-arch", desc:"Default storage engine"},
+  {word:"cost", freq:3, domain:"mg-cost", desc:"cost optimization"},  
 ];
 
 const rKeywords = [
@@ -488,7 +494,8 @@ const rKeywords = [
   {word:"Props", freq:5, domain:"r-core", desc:"Properties passed to components"},
   {word:"responsive", freq:3, domain:"r-perf", desc:"Standard @media queries in CSS are the primary method for applying different styles based on screen size (e.g., min-width, max-width)."},
   {word:"SSR", freq:3, domain:"r-core", desc:"Server-Side Rendering (Next.js)"},
-  {word:"Custom Hooks", freq:4, domain:"r-hooks", desc:"Reusable logic functions"}
+  {word:"Custom Hooks", freq:4, domain:"r-hooks", desc:"Reusable logic functions"},
+  {word:"cost", freq:3, domain:"r-cost", desc:"cost optimization"},  
 ];
     const snKeywords = [
   {word:"Micro-partitions", freq:5, domain:"sn-storage", desc:"Immutable storage units in Snowflake"},
@@ -501,7 +508,8 @@ const rKeywords = [
   {word:"Secure Data Sharing", freq:4, domain:"sn-services", desc:"Sharing data without moving or copying it"},
   {word:"cost", freq:3, domain:"sn-compute", desc:"cost optimization"},
   {word:"history", freq:3, domain:"sn-compute", desc:"history tables"},
-  {word:"Search Optimization", freq:4, domain:"sn-services", desc:"Speeds up point lookup queries"}
+  {word:"Search Optimization", freq:4, domain:"sn-services", desc:"Speeds up point lookup queries"},
+  {word:"cost", freq:3, domain:"sn-cost", desc:"cost optimization"},      
 ];
 
 const kfKeywords = [
@@ -514,7 +522,8 @@ const kfKeywords = [
   {word:"KSQLDB", freq:4, domain:"kf-stream", desc:"Streaming SQL engine for Kafka"},
   {word:"Kafka Streams", freq:4, domain:"kf-stream", desc:"Client library for building stream processing apps"},
   {word:"Schema Registry", freq:5, domain:"kf-connect", desc:"Centralized management of Avro/JSON schemas"},
-  {word:"Replication Factor", freq:3, domain:"kf-ops", desc:"Number of copies of data for fault tolerance"}
+  {word:"Replication Factor", freq:3, domain:"kf-ops", desc:"Number of copies of data for fault tolerance"},
+  {word:"cost", freq:3, domain:"kf-cost", desc:"cost optimization"},  
 ];
 
 const dataArchitectKeywords = [
@@ -537,7 +546,8 @@ const dataArchitectKeywords = [
 {word:"Partitioning", freq:5, domain:"performance", desc:"Splitting large tables for performance"},
 {word:"Columnar Storage", freq:4, domain:"performance", desc:"Column-oriented storage for analytics"},
 {word:"Analytics", freq:4, domain:"analytics", desc:"Streaming based analytics processing"},
-{word:"Petabyte", freq:5, domain:"scale", desc:"Data platforms operating at PB scale"}
+{word:"Petabyte", freq:5, domain:"scale", desc:"Data platforms operating at PB scale"},
+{word:"cost", freq:3, domain:"cost", desc:"cost optimization"},
 ];
 
     // --- LOGIC ---
