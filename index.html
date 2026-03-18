@@ -59,6 +59,14 @@
 .az-data { background: #0078D4; } 
 .aws-core { background: #E67E22; color: white !important; } /* Darker Orange */
 .cost { background: #4682B6; }  /* Deeper Sky Blue */
+
+/* EA Cloud Domains - Professional Slate & Navy */
+.ea-strategy { background: #0f172a; } /* Slate 950 */
+.ea-governance { background: #1e293b; } /* Slate 800 */
+.ea-framework { background: #334155; } /* Slate 700 */
+.ea-business { background: #475569; } /* Slate 600 */
+.ea-technical { background: #1e40af; } /* Blue 800 */
+.ea-security { background: #111827; } /* Gray 900 */        
      
         /* Selector Card */
         .exam-selector-card {
@@ -289,7 +297,14 @@
         <span class="da-governance">Governance</span>
         <span class="da-analytics">Analytics</span>
     </div>
-</div>       
+</div>   
+<div class="card">
+    <div class="card-header">
+        <h2>Enterprise Architecture</h2>
+        <input type="text" id="eaSearch" placeholder="Search EA keywords...">
+    </div>
+    <div id="eaCloud" class="cloud-container"></div>
+</div>   
 <div style="background: white; padding: 25px; border-radius: 12px; text-align: center;">
         <h2>Snowflake Architecture</h2>
         <img src="assets/snowflake_architecture.png" alt="Snowflake Architecture">
@@ -520,7 +535,8 @@ const rKeywords = [
   {word:"Custom Hooks", freq:4, domain:"r-hooks", desc:"Reusable logic functions"},
   {word:"cost", freq:3, domain:"r-cost", desc:"cost optimization"},  
 ];
-    const snKeywords = [
+    
+const snKeywords = [
   {word:"Micro-partitions", freq:5, domain:"sn-storage", desc:"Immutable storage units in Snowflake"},
   {word:"Zero-copy", freq:5, domain:"sn-core", desc:"Zero-copy clone: Snapshot data without doubling storage costs"},
   {word:"Virtual Warehouse", freq:5, domain:"sn-compute", desc:"Independent compute resources (MPP clusters)"},
@@ -572,7 +588,33 @@ const dataArchitectKeywords = [
 {word:"Petabyte", freq:5, domain:"scale", desc:"Data platforms operating at PB scale"},
 {word:"cost", freq:3, domain:"cost", desc:"cost optimization"},
 ];
-
+const eaKeywords = [
+    { word: "TOGAF", freq: 10, domain: "ea-framework" },
+    { word: "ADM", freq: 9, domain: "ea-framework" },
+    { word: "SABSA", freq: 7, domain: "ea-security" },
+    { word: "Governance", freq: 10, domain: "ea-governance" },
+    { word: "Stakeholder", freq: 8, domain: "ea-business" },
+    { word: "Roadmap", freq: 9, domain: "ea-strategy" },
+    { word: "Capability", freq: 8, domain: "ea-business" },
+    { word: "Microservices", freq: 7, domain: "ea-technical" },
+    { word: "Serverless", freq: 6, domain: "ea-technical" },
+    { word: "DevOps", freq: 7, domain: "ea-technical" },
+    { word: "TCO", freq: 6, domain: "ea-business" },
+    { word: "ROI", freq: 6, domain: "ea-business" },
+    { word: "Cloud-Native", freq: 8, domain: "ea-technical" },
+    { word: "Interoperability", freq: 7, domain: "ea-technical" },
+    { word: "Artifact", freq: 6, domain: "ea-framework" },
+    { word: "Taxonomy", freq: 5, domain: "ea-governance" },
+    { word: "Agility", freq: 8, domain: "ea-strategy" },
+    { word: "Scalability", freq: 7, domain: "ea-technical" },
+    { word: "Migration", freq: 7, domain: "ea-strategy" },
+    { word: "Archimate", freq: 6, domain: "ea-framework" },
+    { word: "Security", freq: 9, domain: "ea-security" },
+    { word: "Compliance", freq: 8, domain: "ea-governance" },
+    { word: "Middleware", freq: 6, domain: "ea-technical" },
+    { word: "Legacy", freq: 7, domain: "ea-strategy" },
+    { word:"cost", freq:3, domain:"ea-governance", },
+];
     // --- LOGIC ---
     function renderCloud(containerId, list, type) {
         const container = document.getElementById(containerId);
@@ -609,6 +651,7 @@ const dataArchitectKeywords = [
         renderCloud("kfCloud", kfKeywords, "kafka");
         // Render Data Architect Cloud
         renderCloud("daCloud", dataArchitectKeywords, "data_architect");
+        renderCloud("eaCloud", eaKeywords, "ea");
         // Search listeners
         const bindSearch = (id, cloudId, data, type) => {
             document.getElementById(id).addEventListener('keyup', e => {
@@ -626,6 +669,7 @@ const dataArchitectKeywords = [
         bindSearch("snSearch", "snCloud", snKeywords, "snowflake");
         bindSearch("kfSearch", "kfCloud", kfKeywords, "kafka");
         bindSearch("daSearch", "daCloud", dataArchitectKeywords, "data_architect");
+        bindSearch("eaSearch", "eaCloud", eaKeywords, "ea");
     });
 </script>
 </body>
