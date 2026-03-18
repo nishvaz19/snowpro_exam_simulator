@@ -61,9 +61,9 @@
 .cost { background: #4682B6; }  /* Deeper Sky Blue */
 
 /* EA Cloud Domains - Professional Slate & Navy */
-.ea-strategy { background: #0f172a; } /* Slate 950 */
+.ea-strategy { background: #2563EB; } /* Royal Blue */
 .ea-governance { background: #1e293b; } /* Slate 800 */
-.ea-framework { background: #334155; } /* Slate 700 */
+.ea-framework { background: #7C3AED; } /* Deep Violet */
 .ea-business { background: #475569; } /* Slate 600 */
 .ea-technical { background: #1e40af; } /* Blue 800 */
 .ea-security { background: #111827; } /* Gray 900 */        
@@ -661,7 +661,7 @@ const eaKeywords = [
         renderCloud("kfCloud", kfKeywords, "kafka");
         // Render Data Architect Cloud
         renderCloud("daCloud", dataArchitectKeywords, "data_architect");
-        renderCloud("eaCloud", eaKeywords, "ea");
+        renderCloud("eaCloud", eaKeywords, "EA");
         // Search listeners
         const bindSearch = (id, cloudId, data, type) => {
             document.getElementById(id).addEventListener('keyup', e => {
@@ -679,7 +679,7 @@ const eaKeywords = [
         bindSearch("snSearch", "snCloud", snKeywords, "snowflake");
         bindSearch("kfSearch", "kfCloud", kfKeywords, "kafka");
         bindSearch("daSearch", "daCloud", dataArchitectKeywords, "data_architect");
-        bindSearch("eaSearch", "eaCloud", eaKeywords, "ea");
+        bindSearch("eaSearch", "eaCloud", eaKeywords, "EA");
     });
 </script>
 </body>
