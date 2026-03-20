@@ -223,6 +223,7 @@
             <option value="data_architect">DataArchitect</option>
             <option value="enterprise_architect">EnterpriseArchitect</option>
             <option value="ai">AI & LLM Engineering</option> 
+            <option value="web3_blockchain">Web3 & BlockChain</option> 
         </select>
         <button class="btn-primary" onclick="launchExam()">Start Examination</button>
     </div>
@@ -328,6 +329,24 @@
         <span class="da-streaming">Streaming</span>
         <span class="da-governance">Governance</span>
         <span class="da-analytics">Analytics</span>
+    </div>
+</div>
+    
+<div id="web3_BlockChain-cloud" class="cloud-section" style="background:#f1f5f9; color: white;">
+    <h2 style="color:#29b5e8;">Web3 BlockChain Platform</h2>
+
+    <div class="search-box">
+        <input id="web3BlockChainSearch" placeholder="Search Web3, BlockChain, ...">
+    </div>
+
+    <div class="cloud-display" id="web3BlockChainCloud"></div>
+
+    <div class="legend">
+        <span class="architecture">Architecture</span>
+        <span class="data">Data</span>
+        <span class="security">Security</span>
+        <span class="component">Component</span>
+        <span class="compute">Compute</span>
     </div>
 </div>   
     
@@ -650,7 +669,11 @@ const typescriptNestjsKeywords = [
   { word: "Cypress", freq: 6, domain: "architecture", desc: "End-to-end testing for frontend workflows" },
   { word: "Mocks", freq: 5, domain: "architecture", desc: "Simulating dependencies for isolated tests" }
 ];
-
+    
+const web3BlockChainKeywords = [
+  { word: "Blockchain", freq: 10, domain: "architecture", desc: "Blockchain methodology" },
+];
+    
 const dataArchitectKeywords = [
 {word:"Lakehouse", freq:5, domain:"architecture", desc:"Unified architecture combining data lake and warehouse"},
 {word:"Medallion", freq:4, domain:"architecture", desc:"Bronze Silver Gold layered data architecture"},
@@ -743,6 +766,7 @@ const eaKeywords = [
         renderCloud("daCloud", dataArchitectKeywords, "data_architect");
         renderCloud("eaCloud", eaKeywords, "enterprise_architect");
         renderCloud("typescriptNestjsCloud", typescriptNestjsKeywords, "TypeScript_NestJS");
+        renderCloud("web3BlockChainCloud", web3BlockChainKeywords, "web3_BlockChain");
         // Search listeners
         const bindSearch = (id, cloudId, data, type) => {
             document.getElementById(id).addEventListener('keyup', e => {
@@ -762,6 +786,7 @@ const eaKeywords = [
         bindSearch("daSearch", "daCloud", dataArchitectKeywords, "data_architect");
         bindSearch("eaSearch", "eaCloud", eaKeywords, "enterprise_architect");
         bindSearch("typescriptNestjsSearch", "typescriptNestjsCloud", typescriptNestjsKeywords, "TypeScript_NestJS");
+        bindSearch("web3BlockChainSearch", "web3BlockChainCloud", web3BlockChainKeywords, "web3_BlockChain");
     });
 </script>
 </body>
