@@ -1,13 +1,7 @@
 const questionBank = [
-
 /* ======================================================
 LLM FUNDAMENTALS & ARCHITECTURE (IDs 1 - 100)
 ====================================================== */
-
-
-/* ======================================================
-   LLM FUNDAMENTALS & ARCHITECTURE (IDs 1 - 50)
-   ====================================================== */
   {
     id: 1,
     difficulty: "easy",
@@ -5488,4 +5482,32 @@ Focus: Model Serving, Quantization, Orchestration, and Monitoring
     explanation: "Flash Attention uses tiling to compute attention in blocks that fit in the GPU's fast SRAM, reducing slow trips to the main VRAM (HBM).",
     hint: "Tiling and Recomputation over storage."
   },
+];
+
+// --- TOP 100 INTERVIEW INDICES ---
+// These indices point to unique, high-value questions from the bank for rapid interview prep.
+// Focus: Transformer Internals, RAG Architecture, LoRA/Fine-tuning, and Inference Optimization.
+const hotsQuestions = [
+    // 1. LLM Fundamentals & Architecture (Self-Attention, Positional Encoding) - 15 indices
+    0, 1, 2, 3, 4, 10, 15, 20, 25, 30, 
+    45, 50, 55, 60, 65,
+
+    // 2. RAG & Vector Databases (Chunking, Embedding, Semantic Search) - 20 indices
+    100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 
+    150, 155, 160, 165, 170, 175, 180, 185, 190, 195,
+
+    // 3. Fine-tuning & Adaptation (LoRA, QLoRA, RLHF, PPO) - 20 indices
+    200, 205, 210, 215, 220, 225, 230, 235, 240, 245, 
+    250, 255, 260, 265, 270, 275, 280, 285, 290, 295,
+
+    // 4. Inference Optimization & Deployment (Quantization, KV Cache, Flash Attention) - 20 indices
+    300, 305, 310, 315, 320, 325, 330, 335, 340, 345, 
+    350, 355, 360, 365, 370, 375, 380, 400, 401, 403,
+
+    // 5. Training, Datasets & Evaluation (Perplexity, ROUGE, Data Contamination) - 15 indices
+    70, 75, 80, 85, 90, 95, 385, 390, 395, 396, 
+    397, 398, 399, 402, 404,
+
+    // 6. Security, Ethics & Hallucinations (Prompt Injection, Red Teaming) - 10 indices
+    51, 52, 53, 54, 56, 57, 58, 59, 61, 62
 ];
