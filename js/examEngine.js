@@ -26,6 +26,18 @@ function startExam() {
         return;
     }
 
+    // Detect the checkbox state from the new bordered container
+    const hotCheckbox = document.getElementById("hotToggle");
+    isHotMode = hotCheckbox && hotCheckbox.checked;
+
+    if (isHotMode) {
+        // Map the indices from the questionBank file
+        fullBank = hotsQuestions.map(idx => questionBank[idx]).filter(q => q !== undefined);
+        activeExamSize = Math.min(100, fullBank.length);
+        hintPersistent = true; 
+    } else {
+        // Standard adaptive/keyword logic
+
     // 1. Keyword Filtering Logic
     const searchInput = document.getElementById("keywordSearch");
     const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
@@ -49,6 +61,10 @@ function startExam() {
 
     // 2. Initialize and Shuffle
     fullBank = shuffleArray(fullBank);
+        // 4. Determine session size
+    // If search results are fewer than 500, cap the exam at that number
+    activeExamSize = Math.min(EXAM_SIZE, fullBank.length);
+    }
     
     // 3. Reset State
     examQuestions = [];
@@ -59,10 +75,6 @@ function startExam() {
     currentDifficulty = "easy";
     hintPersistent = false; 
     
-    // 4. Determine session size
-    // If search results are fewer than 500, cap the exam at that number
-    activeExamSize = Math.min(EXAM_SIZE, fullBank.length);
-
     // 5. Kick off
     pickNextAdaptiveQuestion();
     startTimer();
@@ -81,6 +93,19 @@ function shuffleArray(array) {
  * ADAPTIVE LOGIC
  */
 function pickNextAdaptiveQuestion() {
+    // OVERRIDE: Skip adaptive difficulty logic in Hot Mode
+    if (isHotMode) {
+        let pool = fullBank.filter(q => !usedQuestionIds.has(q.id));
+        if (pool.length > 0) {
+            const selectedQuestion = pool[0]; // Take next from shuffled hot list
+            examQuestions.push(selectedQuestion);
+            usedQuestionIds.add(selectedQuestion.id);
+        }
+        return;
+    }
+
+    // ... existing adaptive difficulty logic (currentDifficulty adjustments) ...
+    //
     if (current > 0) {
         const lastIndex = current - 1;
         const secondLastIndex = current - 2;
