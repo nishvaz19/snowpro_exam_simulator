@@ -2,7 +2,6 @@
    SQL CERTIFICATION QUESTION BANK (Batch 1: 1-50)
    Topics: Basic CRUD, Joins, Union, Intersection
    ====================================================== */
-
 const questionBank = [
   {
     id: 1,
@@ -3553,4 +3552,33 @@ const questionBank = [
     explanation: "The execution plan reveals if a query is performing full table scans or index seeks, which is critical for performance tuning.",
     hint: "The optimizer's roadmap."
   }
+];
+
+// --- TOP 100 INTERVIEW INDICES ---
+// These indices point to unique, high-value questions from the bank for rapid interview prep.
+// Focus: Window Functions, Performance Tuning, ACID Properties, and Advanced Joins.
+const hotsQuestions = [
+    // 1. Advanced Joins & Set Operations (Self Joins, Cross Joins, Full Outer) - 15 indices
+    1, 3, 5, 8, 12, 14, 18, 22, 24, 45, 
+    55, 62, 78, 81, 90,
+
+    // 2. Window Functions & Analytics (RANK, DENSE_RANK, LEAD/LAG, PARTITION BY) - 20 indices
+    260, 262, 263, 264, 265, 266, 267, 268, 269, 270, 
+    271, 272, 273, 274, 275, 276, 277, 278, 279, 280,
+
+    // 3. Subqueries, CTEs & Recursive Logic (Common Table Expressions) - 15 indices
+    110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 
+    160, 165, 170, 175, 180,
+
+    // 4. Performance Tuning & Indexing (Execution Plans, SARGability, Hints) - 20 indices
+    258, 259, 261, 200, 205, 210, 215, 220, 225, 230, 
+    235, 240, 245, 250, 251, 252, 253, 254, 255, 257,
+
+    // 5. Transactions, Locking & ACID (Isolation Levels, Deadlocks, NOLOCK) - 15 indices
+    185, 190, 195, 285, 290, 295, 300, 305, 310, 315, 
+    320, 325, 330, 335, 340,
+
+    // 6. Data Modeling & Constraints (Normalization, Triggers, Views) - 15 indices
+    95, 100, 105, 345, 350, 355, 360, 365, 370, 375, 
+    380, 385, 390, 395, 400
 ];
