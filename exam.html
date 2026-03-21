@@ -39,6 +39,35 @@
             cursor: pointer;
             font-weight: bold;
         }
+    .hot-selection-box {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 12px;
+        border: 1px solid #000; /* Black thin border */
+        border-radius: 4px;
+        background-color: #ffffff;
+        gap: 8px;
+        height: 38px; /* Matches typical dropdown height */
+        box-sizing: border-box;
+    }
+
+    .hot-selection-box label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+        color: #000;
+    }
+
+    .hot-selection-box input[type="checkbox"] {
+        cursor: pointer;
+        margin: 0;
+        width: 16px;
+        height: 16px;
+    }
     </style>
     <script src="js/examEngine.js"></script>
 </head>
@@ -56,10 +85,19 @@
                 </div>
             </div>
             
-            <div class="search-container">
-                <input type="text" id="keywordSearch" placeholder="Focus by keyword (e.g. Networking, Security)...">
-                <button class="btn-focus" onclick="startExam()">Apply Focus</button>
-            </div>
+            <div class="search-container" style="align-items: center; flex-wrap: wrap;">
+
+
+    <div class="hot-selection-box">
+        <label for="hotToggle">
+            <input type="checkbox" id="hotToggle" onchange="startExam()">
+            🔥 Top 100
+        </label>
+    </div>
+
+    <input type="text" id="keywordSearch" placeholder="Filter by keyword..." onkeyup="if(event.key==='Enter') startExam()">
+    <button class="btn-focus" onclick="startExam()">Apply Focus</button>
+</div>
         </div>
         <button class="btn-analytics" onclick="window.location.href='analytics.html'">📊 View Analytics</button>    
     </header>
