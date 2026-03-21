@@ -2,7 +2,6 @@
    .NET & C# MASTER QUESTION BANK (Batch 1/7)
    Topics: C# Language, .NET Core, Performance, Memory
    ====================================================== */
-
 const questionBank = [
   {
     id: 1,
@@ -5074,4 +5073,33 @@ const questionBank = [
     explanation: "It uses 'dependency inversion' to ensure that the core logic never depends on the database or the web framework.",
     hint: "Business logic is the center of the universe."
   },
+];
+
+// --- TOP 100 INTERVIEW INDICES ---
+// These indices point to unique, high-value questions from the bank for rapid interview prep.
+// Focus: Practical .NET Core Middleware, C# Memory Management, and EF Core Performance.
+const hotsQuestions = [
+    // 1. C# Language & Memory Management (Value vs Ref, Span<T>, GC) - 20 indices
+    0, 2, 4, 10, 15, 20, 25, 45, 50, 55, 
+    60, 65, 70, 75, 80, 85, 301, 325, 348, 349,
+
+    // 2. .NET Core & ASP.NET Core (DI, Middleware, Options Pattern) - 20 indices
+    1, 3, 5, 8, 9, 12, 13, 14, 110, 115, 
+    120, 125, 130, 135, 140, 145, 150, 155, 160, 165,
+
+    // 3. Concurrency & Asynchronous Programming (Async/Await, TPL) - 15 indices
+    21, 22, 23, 24, 26, 27, 28, 29, 31, 32, 
+    170, 175, 180, 185, 190,
+
+    // 4. Data Access & EF Core (Tracking, Migrations, Interceptors) - 15 indices
+    33, 34, 36, 37, 38, 39, 41, 42, 200, 210, 
+    220, 230, 240, 250, 260,
+
+    // 5. Performance, Security & Web API (JWT, CORS, Rate Limiting) - 15 indices
+    43, 44, 46, 47, 48, 49, 270, 275, 280, 285, 
+    290, 295, 300, 310, 315,
+
+    // 6. Architecture & Patterns (Clean Arch, SOLID, Microservices) - 15 indices
+    350, 330, 335, 340, 345, 100, 105, 90, 95, 51, 
+    52, 53, 54, 56, 57
 ];
