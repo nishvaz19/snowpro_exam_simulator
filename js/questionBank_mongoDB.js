@@ -3692,30 +3692,24 @@ const mongodbBatch7 = [
 questionBank.push(...mongodbBatch7);
 
 // --- TOP 100 INTERVIEW INDICES ---
-// These indices point to unique, high-value questions from the bank for rapid interview prep.
+// These 0-based indices point to unique, high-value questions from the bank for rapid interview prep.
 // Covering: CRUD, Aggregation, Indexing (ESR), Sharding, and Schema Design.
 const hotsQuestions = [
-    // 1. CRUD Operations & Query Logic (Projection, Upsert, Array Filters) - 15 indices
-    1, 2, 3, 4, 15, 20, 25, 30, 40, 45, 
-    278, 279, 280, 281, 283,
+    // 1. Fundamentals & Internal Architecture (BSON, Storage Engines) - 15 indices
+    0, 1, 2, 3, 4, 15, 20, 25, 30, 40, 45, 142, 232, 233, 240,
 
-    // 2. Aggregation Framework (Pipeline Stages, Expressions) - 20 indices
-    5, 6, 7, 50, 55, 60, 65, 70, 75, 80, 
-    85, 90, 95, 100, 105, 110, 115, 120, 125, 130,
+    // 2. Aggregation Framework (Pipeline Stages, Expressions, Performance) - 25 indices
+    // Focuses on $unwind, $group, $match, and array filtering
+    5, 6, 7, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 131, 132, 133, 134, 140,
 
-    // 3. Indexing Strategies & Performance (ESR Rule, Compound, Covered) - 20 indices
-    8, 9, 10, 135, 140, 145, 150, 155, 160, 165, 
-    170, 175, 180, 185, 190, 195, 200, 205, 210, 215,
+    // 3. Indexing Strategies & Performance (ESR Rule, Compound, Covered) - 25 indices
+    // Includes Query Profiler and hint() method usage
+    8, 9, 10, 107, 108, 135, 143, 145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200, 205, 210, 215, 220, 225, 230,
 
-    // 4. Schema Design Patterns & Relationships (Embedding vs Referencing) - 15 indices
-    11, 12, 13, 220, 225, 230, 235, 240, 245, 250, 
-    255, 260, 265, 270, 275,
+    // 4. Advanced Scenarios: Sharding, Replica Sets & CI/CD - 20 indices
+    // High-value for DevOps and Architecture interviews
+    231, 234, 235, 236, 237, 238, 239, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253,
 
-    // 5. Replication, Sharding & High Availability (Oplog, Elections, Chunking) - 15 indices
-    14, 16, 17, 18, 19, 282, 285, 290, 295, 300, 305, 
-    310, 315, 320, 325, 330,
-
-    // 6. Security, Governance & Atlas (RBAC, Encryption, Monitoring) - 15 indices
-    21, 22, 23, 24, 26, 27, 28, 29, 31, 32, 
-    33, 34, 335, 340, 345
+    // 5. Hard/Certification Level Troubleshooting (GridFS, Large Files, Data Modeling) - 15 indices
+    141, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267
 ];
