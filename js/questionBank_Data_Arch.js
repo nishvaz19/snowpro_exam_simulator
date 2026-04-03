@@ -895,6 +895,436 @@ ADVANCED DATA ARCHITECTURE MIGRATION & MODERNIZATION
     answer: 1,
     explanation: "Kafka brokers use Producer IDs and sequence numbers to identify and discard duplicate requests caused by producer retries after a network error."
   },
+/* ======================================================
+    EXTENDED DATA ENGINEERING & ARCHITECTURE BANK
+   ====================================================== */
+  {
+    id: 81,
+    difficulty: "medium",
+    category: "architecture",
+    question: "Which pattern is used to handle 'Late Arriving Data' in a Medallion Architecture?",
+    options: ["Drop the late records", "In-place updates in the Silver layer using Delta/Iceberg MERGE", "Blocking the pipeline until data arrives", "Manual SQL inserts"],
+    answer: 1,
+    explanation: "Modern table formats like Iceberg and Delta Lake support ACID MERGE operations, allowing late-arriving data to be integrated into existing partitions without full table rewrites."
+  },
+  {
+    id: 82,
+    difficulty: "hard",
+    category: "performance",
+    question: "What is 'Write Amplification' in the context of Apache Iceberg?",
+    options: ["Increasing the volume of incoming Kafka messages", "The overhead of updating metadata and rewriting data files during small updates", "The speed of disk writes", "Using multiple threads for ingestion"],
+    answer: 1,
+    explanation: "Write amplification occurs when a small data change requires rewriting a large underlying file or significant metadata updates, a common challenge in Copy-on-Write (CoW) strategies."
+  },
+  {
+    id: 83,
+    difficulty: "medium",
+    category: "governance",
+    question: "In Apache Atlas, what is a 'Glossary' used for?",
+    options: ["Storing database passwords", "Defining business concepts and terms independently of the physical technical metadata", "Indexing log files", "Managing Kafka offsets"],
+    answer: 1,
+    explanation: "The Atlas Glossary provides a business-friendly vocabulary to categorize and find technical assets based on organizational terminology."
+  },
+  {
+    id: 84,
+    difficulty: "hard",
+    category: "data-modelling",
+    question: "When mapping a Logical Model to an HBase Physical Model, what is the primary purpose of 'Salting' a Row Key?",
+    options: ["Encrypting the data", "Improving data compression", "Distributing writes across multiple RegionServers to avoid hotspots", "Sorting data alphabetically"],
+    answer: 2,
+    explanation: "Salting adds a prefix to the row key to ensure that sequentially generated keys (like timestamps) are distributed across the cluster rather than hitting a single server."
+  },
+  {
+    id: 85,
+    difficulty: "medium",
+    category: "streaming",
+    question: "In Kafka, what does the 'Compact' cleanup policy do?",
+    options: ["Deletes messages after 7 days", "Only retains the latest value for a specific message key", "Compresses the data using Gzip", "Moves data to S3 storage"],
+    answer: 1,
+    explanation: "Log compaction ensures that Kafka retains at least the last known value for each message key within a partition, ideal for restoring state in 'KTable' scenarios."
+  },
+  {
+    id: 86,
+    difficulty: "hard",
+    category: "mlops",
+    question: "What is the role of 'Human-in-the-loop' (HITL) in a Banking AI Risk pipeline?",
+    options: ["Replacing all AI models with manual labor", "Providing manual verification for low-confidence model predictions before a final decision", "Teaching employees how to code in Python", "Managing the data center cooling"],
+    answer: 1,
+    explanation: "HITL is a requirement in highly regulated industries (like Banking) where a human must review edge cases or high-risk AI decisions to ensure compliance and accuracy."
+  },
+  {
+    id: 87,
+    difficulty: "medium",
+    category: "lakehouse",
+    question: "How does Apache Iceberg handle 'Schema Evolution' differently than traditional Hive?",
+    options: ["It requires a full table rewrite", "It uses unique ID-based column mapping instead of column names or positions", "It doesn't support adding new columns", "It only supports CSV files"],
+    answer: 1,
+    explanation: "Iceberg tracks columns by ID. This allows for renaming or reordering columns without the risk of data corruption, as the mapping is not dependent on the column's position in the file."
+  },
+  {
+    id: 88,
+    difficulty: "medium",
+    category: "security",
+    question: "What is 'Column-Level Encryption' (CLE) in a PCI-DSS compliant data platform?",
+    options: ["Encrypting the entire hard drive", "Encrypting sensitive fields like Credit Card numbers before they are stored in the Lake", "Password-protecting the Excel export", "Hiding the column from the UI"],
+    answer: 1,
+    explanation: "CLE ensures that sensitive data is unreadable at the storage layer, requiring specific keys to decrypt even if a user has access to the physical file."
+  },
+  {
+    id: 89,
+    difficulty: "hard",
+    category: "architecture",
+    question: "What is a 'Saga Pattern' used for in distributed data systems?",
+    options: ["Data visualization", "Managing long-running transactions and data consistency across multiple microservices", "Indexing Solr collections", "Scaling Kafka brokers"],
+    answer: 1,
+    explanation: "Sagas manage distributed transactions by using a sequence of local transactions and compensations to ensure eventual consistency if one step fails."
+  },
+  {
+    id: 90,
+    difficulty: "medium",
+    category: "dataops",
+    question: "In a CI/CD pipeline, what is a 'Quality Gate'?",
+    options: ["A physical door to the server room", "An automated check that stops the pipeline if data quality or code tests fail", "A manual spreadsheet of bugs", "The login page of the Data Catalog"],
+    answer: 1,
+    explanation: "Quality Gates ensure that only code or data that meets predefined standards (e.g., SonarQube scores or Great Expectations tests) moves to production."
+  },
+  {
+    id: 91,
+    difficulty: "hard",
+    category: "streaming",
+    question: "In Kafka, what is a 'Zombie Instance' in the context of Transactions?",
+    options: ["A broker that has crashed", "A producer instance that was thought to be dead but continues to send messages", "An empty topic", "A message that cannot be deleted"],
+    answer: 1,
+    explanation: "Zombie instances occur when a producer times out and is replaced, but the original producer recovers and attempts to send data. Kafka uses 'Epochs' to fence these out."
+  },
+  {
+    id: 92,
+    difficulty: "medium",
+    category: "architecture",
+    question: "Which architecture is optimized for sub-second 'Points Lookups' on billions of rows?",
+    options: ["Batch-based Hive", "HBase (NoSQL)", "S3 Object Storage", "Standard Python Lists"],
+    answer: 1,
+    explanation: "HBase is a wide-column store designed for low-latency, random access (point lookups) by primary key, even at massive scales."
+  },
+  {
+    id: 93,
+    difficulty: "hard",
+    category: "migration",
+    question: "During a Hive-to-Iceberg migration, what is 'Shadow Ingestion'?",
+    options: ["Ingesting data at night", "Running the new Iceberg pipeline in parallel with the legacy Hive pipeline to validate data parity", "Hiding the data from users", "Encrypting the source files"],
+    answer: 1,
+    explanation: "Shadow ingestion (or Dual Writing) allows teams to compare the output of the new system against the old 'Source of Truth' before the final cutover."
+  },
+  {
+    id: 94,
+    difficulty: "medium",
+    category: "governance",
+    question: "What is the primary benefit of 'Data Lineage' for a Data Engineer?",
+    options: ["Increasing storage speed", "Conducting impact analysis to see what downstream reports will break if a table changes", "Choosing a color for a dashboard", "Managing employee payroll"],
+    answer: 1,
+    explanation: "Lineage provides a map of data dependencies, allowing engineers to prevent breaking downstream BI tools when modifying upstream pipelines."
+  },
+  {
+    id: 95,
+    difficulty: "hard",
+    category: "performance",
+    question: "What does 'Predicate Pushdown' do in a Spark-Iceberg query?",
+    options: ["It moves the data to the user's laptop", "It filters data at the storage level so only relevant rows are read into memory", "It renames columns automatically", "It deletes old snapshots"],
+    answer: 1,
+    explanation: "Predicate pushdown improves performance by 'pushing' the SQL 'WHERE' clause filters down to the file level, reducing I/O and memory overhead."
+  },
+  {
+    id: 96,
+    difficulty: "medium",
+    category: "analytics",
+    question: "What is 'Near Real-Time' (NRT) latency usually defined as in Banking?",
+    options: ["Seconds to minutes", "Hours to days", "Nanoseconds", "Once a month"],
+    answer: 0,
+    explanation: "NRT typically refers to processing that happens within a few seconds to a few minutes of the event occurring."
+  },
+  {
+    id: 97,
+    difficulty: "hard",
+    category: "mlops",
+    question: "Which tool is commonly used to manage the lifecycle (versioning, tracking) of ML models?",
+    options: ["Apache Hive", "MLflow", "Apache Solr", "Microsoft Word"],
+    answer: 1,
+    explanation: "MLflow is an open-source platform used to manage the ML lifecycle, including experimentation, reproducibility, and deployment."
+  },
+  {
+    id: 98,
+    difficulty: "medium",
+    category: "performance",
+    question: "In Solr, what is 'Sharding' used for?",
+    options: ["Deleting data", "Splitting a large index across multiple servers for horizontal scaling", "Backing up data to tape", "Changing the font of search results"],
+    answer: 1,
+    explanation: "Sharding allows Solr to handle massive document collections by distributing the search load across multiple nodes."
+  },
+  {
+    id: 99,
+    difficulty: "hard",
+    category: "architecture",
+    question: "In a 'Hub and Spoke' data architecture, what is the 'Hub'?",
+    options: ["A centralized data repository or master data store", "A remote office location", "A type of network cable", "A specific Kafka topic"],
+    answer: 0,
+    explanation: "The Hub serves as the central integration point for data, which is then distributed to various 'Spokes' (department-specific data marts)."
+  },
+  {
+    id: 100,
+    difficulty: "medium",
+    category: "data-modelling",
+    question: "What is a 'Bridge Table' used for in Dimensional Modelling?",
+    options: ["Connecting two different databases", "Handling many-to-many relationships between dimensions and facts", "Storing image files", "Speeding up network traffic"],
+    answer: 1,
+    explanation: "A bridge table allows you to resolve complex many-to-many relationships (e.g., one bank account having multiple owners)."
+  },
+  {
+    id: 101,
+    difficulty: "medium",
+    category: "architecture",
+    question: "What is 'Hidden Partitioning' in Apache Iceberg?",
+    options: ["Encryption of partitions", "The ability to derive partition values automatically from columns without adding extra 'partition' columns", "Hiding data from auditors", "Using secret folder names"],
+    answer: 1,
+    explanation: "Iceberg handles the relationship between a column (like a timestamp) and its partition (like a day) internally, so users don't have to manually specify partition filters."
+  },
+  {
+    id: 102,
+    difficulty: "hard",
+    category: "streaming",
+    question: "What is the 'Exact-Once' (EOS) semantic in Kafka?",
+    options: ["Data is sent at least once", "Data is guaranteed to be processed exactly once, even if producers or consumers fail", "Data is sent only on Tuesdays", "Data is never lost but can be duplicated"],
+    answer: 1,
+    explanation: "EOS uses transactional producers and idempotent writes to ensure that duplicate data is never committed to the log, ensuring total data integrity."
+  },
+  {
+    id: 103,
+    difficulty: "medium",
+    category: "governance",
+    question: "Which regulation primarily governs data privacy for EU citizens and impacts data engineering design?",
+    options: ["PCI-DSS", "GDPR", "HIPAA", "SOX"],
+    answer: 1,
+    explanation: "GDPR (General Data Protection Regulation) requires features like the 'Right to be Forgotten,' which necessitates efficient record-level deletion in data lakes."
+  },
+  {
+    id: 104,
+    difficulty: "hard",
+    category: "architecture",
+    question: "In Data Mesh, what is 'Federated Computational Governance'?",
+    options: ["A central team that makes all decisions", "Global standards enforced automatically through the platform's code and policies", "A type of government election", "Manual audits once a year"],
+    answer: 1,
+    explanation: "It is the practice of embedding governance (security, quality, compliance) directly into the automated platform used by all domain teams."
+  },
+  {
+    id: 105,
+    difficulty: "medium",
+    category: "dataops",
+    question: "What is the purpose of 'Data Observability'?",
+    options: ["Watching people work", "Monitoring the health, performance, and quality of data pipelines in real-time", "Storing data in a transparent box", "Checking the server's physical temperature"],
+    answer: 1,
+    explanation: "Observability tools (like Monte Carlo or DataDog) help teams detect 'silent' failures like data drift or empty tables before they impact business users."
+  },
+  {
+    id: 106,
+    difficulty: "hard",
+    category: "lakehouse",
+    question: "What is a 'Manifest File' in the Iceberg architecture?",
+    options: ["A list of all users", "A file that tracks a subset of data files and their associated metadata/statistics", "An installation script", "A document for shipping hardware"],
+    answer: 1,
+    explanation: "Manifest files are the middle layer of Iceberg's metadata, providing the query engine with information on which data files to read and which to skip."
+  },
+  {
+    id: 107,
+    difficulty: "medium",
+    category: "security",
+    question: "In an IAM 'Least Privilege' model, what access should a service account have?",
+    options: ["Full Admin access to everything", "Only the specific permissions required to perform its task", "Read-only access to all databases", "No access at all"],
+    answer: 1,
+    explanation: "Least Privilege reduces the 'blast radius' of a security breach by ensuring accounts only have the minimum access needed for their specific function."
+  },
+  {
+    id: 108,
+    difficulty: "hard",
+    category: "performance",
+    question: "What is 'Compaction' in a Log-Structured Merge (LSM) tree database like HBase?",
+    options: ["Deleting old data", "Merging small sorted files into larger ones to reduce read I/O", "Compressing the CPU cache", "Shrinking the physical size of the server"],
+    answer: 1,
+    explanation: "Compaction in HBase (Major and Minor) cleans up deleted records and merges files to keep search performance efficient."
+  },
+  {
+    id: 109,
+    difficulty: "medium",
+    category: "analytics",
+    question: "What is a 'Metric Store'?",
+    options: ["A place to buy rulers", "A centralized repository for standardized business logic (e.g., 'Gross Margin')", "A folder for log files", "A type of data warehouse"],
+    answer: 1,
+    explanation: "A Metric Store (or Semantic Layer) ensures that 'Revenue' is calculated the same way across every dashboard and application in the company."
+  },
+  {
+    id: 110,
+    difficulty: "hard",
+    category: "architecture",
+    question: "What is 'Data Gravity'?",
+    options: ["The speed at which data falls", "The concept that as datasets grow, they attract more applications and services to them", "A physics experiment", "The cost of storage"],
+    answer: 1,
+    explanation: "Data Gravity implies that moving massive datasets is hard, so it's more efficient to move the 'compute' (applications) to the 'data'."
+  },
+/* ======================================================
+    HBASE DEEP-DIVE & ARCHITECTURAL PATTERNS
+   ====================================================== */
+  {
+    id: 111,
+    difficulty: "medium",
+    category: "no-sql",
+    question: "How does HBase optimize storage for 'Sparse' datasets compared to traditional RDBMS?",
+    options: [
+      "By using advanced bitmask compression", 
+      "By simply not storing null values or empty columns on disk", 
+      "By storing all nulls in a separate metadata file", 
+      "By using a fixed-width row format"
+    ],
+    answer: 1,
+    explanation: "HBase is designed for sparse data; if a row does not have a value for a specific column, no space is consumed, unlike RDBMS which often reserves space for null fields."
+  },
+  {
+    id: 112,
+    difficulty: "hard",
+    category: "architecture",
+    question: "In the CAP theorem, which two characteristics does HBase prioritize?",
+    options: [
+      "Availability and Partition Tolerance (AP)", 
+      "Consistency and Availability (CA)", 
+      "Consistency and Partition Tolerance (CP)", 
+      "Latency and Durability (LD)"
+    ],
+    answer: 2,
+    explanation: "HBase is a CP system, prioritizing strict data consistency over availability during certain network or node failures."
+  },
+  {
+    id: 113,
+    difficulty: "medium",
+    category: "data-modelling",
+    question: "Which HBase component must be defined at table creation time because it determines physical storage on disk?",
+    options: [
+      "Column Qualifiers", 
+      "Column Families", 
+      "Timestamps", 
+      "Row Key Salts"
+    ],
+    answer: 1,
+    explanation: "Column Families are logical groupings of related columns that must be defined upfront as they dictate how data is physically partitioned on the filesystem."
+  },
+  {
+    id: 114,
+    difficulty: "hard",
+    category: "performance",
+    question: "Why does HBase store Row Keys in lexicographical order?",
+    options: [
+      "To make the data human-readable in HDFS", 
+      "To optimize for range scans across related keys", 
+      "To ensure data is encrypted alphabetically", 
+      "To prevent any duplicate keys from being written"
+    ],
+    answer: 1,
+    explanation: "Lexicographical ordering allows HBase to perform highly efficient range scans, as logically related data (based on the key) is physically stored close together."
+  },
+  {
+    id: 115,
+    difficulty: "medium",
+    category: "no-sql",
+    question: "What functionality do 'Column Qualifiers' provide in an HBase schema?",
+    options: [
+      "They define the data type of the row", 
+      "They act as flexible sub-labels that can be added dynamically without a predefined schema", 
+      "They determine the replication factor of the region", 
+      "They are used to salt the row keys"
+    ],
+    answer: 1,
+    explanation: "Unlike Column Families, Column Qualifiers are flexible and can be added to any row at write-time, supporting a dynamic 'schema-on-write' approach."
+  },
+  {
+    id: 116,
+    difficulty: "hard",
+    category: "architecture",
+    question: "HBase achieves horizontal scalability by partitioning tables into which distributed units?",
+    options: [
+      "Shards", 
+      "Buckets", 
+      "Regions", 
+      "Blocks"
+    ],
+    answer: 2,
+    explanation: "HBase partitions tables into Regions, which are then distributed across a cluster of RegionServers to balance the load."
+  },
+  {
+    id: 117,
+    difficulty: "medium",
+    category: "no-sql",
+    question: "Which underlying storage system does HBase typically leverage for its data persistence?",
+    options: [
+      "Amazon S3", 
+      "Hadoop Distributed File System (HDFS)", 
+      "Local Linux EXT4 partitions", 
+      "In-memory Redis clusters"
+    ],
+    answer: 1,
+    explanation: "HBase is designed to run on top of HDFS, providing real-time random access to data that is physically stored in the Hadoop ecosystem."
+  },
+  {
+    id: 118,
+    difficulty: "hard",
+    category: "data-modelling",
+    question: "How does HBase handle multiple versions of the same cell (row/column intersection)?",
+    options: [
+      "By overwriting the previous value immediately", 
+      "By using Timestamps to distinguish between different versions", 
+      "By creating a new Row Key for every change", 
+      "By storing changes in a separate delta-table"
+    ],
+    answer: 1,
+    explanation: "HBase supports multi-versioning by assigning a timestamp to each cell, allowing the system to store and retrieve historical states of data."
+  },
+  {
+    id: 119,
+    difficulty: "medium",
+    category: "architecture",
+    question: "Which tool would a developer use to execute SQL-style queries against an HBase cluster?",
+    options: [
+      "Apache Hive", 
+      "Apache Phoenix", 
+      "Apache Spark SQL", 
+      "PrestoDB"
+    ],
+    answer: 1,
+    explanation: "Apache Phoenix provides a relational layer and JDBC driver, allowing users to query HBase using standard SQL syntax."
+  },
+  {
+    id: 120,
+    difficulty: "hard",
+    category: "data-engineering",
+    question: "HBase is primarily optimized for which type of workload?",
+    options: [
+      "Complex multi-table JOINs", 
+      "Write-heavy workloads with high-throughput", 
+      "Small datasets under 10GB", 
+      "Ad-hoc reporting on unindexed columns"
+    ],
+    answer: 1,
+    explanation: "HBase is optimized for massive volumes (billions of rows) and high-throughput, write-heavy workloads where random access is required."
+  },
+  {
+    id: 121,
+    difficulty: "hard",
+    category: "architecture",
+    question: "In HBase, what happens to data when a 'Delete' command is issued?",
+    options:[
+      "The data is immediately erased from HDFS",
+      "A 'Tombstone' marker is written to the MemStore",
+      "The Row Key is renamed to 'deleted'",
+      "The RegionServer is rebooted"
+    ],
+    answer: 1,
+    explanation: "HBase uses an LSM-tree architecture. Deletes are handled by writing a 'Tombstone' marker; the data is only physically removed during a Major Compaction."
+   },
 ];
 
 // --- TOP 100 INTERVIEW INDICES ---
@@ -917,5 +1347,9 @@ const hotsQuestions = [
     60, 61, 62, 63, 64, 65, 66, 67, 68, 69,  // Data Mesh, OLAP, Hubs, Data Stewards, S3/ADLS, Windowing, Cube/dbt, Z-Order, Petabyte Scale
 
     // Advanced data architecture - migration and modernization 
-    70, 71, 72, 73, 74, 75, 76, 77, 78, 79
+    70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
+    80, 81, 82, 83, 84, 85, 86, 87, 88, 89,
+    90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
+    100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
+    110, 111, 112, 113, 114, 115, 116, 117, 118, 119,
 ];
