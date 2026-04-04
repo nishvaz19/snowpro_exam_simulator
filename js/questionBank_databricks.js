@@ -6745,6 +6745,42 @@ PYSPARK DATAFRAME API & SPARK SQL OPERATIONS
     explanation: "ETL tools move and clean data; visualization tools like Power BI or Databricks SQL are used to actually see and analyze the results.",
     hint: "Seeing the data."
   }, 
+  {
+    id: 431,
+    question: "You are dealing with severe data skew on a join operation where a few specific 'tenant_id' keys hold 80% of the data. AQE is already enabled, but the job is still bottlenecked by a single straggler task. Which technique should you implement next?",
+    options: [
+      "A) Switch the join to a Broadcast Hash Join regardless of the table sizes.",
+      "B) Apply data salting to the 'tenant_id' key in both DataFrames before performing the join.",
+      "C) Use .coalesce(1) on the larger DataFrame to combine the skewed partitions.",
+      "D) Increase the 'spark.sql.shuffle.partitions' to 2000 to force more parallelism."
+    ],
+    correctAnswer: "B",
+    explanation: "While AQE can handle moderate skew, extreme skew is best handled by data salting. This appends a random number to the skewed key, breaking it up across multiple executors to eliminate the single straggler task bottleneck."
+  },
+  {
+    id: 432,
+    question: "You have a PySpark DataFrame with 1,000 small partitions. You want to reduce it to 20 partitions before writing it to storage. Which operation is the most efficient and why?",
+    options: [
+      "A) .repartition(20), because it performs a full shuffle and guarantees even distribution.",
+      "B) .coalesce(20), because it avoids a full shuffle by combining existing partitions locally.",
+      "C) .coalesce(20), because it triggers a wider shuffle dependency making operations downstream faster.",
+      "D) .repartition(20), because it handles small files better than coalesce."
+    ],
+    correctAnswer: "B",
+    explanation: "When *reducing* the number of partitions, .coalesce() is preferred because it avoids a full shuffle. It minimizes data movement across the network by collapsing existing partitions on the same executor."
+  },
+  {
+    id: 433,
+    question: "A data engineer insists on using a standard Python UDF instead of a Pandas UDF. What should you tell them regarding performance to convince them to switch?",
+    options: [
+      "A) Standard Python UDFs run natively in the JVM, whereas Pandas UDFs require PyArrow translation.",
+      "B) Pandas UDFs operate on a row-by-row basis, making them more memory efficient but slower.",
+      "C) Standard Python UDFs force row-by-row data serialization between the JVM and Python, whereas Pandas UDFs utilize Apache Arrow for vectorized batch processing.",
+      "D) There is no performance difference; it is purely a matter of syntax preference."
+    ],
+    correctAnswer: "C",
+    explanation: "Standard Python UDFs suffer from high serialization overhead between JVM and Python processes and process data one row at a time. Pandas UDFs use Apache Arrow to process data in vectorized batches, leading to massive speedups."
+  }, 
 ];  
 
 // --- TOP 100 INTERVIEW INDICES ---
@@ -6775,5 +6811,8 @@ const hotsQuestions = [
     11, 12, 110, 115, 181, 243, 255, 260, 270, 330,
 
     // 7. Operations & CI/CD (Workflows, Serverless, Infrastructure) - 10 indices
-    14, 17, 70, 80, 85, 88, 100, 334, 357, 421
+    14, 17, 70, 80, 85, 88, 100, 334, 357, 421,
+
+    // 8. Spark Performance 
+    430, 431, 432,
 ];
