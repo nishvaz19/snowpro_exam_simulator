@@ -3639,11 +3639,311 @@ const questionBank = [
     explanation: "Compaction is a background I/O intensive task. It should be scheduled or throttled during peak production hours if disk I/O is a bottleneck.",
     hint: "Background maintenance cost."
   },
+  {
+    "id": 251,
+    "difficulty": "hard",
+    "category": "Elasticsearch Architecture",
+    "question": "In a cluster with multiple data tiers, what is the impact of setting 'index.routing.allocation.total_shards_per_node' too low during a large-scale data migration from Hot to Warm nodes?",
+    "options": [
+      "It speeds up the migration by forcing parallel streams.",
+      "It can prevent the ILM policy from completing because the Warm tier cannot accommodate the required shard distribution.",
+      "It automatically triggers a shard shrink operation to fit the constraint.",
+      "It has no impact on ILM, as ILM overrides routing constraints."
+    ],
+    "answer": 1,
+    "explanation": "Routing constraints are strictly enforced. If the limit is lower than the number of shards being moved divided by available nodes, shards will remain in a 'STAGING' or 'INITIALIZING' state indefinitely, stalling the ILM pipeline.",
+    "hint": "Think about resource capping versus movement requirements."
+  },
+  {
+    "id": 252,
+    "difficulty": "hard",
+    "category": "Kafka/Ingestion",
+    "question": "What is the primary risk of using 'acks=all' in a Kafka producer integrated with a high-throughput Logstash pipeline during a network partition?",
+    "options": [
+      "Data duplication on the consumer side.",
+      "Increased producer latency and potential buffer exhaustion in Logstash resulting in backpressure.",
+      "Automatic conversion of the topic to a compacted log.",
+      "The broker will stop accepting all heartbeats."
+    ],
+    "answer": 1,
+    "explanation": "Acks=all requires the full ISR (In-Sync Replica) set to acknowledge. If the network is unstable, the producer will wait longer, filling the Logstash memory buffer and eventually halting ingestion from the source (backpressure).",
+    "hint": "Consider the trade-off between durability and throughput."
+  },
+  {
+    "id": 253,
+    "difficulty": "hard",
+    "category": "Performance Tuning",
+    "question": "When troubleshooting high 'Search Thread Pool' rejection counts in Elasticsearch, which action provides the most sustainable long-term resolution?",
+    "options": [
+      "Increasing the search thread pool size beyond 2x the core count.",
+      "Implementing 'Request Breakers' at the application level.",
+      "Optimizing query DSL to avoid heavy aggregations on non-keyword fields and reviewing shard density.",
+      "Disabling the 'Adaptive Replica Selection' (ARS) feature."
+    ],
+    "answer": 2,
+    "explanation": "Thread pool rejections are symptoms of inefficient resource usage. Increasing thread pools often leads to CPU thrashing. Proper query optimization and ensuring a healthy shard-to-heap ratio (avoiding over-sharding) address the root cause.",
+    "hint": "Fix the workload, not the container size."
+  },
+  {
+    "id": 254,
+    "difficulty": "hard",
+    "category": "Observability/Tracing",
+    "question": "In OpenTelemetry, what is the consequence of a 'Head-based' sampling strategy in a high-traffic microservices environment?",
+    "options": [
+      "It ensures that all 'error' traces are captured regardless of frequency.",
+      "It makes a sampling decision at the start of a trace, potentially missing downstream failures if the sample rate is low.",
+      "It requires all spans to be buffered until the trace is complete before deciding to save.",
+      "It significantly increases the CPU overhead of the collector compared to tail-based sampling."
+    ],
+    "answer": 1,
+    "explanation": "Head-based sampling happens at the root. If you sample 10%, you lose 90% of all traces—including errors—before they even happen. Tail-based sampling is required to filter for 'interesting' traces (like errors or high latency).",
+    "hint": "Decision timing: Start vs. End."
+  },
+  {
+    "id": 255,
+    "difficulty": "hard",
+    "category": "DevOps/CI-CD",
+    "question": "Why is 'Blue-Green' deployment for an Elasticsearch cluster upgrade significantly more complex than for a stateless microservice?",
+    "options": [
+      "Elasticsearch cannot run on Docker or Kubernetes.",
+      "The 'Green' cluster requires a full data sync or snapshot restore, leading to high storage costs and 'split-brain' risks during cutover.",
+      "Ansible does not support rolling updates for Java applications.",
+      "Kibana cannot connect to more than one cluster at a time."
+    ],
+    "answer": 1,
+    "explanation": "Stateful systems like ES hold terabytes of data. Replicating that state to a 'Green' cluster in real-time while maintaining indexing consistency is difficult and resource-intensive compared to just spinning up new code containers.",
+    "hint": "The 'State' is the weight."
+  },
+  {
+    "id": 256,
+    "difficulty": "hard",
+    "category": "Security/Governance",
+    "question": "How does the 'Field Level Security' (FLS) implementation in ELK affect search performance for users with restricted access?",
+    "options": [
+      "It has zero impact as it happens at the UI layer.",
+      "It increases latency because Elasticsearch must intercept the query and strip results at the shard level based on the user's role.",
+      "It speeds up searches by reducing the amount of data the CPU has to read.",
+      "It disables the use of the 'Scroll' API for that user."
+    ],
+    "answer": 1,
+    "explanation": "FLS is not a UI trick; it's a server-side filter. For every request, the engine must evaluate permissions and mask/filter fields, which adds processing overhead per document matched.",
+    "hint": "Security comes with a 'Tax'."
+  },
+  {
+    "id": 257,
+    "difficulty": "hard",
+    "category": "Architecture",
+    "question": "In a Hot-Warm-Cold architecture, what is the primary benefit of force-merging indices to a single segment before moving them to the Warm tier?",
+    "options": [
+      "It allows the index to be writable again.",
+      "It reduces overhead and improves search performance on read-only historical data.",
+      "It automatically triggers a snapshot to the cloud.",
+      "It converts the data into a NoSQL format for faster retrieval."
+    ],
+    "answer": 1,
+    "explanation": "Force-merging into a single segment reduces the number of file handles and memory overhead required for searching, which is ideal for the 'Warm' phase where data is no longer being updated.",
+    "hint": "Think about shard overhead and segment counts."
+  },
+  {
+    "id": 258,
+    "difficulty": "hard",
+    "category": "DevOps",
+    "question": "When treating Kibana dashboards as 'Infrastructure as Code', what is the most reliable method to sync changes across environments?",
+    "options": [
+      "Manual JSON export/import via the Kibana UI.",
+      "Using the Kibana API within a CI/CD pipeline to push version-controlled JSON objects.",
+      "Hard-coding dashboard IDs into Logstash configurations.",
+      "Using a single shared cluster for Dev, QA, and Prod."
+    ],
+    "answer": 1,
+    "explanation": "Using the Kibana Saved Objects API via a pipeline ensures that dashboards, visualizations, and index patterns are consistent, versioned, and testable across all environments.",
+    "hint": "Automation over manual intervention."
+  },
+  {
+    "id": 259,
+    "difficulty": "hard",
+    "category": "Observability",
+    "question": "What is the primary function of 'Trace Context Propagation' in a microservices environment using OpenTelemetry?",
+    "options": [
+      "It compresses log files before they reach Elasticsearch.",
+      "It passes a unique trace ID through headers to correlate a single request across multiple services.",
+      "It encrypts the payload data to meet GDPR compliance.",
+      "It simplifies the Grok patterns needed for Logstash."
+    ],
+    "answer": 1,
+    "explanation": "Propagation ensures that the TraceID is carried across service boundaries, allowing observability tools to stitch together a complete end-to-end view of a request flow.",
+    "hint": "Correlation across service boundaries."
+  },
+  {
+    "id": 260,
+    "difficulty": "hard",
+    "category": "DevOps",
+    "question": "In a Gitflow strategy, when should automated API benchmarking and security scans ideally occur?",
+    "options": [
+      "During the yearly ITIL review.",
+      "Only after a production outage occurs.",
+      "As part of the CI pipeline triggered by a Pull Request (PR).",
+      "Manually on the developer's local machine before a commit."
+    ],
+    "answer": 2,
+    "explanation": "Running these during the PR stage follows the 'Shift Left' principle, identifying performance regressions and security vulnerabilities before code is merged into the main branch.",
+    "hint": "Shift Left testing."
+  },
+  {
+    "id": 261,
+    "difficulty": "hard",
+    "category": "Performance",
+    "question": "What does an Elasticsearch 'Circuit Breaker' exception typically indicate?",
+    "options": [
+      "The physical power supply to the server has failed.",
+      "The JVM heap usage is reaching a limit that risks an OutOfMemory (OOM) error.",
+      "The network bandwidth between nodes is fully saturated.",
+      "The Kibana license has expired."
+    ],
+    "answer": 1,
+    "explanation": "Circuit breakers are internal safeguards that prevent a node from crashing by tripping when a request would push memory usage beyond a safe threshold.",
+    "hint": "JVM Heap protection."
+  },
+  {
+    "id": 262,
+    "difficulty": "hard",
+    "category": "ITIL/Governance",
+    "question": "How should ELK observability be integrated with ITIL Incident Management?",
+    "options": [
+      "By deleting logs to save costs after an incident.",
+      "By allowing all users admin access during a crisis.",
+      "By automating alerts to create tickets in an ITSM tool like ServiceNow with relevant context.",
+      "By requiring manual checks of Kibana every hour."
+    ],
+    "answer": 2,
+    "explanation": "Integration ensures that observability data triggers a formal, auditable incident response process, providing the data needed for later 'Problem Management' reviews.",
+    "hint": "Closed-loop alerting."
+  },
+  {
+    "id": 263,
+    "difficulty": "hard",
+    "category": "Ingestion",
+    "question": "What is the most effective way to prevent data loss in Logstash during a sudden spike in ingestion traffic?",
+    "options": [
+      "Using Elasticsearch ILM policies.",
+      "Implementing Persistent Queues (PQ) or an external broker like Kafka.",
+      "Adding more Grok filters.",
+      "Increasing the number of Kibana nodes."
+    ],
+    "answer": 1,
+    "explanation": "Persistent Queues or external message brokers buffer incoming data, providing backpressure management so Logstash doesn't drop events if the destination is slow or traffic spikes.",
+    "hint": "Buffering and backpressure."
+  },
+  {
+    "id": 264,
+    "difficulty": "hard",
+    "category": "DevOps",
+    "question": "What is the best 'Rollback' strategy for a failed deployment of an Index Template via Ansible?",
+    "options": [
+      "Deleting the template and using defaults.",
+      "Applying the previous version-controlled JSON definition from Git via the pipeline.",
+      "Restarting the entire cluster.",
+      "Manually editing mappings in the Dev Tools console."
+    ],
+    "answer": 1,
+    "explanation": "Rollbacks should be automated and based on a 'known-good' state stored in version control to ensure consistency and speed of recovery.",
+    "hint": "Version control as the source of truth."
+  },
+  {
+    "id": 265,
+    "difficulty": "hard",
+    "category": "Security",
+    "question": "Where should PII masking be performed in a high-scale observability pipeline?",
+    "options": [
+      "In the Kibana UI using filters.",
+      "During ingestion (Logstash/Elastic Agent) before the data is stored in Elasticsearch.",
+      "In the NoSQL secondary database.",
+      "Only during the yearly audit."
+    ],
+    "answer": 1,
+    "explanation": "Masking during ingestion (at the 'edge' or mid-stream) ensures that sensitive data never hits the disk in plain text, reducing the scope of security compliance.",
+    "hint": "Data minimization at storage."
+  },
+  {
+    "id": 266,
+    "difficulty": "hard",
+    "category": "Leadership",
+    "question": "How should a Lead Engineer balance high-speed Agile delivery with high-complexity testing requirements?",
+    "options": [
+      "By skipping tests to meet deadlines.",
+      "By prioritizing critical features and automating their validation within the CI/CD pipeline.",
+      "By moving to a Waterfall model.",
+      "By manually testing everything at the end of the month."
+    ],
+    "answer": 1,
+    "explanation": "In an Agile/DevOps environment, automation is the only way to maintain high quality at high speed. Prioritization ensures that the most critical paths are always protected.",
+    "hint": "Automated quality gates."
+  },
+  {
+    "id": 267,
+    "difficulty": "hard",
+    "category": "Deployment Strategy",
+    "question": "When performing a Blue-Green cluster upgrade using Cross-Cluster Replication (CCR), what is the correct sequence for the final cutover?",
+    "options": [
+      "Shutdown Blue, then start Green from a snapshot.",
+      "Promote Green to 'Leader', update application aliases/DNS to Green, then decommission Blue.",
+      "Keep both as 'Followers' and use a third cluster as the 'Leader'.",
+      "Switch DNS to Green immediately and let CCR resolve conflicts later."
+    ],
+    "answer": 1,
+    "explanation": "CCR allows for near real-time sync. Promoting the 'Follower' (Green) to 'Leader' status and updating the application endpoints ensures the lowest possible downtime and data loss.",
+    "hint": "Promoting the Follower."
+  },
+  {
+    "id": 268,
+    "difficulty": "hard",
+    "category": "Deployment Strategy",
+    "question": "In the 'Dual-Write' strategy for Blue-Green upgrades, how is historical data typically handled?",
+    "options": [
+      "It is ignored; only new data is relevant.",
+      "It is migrated from Blue to Green using the _reindex API while new data is being written to both.",
+      "It is automatically moved by the BIOS of the server.",
+      "It is restored from a tape backup to the Green cluster."
+    ],
+    "answer": 1,
+    "explanation": "Dual-writing captures 'live' data, but the _reindex API (often with a 'remote' source) is used to backfill historical data from the old cluster to the new one.",
+    "hint": "Live sync vs. Historical backfill."
+  },
+  {
+    "id": 269,
+    "difficulty": "hard",
+    "category": "Deployment Strategy",
+    "question": "What is the specific advantage of 'Index-Level Blue-Green' using the Aliases API within the same cluster?",
+    "options": [
+      "It allows for a major version upgrade of the Elasticsearch binary.",
+      "It allows for an atomic switch between two versions of an index (e.g., v1 to v2) without changing application code.",
+      "It reduces the storage cost by 50%.",
+      "It prevents the need for any reindexing."
+    ],
+    "answer": 1,
+    "explanation": "The Aliases API can remove one index and add another to an alias in a single atomic operation, making the 'swap' invisible to applications reading from that alias.",
+    "hint": "Atomic alias swap."
+  },
+  {
+    "id": 270,
+    "difficulty": "hard",
+    "category": "Deployment Strategy",
+    "question": "Why is the Kibana 'Upgrade Assistant' a critical step in a Blue-Green migration strategy?",
+    "options": [
+      "It automatically moves the data for you.",
+      "It identifies breaking changes in index mappings and deprecated settings that would cause the Green cluster to fail.",
+      "It increases the RAM of the existing nodes.",
+      "It writes the Python scripts needed for the migration."
+    ],
+    "answer": 1,
+    "explanation": "Before upgrading, you must identify if your current data structures are compatible with the new version. The Upgrade Assistant flags issues like deprecated mapping types or settings.",
+    "hint": "Compatibility check."
+  },
 ];
 
 // --- TOP 100 INTERVIEW INDICES ---
 // These indices point to unique, high-value questions from the bank for rapid interview prep.
-// Focus: Distributed Architecture, Exactly-Once Semantics, Performance Tuning, and Troubleshooting.
+// Focus: Distributed Architecture, Exactly-Once Semantics, Performance Tuning, Troubleshooting, Observability and kafka
 const hotsQuestions = [
     // 1. Fundamentals & Scaling (Partitions, Offsets, Replication Factor) - 15 indices
     0, 1, 2, 4, 10, 15, 20, 25, 30, 45, 
@@ -3667,5 +3967,9 @@ const hotsQuestions = [
 
     // 6. Performance, Monitoring & Hardware (JVM Tuning, OS Swappiness, Latency) - 15 indices
     33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 
-    43, 44, 46, 47, 48
+    43, 44, 46, 47, 48,
+
+    // 7. Observability and kafka
+    250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262,
+    263, 264, 265, 266, 267, 268, 269, 
 ];
