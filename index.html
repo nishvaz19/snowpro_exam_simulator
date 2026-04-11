@@ -51,8 +51,12 @@
 .wb-infrastructure { background: #0891b2; } /* Cyan - Infrastructure/L2 */
 .wb-defi { background: #059669; }       /* Emerald - DeFi/Tokenomics */
 .wb-tooling { background: #4f46e5; }    /* Violet - Dev Tooling */
-.wb-zkp { background: #7c3aed; }        /* Purple - Zero Knowledge */
-
+.wb-zkp { background: #7c3aed; }  /* Purple - Zero Knowledge */
+        
+.md-body.loading {
+  opacity: 0.5;
+}
+        
 /* Search input specific for Web3 */
 #web3BlockChainSearch {
     border: 2px solid #6366f1;
@@ -218,6 +222,10 @@
     </style>
 </head>
 <body>
+    
+<script>
+body.classList.add("loading");
+</script>
 
 <div class="container">
     <h1 style="text-align: center;">Certification Prep Portal</h1>
@@ -405,62 +413,84 @@
 </div>
 
 <script>   
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>    
 const docMap = {
   "react-cloud": {
-    file: "../python_test_readme.md",
+    file: "docs/python_test_readme.md",
     title: "React Frontend Documentation"
   },
   "mongodb-cloud": {
-    file: "../mongodb_readme.md",
+    file: "docs/mongodb_readme.md",
     title: "MongoDB Atlas Docs"
   },
   "databricks-cloud": {
-    file: "../Databricks_pySpark_readme.md",
+    file: "docs/Databricks_pySpark_readme.md",
     title: "Databricks Lakehouse Guide"
   },
   "ai-cloud": {
-    file: "../ai_llm_readme.md",
+    file: "docs/ai_llm_readme.md",
     title: "AI & LLM Architecture"
   },
   "azure-cloud": {
-    file: "../azure_readme.md",
+    file: "docs/azure_readme.md",
     title: "Azure Solutions Guide"
   },
   "aws-cloud": {
-    file: "../aws_readme.md",
+    file: "docs/aws_readme.md",
     title: "AWS Solutions Guide"
   }
 };   
-document.querySelectorAll(".doc-header").forEach(header => {
-  header.addEventListener("click", () => {
-    const key = header.getAttribute("data-doc");
-    const doc = docMap[key];
-
-    if (doc) {
-      openMarkdown(doc.file, doc.title);
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".doc-header").forEach(header => {
+    header.addEventListener("click", () => {
+      const key = header.dataset.doc;
+      const doc = docMap[key];
+      if (doc) openMarkdown(doc.file, doc.title);
+    });
   });
-});    
+});        
 // Load marked.js (Markdown parser)
 const script = document.createElement("script");
 script.src = "https://cdn.jsdelivr.net/npm/marked/marked.min.js";
 document.head.appendChild(script);
 
 // Open modal and load markdown
-function openMarkdown(filePath, title) {
-    document.getElementById("mdModal").style.display = "block";
-    document.getElementById("mdTitle").textContent = title;
-    document.getElementById("mdBody").innerHTML = "Loading...";
+async function openMarkdown(filePath, title) {
+    const modal = document.getElementById("mdModal");
+    const body = document.getElementById("mdBody");
 
-    fetch(filePath)
-        .then(res => res.text())
-        .then(md => {
-            document.getElementById("mdBody").innerHTML = marked.parse(md);
-        })
-        .catch(err => {
-            document.getElementById("mdBody").innerHTML = 
-              "<p style='color:red'>Failed to load markdown</p>";
-        });
+    modal.style.display = "block";
+    document.getElementById("mdTitle").textContent = title;
+
+    body.innerHTML = "Loading...";
+
+    try {
+        const res = await fetch(filePath, { cache: "no-store" });
+
+        if (!res.ok) {
+            throw new Error("File not found");
+        }
+
+        const md = await res.text();
+
+        // Render markdown
+        body.innerHTML = marked.parse(md);
+
+        // Optional: highlight
+        if (window.hljs) {
+            document.querySelectorAll("pre code").forEach(el => {
+                hljs.highlightElement(el);
+            });
+        }
+
+    } catch (err) {
+        body.innerHTML = `
+          <div style="color:red">
+            ❌ Failed to load documentation<br>
+            <small>${filePath}</small>
+          </div>
+        `;
+    }
 }
 
 function closeModal() {
@@ -1008,5 +1038,8 @@ const eaKeywords = [
   overflow-x: auto;
 }
 </style>    
+<script>
+body.classList.remove("loading");
+</script>       
 </body>
 </html>
