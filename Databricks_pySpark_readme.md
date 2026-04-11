@@ -230,6 +230,176 @@ VACUUM table_name;
 
 ---
 
+# 📎 Appendix: Spark + Databricks Rapid Recall Cheat Sheet
+
+## ⚡ 1. Core Spark Mental Model (Execution)
+
+### 🔑 Keywords → What to Recall Instantly
+
+* **Lazy Evaluation** → DAG built → executed only on **Action**
+* **Transformation vs Action** → `map/filter` vs `count/show`
+* **Narrow vs Wide Transformation**
+
+  * Narrow → No shuffle (`map`)
+  * Wide → Shuffle (`join`, `groupBy`)
+* **Shuffle = Bottleneck** → Network + Disk I/O + Serialization
+
+---
+
+### ⚙️ Engine Internals (Buzzwords Interviewers Love)
+
+* **Catalyst Optimizer** → Logical → Physical plan optimization
+* **Tungsten Engine** → Memory + CPU optimization (off-heap, codegen)
+* **AQE (Adaptive Query Execution)** → Runtime optimization
+
+---
+
+### 🧠 Cluster Model
+
+* **Driver** → Orchestrates
+* **Executor** → Runs tasks
+* **Slots/Cores** → Parallelism unit
+* **Cluster Manager** → YARN / Kubernetes
+
+---
+
+## 🚨 2. Performance Pain Points → Instant Fix Mapping
+
+### 🔥 High-Signal Table (Memorize This)
+
+| Problem              | Trigger Words                | Solution Keywords                   |
+| -------------------- | ---------------------------- | ----------------------------------- |
+| Slow job after join  | Shuffle, Wide transformation | Broadcast Join / AQE                |
+| One task very slow   | Data Skew                    | Salting / Skew Join Hint            |
+| Too many small files | लाखs files / slow reads      | Compaction / OPTIMIZE               |
+| OOM / spilling       | Spill to disk                | Increase partitions / memory tuning |
+| Uneven task time     | Skewed partitions            | Repartition / Salting               |
+| Slow filtering       | Full scan                    | Predicate Pushdown / Data Skipping  |
+
+---
+
+## 🎯 3. Scenario-Based Recall (Interview Gold)
+
+### 🧩 Scenario → Answer Pattern
+
+**"Huge table + small table join?"**
+→ **Broadcast Hash Join** (avoid shuffle)
+
+**"Job slow due to one key?"**
+→ **Data Skew → Salting**
+
+**"Too many small files?"**
+→ **OPTIMIZE (Compaction)**
+
+**"Query scanning too much data?"**
+→ **Z-Order / Liquid Clustering / Predicate Pushdown**
+
+**"Late-arriving streaming data?"**
+→ **Watermarking**
+
+**"Need to recover deleted data?"**
+→ **Delta Time Travel**
+
+---
+
+## 🏗️ 4. Partitioning & Data Layout
+
+### 🔑 Quick Recall
+
+* `repartition()` → Full shuffle (increase/decrease)
+* `coalesce()` → Reduce partitions (no shuffle)
+* **Partitioning** → Folder-based pruning
+* **Z-ORDER** → Multi-column clustering
+* **Liquid Clustering** → Dynamic replacement for partitioning
+
+---
+
+## 🧊 5. Delta Lake Essentials (Lakehouse Core)
+
+### 🔑 Must-Say Keywords
+
+* **ACID Transactions**
+* **_delta_log (Transaction Log)**
+* **Parquet + Metadata Layer**
+
+---
+
+### ⚙️ Features → Why They Matter
+
+| Feature            | Recall             |
+| ------------------ | ------------------ |
+| Schema Enforcement | Prevent bad data   |
+| Schema Evolution   | Flexible pipelines |
+| Time Travel        | Debug + recovery   |
+| Vacuum             | Storage cleanup    |
+
+---
+
+## ⚡ 6. Advanced Databricks Optimization
+
+* **Photon Engine** → C++ vectorized execution (faster than JVM)
+* **Liquid Clustering** → Handles high-cardinality keys automatically
+* **Data Skipping** → Reads fewer files using stats
+* **Auto Optimize** → Handles small file problem automatically
+
+---
+
+## 🌊 7. Streaming & Data Consistency
+
+### 🔑 Keywords
+
+* **Structured Streaming**
+* **Checkpointing** → Fault tolerance
+* **Watermarking** → Late data handling
+* **Exactly-once Processing**
+
+---
+
+## 📉 8. Data Drift & ML Awareness
+
+* **Feature Drift** → Input distribution changes
+* **Concept Drift** → Target relationship changes
+* **Schema Drift** → Columns change
+* **MLflow** → Experiment tracking + monitoring
+
+---
+
+## 🧠 9. One-Line Mental Models (Super Useful)
+
+* **"Shuffle = expensive → avoid it"**
+* **"Skew = uneven work → fix distribution"**
+* **"Small files = slow I/O → compact"**
+* **"Delta = Data Lake + ACID"**
+* **"Broadcast = avoid shuffle"**
+
+---
+
+## 🚀 10. Ultra-Condensed Interview Answer Template
+
+If stuck, say:
+
+> “I’d first check for shuffle-heavy operations and data skew, optimize joins using broadcast where possible, ensure proper partitioning or clustering (Z-Order or Liquid), and address small file issues with compaction using OPTIMIZE.”
+
+---
+
+## 🎯 Bonus: Keyword Chain (Memory Trick)
+
+**Execution Flow:**
+
+```
+Lazy Eval → DAG → Catalyst → Tungsten → Shuffle → AQE optimize
+```
+
+**Optimization Flow:**
+
+```
+Skew → Salting
+Small files → Compaction
+Slow joins → Broadcast
+Slow scans → Z-Order / Liquid
+```
+---
+
 # 📌 Summary (1-Minute Revision)
 
 | Layer  | Purpose                 | Key Actions          |
