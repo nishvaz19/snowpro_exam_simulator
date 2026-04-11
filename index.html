@@ -25,7 +25,7 @@
         }
         .md-header {
             position: sticky;
-            ntop: 0;
+            top: 0;
             z-index: 10;
         }
         .mg-atlas { background: #13aa52; } /* MongoDB Green */
@@ -186,7 +186,6 @@
             text-decoration: none;
             user-select: none;
         }
-        
         .doc-header:hover {
            text-decoration: underline;
            opacity: 0.9;
@@ -244,7 +243,9 @@
 <body>
     
 <script>
-header.classList.add("active-doc");    
+document.querySelectorAll(".doc-header").forEach(h => {
+  h.classList.add("active-doc");
+});    
 document.body.classList.add("loading");
 </script>
 
@@ -476,9 +477,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });        
 // Load marked.js (Markdown parser)
-/*const script = document.createElement("script");
+const script = document.createElement("script");
 script.src = "https://cdn.jsdelivr.net/npm/marked/marked.min.js";
-document.head.appendChild(script);*/
+document.head.appendChild(script);
 
 // Open modal and load markdown
 async function openMarkdown(filePath, title) {
@@ -490,7 +491,7 @@ async function openMarkdown(filePath, title) {
     document.getElementById("mdTitle").textContent = title;
 
     body.classList.add("loading");
-    body.innerHTML = "Loading documentation...
+    body.innerHTML = "Loading documentation..."
 
     try {
         const res = await fetch(filePath, { cache: "no-store" });
