@@ -970,6 +970,269 @@ class Singleton:
 
 ---
 
+---
+
+# 📎 Appendix: Python + DSA Rapid Recall Cheat Sheet
+
+## ⚡ 1. Core Data Structures (Instant Mapping)
+
+### 🔑 Keywords → When to Use
+
+| Structure          | Trigger Words         | Use This            |
+| ------------------ | --------------------- | ------------------- |
+| **List**           | ordered, index access | Dynamic array       |
+| **Deque**          | queue/stack O(1)      | `collections.deque` |
+| **Dict (HashMap)** | fast lookup           | `O(1)` access       |
+| **Set**            | unique, membership    | remove duplicates   |
+| **Heap**           | top-k / min-max       | `heapq`             |
+
+---
+
+## 🚨 2. Problem → Pattern Mapping (MOST IMPORTANT)
+
+### 🔥 Memorize This Table
+
+| Problem Type          | Keywords           | Solution Pattern  |
+| --------------------- | ------------------ | ----------------- |
+| Pair sum              | target, complement | HashMap (Two Sum) |
+| Subarray              | contiguous         | Sliding Window    |
+| Sorted array          | ordered            | Two Pointer       |
+| Search space          | monotonic          | Binary Search     |
+| Top K                 | largest/smallest   | Heap              |
+| Permutations          | all combinations   | Backtracking      |
+| Graph/Tree            | traversal          | DFS / BFS         |
+| Overlapping intervals | merge              | Sort + Merge      |
+
+---
+
+## 🎯 3. Scenario-Based Recall (Interview Gold)
+
+**"Find pair with target sum?"**
+→ **HashMap (store complement)**
+
+**"Longest substring without repeat?"**
+→ **Sliding Window + Set**
+
+**"Sorted array pair problem?"**
+→ **Two Pointers**
+
+**"Find kth largest?"**
+→ **Min Heap (size k)**
+
+**"Generate all combinations?"**
+→ **Backtracking**
+
+**"Search in sorted space?"**
+→ **Binary Search**
+
+---
+
+## 🔁 4. Iteration & Python Tricks
+
+### 🔑 High-Impact Keywords
+
+* `enumerate()` → index + value
+* `zip()` → parallel iteration
+* `[::-1]` → reverse
+* `any()` / `all()` → boolean checks
+
+---
+
+## ⚙️ 5. Sorting & Searching
+
+### 🔑 Recall
+
+* **Timsort** → `O(n log n)` stable
+* `sorted(key=lambda x: ...)`
+* `bisect` → binary search
+
+---
+
+## 🧠 6. Complexity Thinking
+
+### 🔑 Mental Shortcuts
+
+| Pattern          | Complexity |
+| ---------------- | ---------- |
+| Single loop      | O(n)       |
+| Nested loop      | O(n²) ❌    |
+| Divide & Conquer | O(log n)   |
+| Sorting          | O(n log n) |
+
+---
+
+### 🚀 Golden Rules
+
+* HashMap → avoid O(n²)
+* Set → fast membership
+* Precompute → trade space for time
+
+---
+
+## 🔄 7. Recursion / DFS / Backtracking
+
+### 🔑 Keywords
+
+* Base Case
+* Recursive Step
+* Stack depth
+* Memoization (`lru_cache`)
+
+---
+
+### 🧩 Pattern
+
+```text
+Choose → Explore → Unchoose
+```
+
+---
+
+## 🧵 8. Concurrency & Locking
+
+### 🚨 Problem → Solution
+
+| Problem              | Keyword           | Fix                 |
+| -------------------- | ----------------- | ------------------- |
+| Race Condition       | shared state      | Lock                |
+| Deadlock risk        | multiple locks    | consistent ordering |
+| Limited resources    | API/db            | Semaphore           |
+| Thread communication | producer-consumer | Queue               |
+
+---
+
+### 🔑 Must-Say Terms
+
+* **Mutex (Lock)**
+* **GIL** (not true parallelism)
+* **Thread-safe**
+* **Atomicity**
+
+---
+
+## ⚡ 9. FastAPI Quick Recall
+
+### 🔑 Core Mapping
+
+| Task       | Keyword         |
+| ---------- | --------------- |
+| API route  | `@app.get/post` |
+| Validation | Pydantic        |
+| Dependency | `Depends()`     |
+| Async      | `async def`     |
+| Errors     | `HTTPException` |
+
+---
+
+### 🚀 Scenario Recall
+
+**"High-performance API?"**
+→ `FastAPI + Uvicorn + async`
+
+**"Validation?"**
+→ `Pydantic models`
+
+**"Background task?"**
+→ `BackgroundTasks`
+
+---
+
+## 🌊 10. Strings & Input Tricks
+
+### 🔑 Keywords
+
+* `split()` / `join()`
+* `strip()` → trim
+* `ord()` / `chr()` → ASCII
+* `isdigit()` / `isalpha()`
+
+---
+
+## 🧮 11. Math & Bit Tricks
+
+### 🔑 Quick Recall
+
+* `%` → cyclic patterns
+* `//` → floor division
+* `math.inf` → boundaries
+* `^` → XOR (unique problems)
+
+---
+
+## 🧠 12. One-Line Mental Models
+
+* **"HashMap = O(1) lookup"**
+* **"Sliding window = contiguous optimization"**
+* **"Heap = top K"**
+* **"Binary search = sorted + monotonic"**
+* **"DFS = deep, BFS = level"**
+
+---
+
+## 🚀 13. Ultra-Condensed Interview Answer Template
+
+If stuck, say:
+
+> “I’d optimize this using a HashMap to reduce time complexity to O(n), or apply a sliding window / two-pointer approach depending on whether the data is contiguous or sorted.”
+
+---
+
+## 🎯 14. Pattern Chain (Memory Trick)
+
+### Problem Solving Flow
+
+```id="alg1"
+Brute Force → Optimize with HashMap → Reduce with Two Pointers → Scale with Heap/Binary Search
+```
+
+---
+
+### Data Structure Flow
+
+```id="alg2"
+Array → HashMap → Set → Heap → Graph (DFS/BFS)
+```
+
+---
+
+### Concurrency Flow
+
+```id="alg3"
+Race Condition → Lock → RLock/Semaphore → Queue (safe design)
+```
+
+---
+
+## 🏁 15. “If You See This → Think This” (Rapid Fire)
+
+| See This          | Think This   |
+| ----------------- | ------------ |
+| "unique elements" | Set          |
+| "frequency"       | Counter      |
+| "top K"           | Heap         |
+| "pair sum"        | HashMap      |
+| "palindrome"      | Two pointers |
+| "intervals"       | Sort + merge |
+| "tree traversal"  | DFS/BFS      |
+| "combinations"    | Backtracking |
+
+---
+
+## 🧠 Final Mental Compression
+
+```text
+HashMap → Lookup
+Set → Unique
+Heap → Top K
+Window → Subarray
+Pointer → Sorted
+DFS → Explore
+```
+
+---
+
+---
+
 # 🧠 Final Notes
 
 * Prefer **hash maps** for O(1) lookups.
