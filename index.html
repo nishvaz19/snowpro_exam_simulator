@@ -443,11 +443,11 @@ window.onclick = function(event) {
 }    
 const docMap = {
   "react-cloud": {
-    file: "docs/python_test_readme.md",
+    file: "docs/react_readme.md",
     title: "React Frontend Documentation"
   },
   "mongodb-cloud": {
-    file: "docs/mongodb_readme.md",
+    file: "docs/mongodb_readme.md", // (keep if exists)
     title: "MongoDB Atlas Docs"
   },
   "databricks-cloud": {
@@ -455,18 +455,30 @@ const docMap = {
     title: "Databricks Lakehouse Guide"
   },
   "ai-cloud": {
-    file: "docs/ai_llm_readme.md",
+    file: "docs/Solution_Architect_readme.md", // or ai_llm_readme.md if you create later
     title: "AI & LLM Architecture"
   },
   "azure-cloud": {
-    file: "docs/azure_readme.md",
-    title: "Azure Solutions Guide"
+    file: "docs/Devops_And_Observability_readme.md",
+    title: "Azure / DevOps Guide"
   },
   "aws-cloud": {
-    file: "docs/aws_readme.md",
+    file: "docs/Solution_Architect_readme.md",
     title: "AWS Solutions Guide"
+  },
+  "typescriptNestjs-cloud": {
+    file: "docs/Nestjs_readme.md",
+    title: "TypeScript, NestJS & Angular Guide"
+  },
+  "kafka-cloud": {
+    file: "docs/kafka_readme.md",
+    title: "Kafka Ecosystem Guide"
+  },
+  "web3_BlockChain-cloud": {
+    file: "docs/Web3_BlockChain_readme.md",
+    title: "Web3 & Blockchain Guide"
   }
-};   
+};
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".doc-header").forEach(header => {
     header.addEventListener("click", () => {
