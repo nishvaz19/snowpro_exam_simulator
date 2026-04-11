@@ -162,7 +162,12 @@
             text-decoration: none;
             user-select: none;
         }
-
+        
+        .doc-header:hover {
+           text-decoration: underline;
+           opacity: 0.9;
+        }
+        
         .tag:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
         /* Frequencies */
@@ -399,7 +404,7 @@
     </div>
 </div>
 
-<script>
+<script>   
 const docMap = {
   "react-cloud": {
     file: "../python_test_readme.md",
@@ -426,6 +431,16 @@ const docMap = {
     title: "AWS Solutions Guide"
   }
 };   
+document.querySelectorAll(".doc-header").forEach(header => {
+  header.addEventListener("click", () => {
+    const key = header.getAttribute("data-doc");
+    const doc = docMap[key];
+
+    if (doc) {
+      openMarkdown(doc.file, doc.title);
+    }
+  });
+});    
 // Load marked.js (Markdown parser)
 const script = document.createElement("script");
 script.src = "https://cdn.jsdelivr.net/npm/marked/marked.min.js";
