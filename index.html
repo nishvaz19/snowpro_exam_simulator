@@ -524,7 +524,7 @@ document.body.classList.add("loading");
 window.onclick = function(event) {
   const modal = document.getElementById("mdModal");
   if (event.target === modal) {
-    modal.style.display = "none";
+    closeModal(); // ✅ ensures overflow reset
   }
 }    
 const docMap = {
@@ -584,9 +584,16 @@ document.head.appendChild(script);
 async function openMarkdown(filePath, title) {
     const modal = document.getElementById("mdModal");
     const body = document.getElementById("mdBody");
-    document.body.style.overflow = "hidden";
 
-    modal.style.display = "block";
+    const isOpen = modal.style.display === "block";
+
+    // ✅ Lock scroll ONLY if opening fresh
+    if (!isOpen) {
+        document.body.style.overflow = "hidden";
+        modal.style.display = "block";
+    }
+
+    // Always update title/content
     document.getElementById("mdTitle").textContent = title;
 
     body.classList.add("loading");
@@ -623,7 +630,10 @@ async function openMarkdown(filePath, title) {
 }
 
 function closeModal() {
-    document.body.style.overflow = "auto";
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+    document.body.style.position = "";
+    // document.body.style.overflow = "auto";
     document.getElementById("mdModal").style.display = "none";
 }   
 // --- DATASETS ---
