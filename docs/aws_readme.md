@@ -79,7 +79,7 @@ AWS Organizations (SCPs)
 
 ### 🔥 2. Connection Timeouts to EC2
 * **Symptom:** App cannot reach the instance despite it being "Running."
-* **Root Cause:** **Security Group** (Stateful/Missing Inbound) or **NACL** (Stateless/Missing Outbound Ephemeral ports).
+* **Root Cause:** **Security Group** (Stateful/Missing Inbound) or **NACL** (Stateless/Missing Outbound Ephemeral ports) configuration.
 * **Fix:** Audit the Security Group ingress and NACL egress rules.
 
 ### 🔥 3. ELK Stack / Observability Lag
@@ -92,6 +92,9 @@ AWS Organizations (SCPs)
 * **Root Cause:** VPC Endpoint Policy is overly restrictive.
 * **Fix:** Check the hierarchy: `IAM Role → Bucket Policy → VPC Endpoint Policy`.
 
+### 🔥 5. Lambda Timeout 
+* **Symptom:** Downstream DB is slow or VPC ENI creation overhead.
+* **Fix:** Optimize DB queries or use RDS Proxy.
 ---
 
 # 📊 6. Observability & Health
@@ -101,7 +104,13 @@ AWS Organizations (SCPs)
 * **Cost Spikes:** Enforce tagging and use **AWS Budgets** with SNS alerts at 80% threshold.
 
 ---
-
+#### **Failure Debugging**
+```markdown
+- Regional Outage → Implement Multi-Region Failover (Traffic Manager / Route 53)
+- Cost Spikes → Use Cost Management/Budgets + Tagging enforcement
+- Security Breach → Rotate keys, check CloudTrail/Activity Logs, isolate resources
+```
+---
 ### 💻 Code Snippet: The "Least Privilege" Standard
 
 ```json
@@ -131,6 +140,16 @@ AWS Organizations (SCPs)
 | **EventBridge** | Event Bus | Use for cross-account event routing to decouple business units. |
 | **KMS** | Encryption | Rotate keys annually and use **KMS Multi-Region keys** for DR scenarios. |
 
+### 📎 Clipboard Sections (Quick Preparation)
+
+#### **AWS Buzzwords**
+```markdown
+- IAM Roles → Temporal security for services (No hardcoded keys)
+- VPC Peering / Transit Gateway → Multi-VPC networking
+- S3 Select → Querying CSV/JSON inside S3 without downloading files
+- Aurora Serverless → Auto-scaling SQL database
+- CloudFormation / CDK → AWS native Infrastructure as Code (IaC)
+```
 ---
 
 # 🎯 Final Architect One-Liner
