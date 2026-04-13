@@ -195,7 +195,14 @@ pre {
 .az-data { background: #0078D4; } 
 .aws-core { background: #E67E22; color: white !important; } /* Darker Orange */
 .cost { background: #4682B6; }  /* Deeper Sky Blue */
-
+/* DevOps Cloud Domains - Professional Slate & Navy */
+.devOps-strategy { background: #2563EB; } /* Royal Blue */
+.devOps-governance { background: #1e293b; } /* Slate 800 */
+.devOps-framework { background: #7C3AED; } /* Deep Violet */
+.devOps-business { background: #475569; } /* Slate 600 */
+.devOps-technical { background: #1e40af; } /* Blue 800 */
+.devOps-security { background: #111827; } /* Gray 900 */        
+     
 /* EA Cloud Domains - Professional Slate & Navy */
 .ea-strategy { background: #2563EB; } /* Royal Blue */
 .ea-governance { background: #1e293b; } /* Slate 800 */
@@ -359,6 +366,7 @@ document.body.classList.add("loading");
             <option value="hl7">HL7</option>
             <option value="data_architect">DataArchitect</option>
             <option value="enterprise_architect">EnterpriseArchitect</option>
+            <option value="devOps">DevOps & Observability</option>
             <option value="ai">AI & LLM Engineering</option> 
             <option value="web3_blockchain">Web3 & BlockChain</option> 
         </select>
@@ -508,7 +516,24 @@ document.body.classList.add("loading");
         <span class="ea-technical">Technical</span>
     </div>
 </div>     
-    
+
+  <div id="devOps-cloud" class="cloud-section" style="background:#f31406; color: white;">
+    <h2 class="doc-header" data-doc="devOps-cloud" style="color:#f59900;cursor:pointer;">DevOps & Observability Platform</h2>
+
+    <div class="search-box">
+        <input id="devOpsSearch" placeholder="Search DevOps keywords (kubernetes, elk, security, CICD...)">
+    </div>
+
+    <div class="cloud-display" id="devOpsCloud"></div>
+
+    <div class="legend">
+        <span class="devOps-framework">Framework</span>
+        <span class="devOps-strategy">Strategy</span>
+        <span class="devOps-security">Security</span>
+        <span class="devOps-governance">Governance</span>
+        <span class="devOps-technical">Technical</span>
+    </div>
+</div>        
 <div style="background: white; padding: 25px; border-radius: 12px; text-align: center;">
         <h2>Snowflake Architecture</h2>
         <img src="assets/snowflake_architecture.png" alt="Snowflake Architecture">
@@ -548,7 +573,7 @@ const docMap = {
     file: "docs/Solution_Architect_readme.md", // or ai_llm_readme.md if you create later
     title: "AI & LLM Architecture"
   },
-  "DevOps-cloud": {
+  "devOps-cloud": {
     file: "docs/Devops_And_Observability_readme.md",
     title: "DevOps Guide"
   },  
@@ -1015,6 +1040,60 @@ const dataArchitectKeywords = [
 {word:"Petabyte", freq:5, domain:"scale", desc:"Data platforms operating at PB scale"},
 {word:"cost", freq:3, domain:"cost", desc:"cost optimization"},
 ];
+
+const devOpsKeywords = [
+    // --- Infrastructure & Automation ---
+    { word: "Terraform", freq: 10, domain: "devops-iac" },
+    { word: "IaC", freq: 10, domain: "devops-iac" },
+    { word: "Ansible", freq: 7, domain: "devops-iac" },
+    { word: "Bicep", freq: 6, domain: "devops-iac" },
+    { word: "Crossplane", freq: 5, domain: "devops-iac" },
+
+    // --- Container Orchestration (K8s) ---
+    { word: "Kubernetes", freq: 10, domain: "devops-k8s" },
+    { word: "AKS/EKS", freq: 9, domain: "devops-k8s" },
+    { word: "Helm", freq: 8, domain: "devops-k8s" },
+    { word: "Istio", freq: 7, domain: "devops-k8s" },
+    { word: "KEDA", freq: 6, domain: "devops-k8s" },
+    { word: "Sidecar", freq: 6, domain: "devops-k8s" },
+    { word: "HPA", freq: 7, domain: "devops-k8s" },
+
+    // --- CI/CD & Delivery ---
+    { word: "GitOps", freq: 9, domain: "devops-cicd" },
+    { word: "ArgoCD", freq: 8, domain: "devops-cicd" },
+    { word: "Pipelines", freq: 10, domain: "devops-cicd" },
+    { word: "Blue-Green", freq: 7, domain: "devops-cicd" },
+    { word: "Canary", freq: 7, domain: "devops-cicd" },
+    { word: "GitHub Actions", freq: 8, domain: "devops-cicd" },
+
+    // --- Observability & SRE ---
+    { word: "ELK Stack", freq: 9, domain: "devops-obs" },
+    { word: "Prometheus", freq: 8, domain: "devops-obs" },
+    { word: "Grafana", freq: 8, domain: "devops-obs" },
+    { word: "SLI/SLO", freq: 8, domain: "devops-sre" },
+    { word: "Tracing", freq: 7, domain: "devops-obs" },
+    { word: "OpenTelemetry", freq: 8, domain: "devops-obs" },
+
+    // --- Security (DevSecOps) ---
+    { word: "DevSecOps", freq: 9, domain: "devops-security" },
+    { word: "mTLS", freq: 7, domain: "devops-security" },
+    { word: "Least Privilege", freq: 9, domain: "devops-security" },
+    { word: "Secrets Management", freq: 8, domain: "devops-security" },
+    { word: "Zero Trust", freq: 8, domain: "devops-security" },
+
+    // --- Cloud & Data Architecture ---
+    { word: "Microservices", freq: 10, domain: "devops-arch" },
+    { word: "Kafka", freq: 9, domain: "devops-data" },
+    { word: "Serverless", freq: 7, domain: "devops-arch" },
+    { word: "FinOps", freq: 8, domain: "devops-cost" },
+    { word: "Service Mesh", freq: 7, domain: "devops-arch" },
+    { word: "TCO", freq: 6, domain: "devops-cost" },
+
+    // --- Connectivity ---
+    { word: "Private Link", freq: 7, domain: "devops-network" },
+    { word: "Transit Gateway", freq: 7, domain: "devops-network" },
+    { word: "CNI", freq: 6, domain: "devops-network" },
+];
     
 const eaKeywords = [
     { word: "TOGAF", freq: 10, domain: "ea-framework" },
@@ -1082,6 +1161,7 @@ const eaKeywords = [
         renderCloud("kfCloud", kfKeywords, "kafka");
         // Render Data Architect Cloud
         renderCloud("daCloud", dataArchitectKeywords, "data_architect");
+        renderCloud("devOpsCloud", devOpsKeywords, "devOps");
         renderCloud("eaCloud", eaKeywords, "enterprise_architect");
         renderCloud("typescriptNestjsCloud", typescriptNestjsKeywords, "TypeScript_NestJS");
         renderCloud("web3BlockChainCloud", web3BlockChainKeywords, "web3_blockchain");
@@ -1103,6 +1183,7 @@ const eaKeywords = [
         bindSearch("snSearch", "snCloud", snKeywords, "snowflake");
         bindSearch("kfSearch", "kfCloud", kfKeywords, "kafka");
         bindSearch("daSearch", "daCloud", dataArchitectKeywords, "data_architect");
+        bindSearch("devOpsSearch", "devOpsCloud", devOpsKeywords, "devOps");
         bindSearch("eaSearch", "eaCloud", eaKeywords, "enterprise_architect");
         bindSearch("typescriptNestjsSearch", "typescriptNestjsCloud", typescriptNestjsKeywords, "TypeScript_NestJS");
         bindSearch("web3BlockChainSearch", "web3BlockChainCloud", web3BlockChainKeywords, "web3_blockchain");    
