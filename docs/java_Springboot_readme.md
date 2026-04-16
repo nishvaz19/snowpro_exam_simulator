@@ -62,10 +62,37 @@ Input → Controller → Service → Repository → DB
 ## Streams (Modern Java)
 
 ```java
+import java.util.*;
+import java.util.stream.*;
+
 list.stream()
     .filter(x -> x > 10)
     .map(x -> x * 2)
     .collect(Collectors.toList());
+
+// concat two lists with distinct elements
+List<Integer> list1 = Arrays.asList(1, 2, 3, 4);
+List<Integer> list2 = Arrays.asList(3, 4, 5, 6);
+
+List<Integer> result =        Stream.concat(list1.stream(),      list2.stream())
+.distinct()
+.collect(Collectors.toList());
+System.out.println(result); // Output: [1, 2, 3, 4, 5, 6]
+
+//OR collect to a Set
+
+Set<Integer> uniqueResult = Stream.concat(list1.stream(), list2.stream())
+     .collect(Collectors.toSet());
+
+// for custom objects
+List<Employee> result = Stream.of(list1, list2)
+.flatMap(List::stream)
+.collect(Collectors.toMap(Employee::getId, 
+     emp -> emp, 
+   (existing, replacement) -> existing // Merge function
+    )).values().stream()
+.collect(Collectors.toList());
+
 ```
 
 💡 Say: **"functional + readable but avoid in tight loops"**
