@@ -175,11 +175,15 @@ pre {
     margin-bottom: 15px;
 }       
 /* Technology & React Domains */
-.r-hooks { background: #F08080; color: white !important; } /* Light Coral */
-.r-core { background: #4682B4; color: white !important; }  /* Steel Blue */
-.r-state { background: #CD5C5C; } /* Indian Red */
-.r-cost { background: #4682B6; }  /* Deeper Sky Blue */
-.r-perf { background: #4a5568; }
+/* =========================
+   REACT DOMAIN COLORS
+========================= */
+.r-core { background: #61dafb; color: #20232a !important; }   /* React Blue */
+.r-hooks { background: #f97316; }    /* Orange */
+.r-state { background: #ef4444; }    /* Red */
+.r-perf { background: #22c55e; }     /* Green */
+.r-cost { background: #475569; }     /* Slate */
+        
         .agent { background: #f59e0b; }    
         .container { max-width: 1100px; margin: 0 auto; }
 
@@ -192,8 +196,6 @@ pre {
 /* AI & Cloud Domains */
 .rag { background: #2563EB; }   /* Royal Blue */
 .infra { background: #7C3AED; } /* Deep Violet */
-.az-data { background: #0078D4; } 
-.aws-core { background: #E67E22; color: white !important; } /* Darker Orange */
 .cost { background: #4682B6; }  /* Deeper Sky Blue */
 /* DevOps Cloud Domains - Professional Slate & Navy */
 .devOps-strategy { background: #2563EB; } /* Royal Blue */
@@ -210,7 +212,39 @@ pre {
 .ea-business { background: #475569; } /* Slate 600 */
 .ea-technical { background: #1e40af; } /* Blue 800 */
 .ea-security { background: #111827; } /* Gray 900 */        
-     
+/* =========================
+   JAVA DOMAIN COLORS
+========================= */
+.spring-core { background: #16a34a; }       /* Green */
+.spring-di { background: #22c55e; }         /* Light Green */
+.spring-aop { background: #15803d; }        /* Dark Green */
+.spring-data { background: #0ea5e9; }       /* Blue */
+.spring-cloud { background: #6366f1; }      /* Indigo */
+.spring-resilience { background: #f59e0b; } /* Amber */
+.spring-messaging { background: #ef4444; }  /* Red */
+.spring-reactive { background: #8b5cf6; }   /* Purple */
+.spring-api { background: #3b82f6; }        /* Blue */
+.spring-security { background: #dc2626; }   /* Strong Red */
+.spring-obs { background: #06b6d4; }        /* Cyan */
+.spring-test { background: #64748b; }       /* Slate */
+.spring-build { background: #475569; }      /* Dark Slate */
+.spring-runtime { background: #1e293b; }    /* Deep Slate */
+
+
+/* =========================
+   DEVOPS DOMAIN COLORS
+========================= */
+.devops-iac { background: #2563eb; }        /* IaC - Blue */
+.devops-k8s { background: #1d4ed8; }        /* Kubernetes */
+.devops-cicd { background: #7c3aed; }       /* CI/CD */
+.devops-obs { background: #0ea5e9; }        /* Observability */
+.devops-sre { background: #0284c7; }        /* SRE */
+.devops-security { background: #111827; }   /* Security */
+.devops-arch { background: #059669; }       /* Architecture */
+.devops-data { background: #d97706; }       /* Streaming/Data */
+.devops-cost { background: #475569; }       /* FinOps */
+.devops-network { background: #0f766e; }    /* Networking */
+
         /* Selector Card */
         .exam-selector-card {
             background: white;
@@ -305,18 +339,31 @@ pre {
         .performance { background: #6366f1; }
         .ml { background: #14b8a6; }
         .workspace { background: #0ea5e9; }
-        .az-compute { background: #0078d4; }
-        
-        /*.az-compute { background: #10b981 } *//* (Green) */ 
-        /*.az-data { background: #f59e0b }*/    /* (Amber) */
+    
+        /* =========================
+            AZURE DOMAIN COLORS
+         ========================= */
+        .az-compute { background: #0078d4; }    /* Blue */
+        .az-data { background: #0ea5e9; }       /* Light Blue */
+        .az-identity { background: #1e293b; }   /* Dark */
+        .az-net { background: #059669; }        /* Green */
+        .az-security { background: #dc2626; }   /* Red */
+        .az-gov { background: #7c3aed; }        /* Purple */
+        .az-cost { background: #475569; }       /* Cost */
 
-        .az-data { background: #5ea0ef; }
-        .az-identity { background: #323130; }
-        .az-net { background: #00ad56; }
-        .aws-core { background: #ff9900; color: #232f3e !important; }
-        .aws-serverless { background: #ec7211; }
-        .aws-db { background: #3b48cc; }
-        .aws-sec { background: #7aa116; }
+        
+         /* =========================
+            AWS DOMAIN COLORS
+         ========================= */
+        .aws-core { background: #ff9900; color: #232f3e !important; } /* Orange */
+        .aws-serverless { background: #ec7211; }  /* Deep Orange */
+        .aws-db { background: #3b48cc; }          /* Blue */
+        .aws-sec { background: #7aa116; }         /* Green */
+        .aws-data { background: #0ea5e9; }        /* Data */
+        .aws-net { background: #059669; }         /* Network */
+        .aws-obs { background: #6366f1; }         /* Observability */
+        .aws-cost { background: #475569; }        /* Cost */
+        
         .mg-crud { background: #13aa52; }
         .r-hooks { background: #61dafb; color: #20232a !important; }
         .r-state { background: #fb7e61; }
@@ -389,6 +436,12 @@ document.body.classList.add("loading");
 </h2>
     <div class="search-box"><input id="rSearch" placeholder="Search React..."></div>
     <div class="cloud-display" id="rCloud"></div>
+    <div class="legend">
+     <span class="r-core">Core</span>
+     <span class="r-hooks">Hooks</span>
+     <span class="r-state">State</span>
+     <span class="r-perf">Performance</span>
+    </div>
 </div>
 
     <div id="databricks-cloud" class="cloud-section" style="background: #f4f6f8;">
@@ -418,20 +471,38 @@ document.body.classList.add("loading");
         <div class="search-box"><input id="javaSearch" placeholder="Search Java (Entity, JPA...)" style="background: #1e293b; color: white;"></div>
         <div class="cloud-display" id="javaCloud"></div>
         <div class="legend">
-            <span class="batch">Batch</span><span class="infra">Infra</span>
-            <span class="optim">Optim</span><span class="agent" style="background: #f59e0b;">Agents</span>
+            <span class="spring-core">Core</span>
+            <span class="spring-di">DI</span>
+            <span class="spring-data">Data</span>
+            <span class="spring-cloud">Cloud</span>
+            <span class="spring-security">Security</span>
+            <span class="spring-obs">Observability</span>
         </div>
     </div>
     <div id="azure-cloud" class="cloud-section" style="background: #e2e8f0;">
             <h2 class="doc-header" data-doc="azure-cloud" style="color: #0078d4;cursor:pointer;">Azure Solutions Cloud</h2>
         <div class="search-box"><input id="azSearch" placeholder="Search Azure..."></div>
         <div class="cloud-display" id="azCloud"></div>
+        <div class="legend">
+          <span class="az-compute">Compute</span>
+          <span class="az-data">Data</span>
+          <span class="az-identity">Identity</span>
+          <span class="az-net">Network</span>
+          <span class="az-security">Security</span>
+       </div>
     </div>
 
     <div id="aws-cloud" class="cloud-section" style="background: #232f3e; color: white;">
             <h2 class="doc-header" data-doc="aws-cloud" style="color: #ff9900; cursor: pointer;">AWS Solutions Cloud</h2>
         <div class="search-box"><input id="awsSearch" placeholder="Search AWS..." style="background: #37475a; color: white; border:none;"></div>
         <div class="cloud-display" id="awsCloud"></div>
+        <div class="legend">
+            <span class="aws-core">Core</span>
+            <span class="aws-serverless">Serverless</span>
+            <span class="aws-db">Database</span>
+            <span class="aws-sec">Security</span>
+            <span class="aws-data">Data</span>
+        </div>
     </div>
     
 <div id="snowflake-cloud" class="cloud-section" style="background: #f1f5f9;">
@@ -542,6 +613,12 @@ document.body.classList.add("loading");
         <span class="devOps-security">Security</span>
         <span class="devOps-governance">Governance</span>
         <span class="devOps-technical">Technical</span>
+        <span class="devops-iac">IaC</span>
+        <span class="devops-k8s">K8s</span>
+        <span class="devops-cicd">CI/CD</span>
+        <span class="devops-obs">Observability</span>
+        <span class="devops-security">Security</span>
+        <span class="devops-cost">FinOps</span>
     </div>
 </div>        
 <div style="background: white; padding: 25px; border-radius: 12px; text-align: center;">
@@ -940,6 +1017,14 @@ const awsKeywords = [
   {word:"SageMaker", freq:4, domain:"aws-ml", desc:"Fully managed machine learning service"},
   {word:"EKS", freq:5, domain:"aws-core", desc:"Elastic Kubernetes Service: Managed K8s on AWS"},
   {word:"cost", freq:3, domain:"aws-cost", desc:"cost optimization"},
+  { word: "Well-Architected", freq: 10, domain: "aws-core" },
+  { word: "Shared Responsibility", freq: 10, domain: "aws-sec" },
+  { word: "WAF", freq: 8, domain: "aws-sec" },
+  { word: "Shield", freq: 7, domain: "aws-sec" },
+  { word: "CloudWatch Logs", freq: 9, domain: "aws-obs" },
+  { word: "X-Ray", freq: 8, domain: "aws-obs" },
+  { word: "NAT Gateway", freq: 8, domain: "aws-net" },
+  { word: "Private Subnet", freq: 8, domain: "aws-net" },  
 ];
     
 const azKeywords = [
@@ -948,12 +1033,14 @@ const azKeywords = [
   {word:"Service Bus", freq:4, domain:"az-net", desc:"Enterprise message queuing and pub-sub"},
   {word:"Azure Data Factory", freq:5, domain:"az-data", desc:"Cloud ETL service for scale-out data integration"},
   {word:"Private Link", freq:4, domain:"az-net", desc:"Accessing PaaS services via private IP"},
+  {word:"Private End", freq:4, domain:"az-net", desc:"Accessing PaaS services via private Endpoints"},
   {word:"Managed Identities", freq:5, domain:"az-identity", desc:"Passwordless authentication for Azure resources"},
   {word:"Entra ID", freq:5, domain:"az-identity", desc:"Azure Entra ID (formerly Azure AD): Identity and access management"},
   {word:"AKS", freq:5, domain:"az-compute", desc:"Azure Kubernetes Service: Managed container orchestration"},
   {word:"VNET", freq:5, domain:"az-net", desc:"Azure Virtual Network: Private network in the cloud"},
   {word:"Cosmos DB", freq:4, domain:"az-data", desc:"Globally distributed, multi-model NoSQL database"},
   {word:"Blob Storage", freq:5, domain:"az-data", desc:"Object storage for unstructured data"},
+  {word:"Storage Account", freq:5, domain:"az-data", desc:"Azure storage account is a foundational container that provides a unique namespace for managing Azure Storage data (blobs, files, queues, tables), ensuring durable, secure, and highly available data storage. It supports global access via HTTP/HTTPS, with options for performance (Standard or Premium) and geo-redundancy to meet varied security and performance needs. "},  
   {word:"RBAC", freq:5, domain:"az-identity", desc:"Role-Based Access Control"},
   {word:"Virtual Machines", freq:4, domain:"az-compute", desc:"On-demand scalable computing resources"},
   {word:"Azure Functions", freq:4, domain:"az-compute", desc:"Serverless event-driven compute"},
@@ -963,6 +1050,12 @@ const azKeywords = [
   {word:"Azure SQL", freq:4, domain:"az-data", desc:"Managed relational database service"},
   {word:"NSG", freq:4, domain:"az-net", desc:"Network Security Group: Filter network traffic"},
 
+  { word: "Landing Zones", freq: 9, domain: "az-gov" },
+  { word: "Well-Architected Framework", freq: 9, domain: "az-gov" },
+  { word: "Availability Zones", freq: 8, domain: "az-compute" },
+  { word: "Autoscale", freq: 8, domain: "az-compute" },
+  { word: "Data Lakehouse", freq: 8, domain: "az-data" },
+    
   {word:"Synapse", freq:5, domain:"az-data", desc:"Enterprise analytics service for data warehousing and big data"},
   {word:"Purview", freq:4, domain:"az-gov", desc:"Unified data governance and compliance solution"},
   {word:"Key Vault", freq:5, domain:"az-security", desc:"Safeguard cryptographic keys and other secrets"},
@@ -1006,6 +1099,11 @@ const rKeywords = [
   {word:"SSR", freq:3, domain:"r-core", desc:"Server-Side Rendering (Next.js)"},
   {word:"Custom Hooks", freq:4, domain:"r-hooks", desc:"Reusable logic functions"},
   {word:"cost", freq:3, domain:"r-cost", desc:"cost optimization"},  
+  { word: "Server Components", freq: 9, domain: "r-core" },
+  { word: "Concurrent Rendering", freq: 9, domain: "r-perf" },
+  { word: "Suspense", freq: 8, domain: "r-core" },
+  { word: "React Query", freq: 9, domain: "r-state" },
+  { word: "Zustand", freq: 7, domain: "r-state" },  
 ];
     
 const snKeywords = [
@@ -1152,6 +1250,7 @@ const dataArchitectKeywords = [
 ];
 
 const devOpsKeywords = [
+    
     // --- Infrastructure & Automation ---
     { word: "Terraform", freq: 10, domain: "devops-iac" },
     { word: "IaC", freq: 10, domain: "devops-iac" },
@@ -1199,6 +1298,25 @@ const devOpsKeywords = [
     { word: "Service Mesh", freq: 7, domain: "devops-arch" },
     { word: "TCO", freq: 6, domain: "devops-cost" },
 
+
+    { word: "Platform Engineering", freq: 9, domain: "devops-arch" },
+    { word: "Golden Paths", freq: 7, domain: "devops-arch" },
+    { word: "Backstage", freq: 6, domain: "devops-arch" },
+
+    { word: "eBPF", freq: 7, domain: "devops-obs" },
+    { word: "Chaos Engineering", freq: 8, domain: "devops-sre" },
+    { word: "Error Budgets", freq: 7, domain: "devops-sre" },
+
+    { word: "Supply Chain Security", freq: 9, domain: "devops-security" },
+    { word: "SBOM", freq: 8, domain: "devops-security" },
+
+    { word: "Spot Instances", freq: 7, domain: "devops-cost" },
+    { word: "Autoscaling", freq: 8, domain: "devops-k8s" },
+
+    { word: "Ingress Controller", freq: 8, domain: "devops-k8s" },
+    { word: "Service Mesh", freq: 8, domain: "devops-k8s" },
+
+    { word: "CI/CD Pipeline as Code", freq: 9, domain: "devops-cicd" },
     // --- Connectivity ---
     { word: "Private Link", freq: 7, domain: "devops-network" },
     { word: "Transit Gateway", freq: 7, domain: "devops-network" },
